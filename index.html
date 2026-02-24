@@ -682,18 +682,20 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
   
   async function fetchPrices() {
       try {
-          // Using a public CORS proxy or alternative endpoint to avoid browser fetch issues
           const [btcRes, ethRes] = await Promise.all([
-              fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT').catch(() => fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd')),
-              fetch('https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT').catch(() => fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd'))
+              fetch('https://api.coinbase.com/v2/prices/BTC-USD/spot'),
+              fetch('https://api.coinbase.com/v2/prices/ETH-USD/spot')
           ]);
+          
+          if (!btcRes.ok || !ethRes.ok) {
+              throw new Error('Network response was not ok');
+          }
           
           const btcData = await btcRes.json();
           const ethData = await ethRes.json();
           
-          // Handle both Binance and CoinGecko response formats
-          const btcPrice = btcData.price ? parseFloat(btcData.price) : btcData.bitcoin.usd;
-          const ethPrice = ethData.price ? parseFloat(ethData.price) : ethData.ethereum.usd;
+          const btcPrice = parseFloat(btcData.data.amount);
+          const ethPrice = parseFloat(ethData.data.amount);
           
           document.getElementById('btc-price').innerText = formatNumber(btcPrice);
           document.getElementById('btc-price-2').innerText = formatNumber(btcPrice);
