@@ -177,6 +177,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
       <button class="filter-btn" onclick="setFilter('cards', this)">💳 Crypto Cards</button>
       <button class="filter-btn" onclick="setFilter('analytics', this)">Analytics</button>
       <button class="filter-btn" onclick="setFilter('defi', this)">DeFi</button>
+      <button class="filter-btn" onclick="setFilter('rwa', this)">RWA & Stablecoins</button>
       <button class="filter-btn" onclick="setFilter('wallets', this)">Wallets</button>
       <button class="filter-btn" onclick="setFilter('trading', this)">Trading</button>
       <button class="filter-btn" onclick="setFilter('security', this)">Security</button>
@@ -451,7 +452,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
     </div>
 
     <div class="category-block" data-category="analytics">
-      <div class="category-header"><span class="category-icon">📊</span><span class="category-title">Analytics & Data</span><span class="category-count">4 tools</span></div>
+      <div class="category-header"><span class="category-icon">📊</span><span class="category-title">Analytics & Data</span><span class="category-count">5 tools</span></div>
       <div class="tools-grid">
         <div class="tool-card" onclick="window.open('https://etherscan.io','_blank')">
           <div class="tool-top"><div class="tool-logo">
@@ -484,6 +485,14 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
           <div class="tool-name">DeFiLlama</div>
           <div class="tool-desc">The #1 DeFi TVL aggregator. Track total value locked across 200+ protocols and 100+ blockchains.</div>
           <div class="tool-footer"><span class="tool-category-tag">DeFi Metrics</span><span class="tool-arrow"></span></div>
+        </div>
+        <div class="tool-card" onclick="window.open('https://app.rwa.xyz/platforms','_blank')">
+          <div class="tool-top"><div class="tool-logo">
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=rwa.xyz&sz=128" alt="RWA.xyz" referrerPolicy="no-referrer" />
+            </div><div class="tool-badges"><span class="badge badge-free">Free</span><span class="badge badge-hot">Hot</span></div></div>
+          <div class="tool-name">RWA.xyz</div>
+          <div class="tool-desc">The leading analytics platform for Real-World Assets. Track tokenized treasuries, private credit, and stablecoins across blockchains.</div>
+          <div class="tool-footer"><span class="tool-category-tag">RWA Analytics</span><span class="tool-arrow"></span></div>
         </div>
       </div>
     </div>
@@ -522,6 +531,23 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
           <div class="tool-name">Yearn Finance</div>
           <div class="tool-desc">Automated yield optimization. Deposit assets and let Yearn's vaults automatically maximize your DeFi yield.</div>
           <div class="tool-footer"><span class="tool-category-tag">Yield Optimizer</span><span class="tool-arrow"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-block" data-category="rwa">
+      <div class="category-header"><span class="category-icon">🪙</span><span class="category-title">RWA & Stablecoins</span><span class="category-count">1 asset</span></div>
+      <div class="tools-grid">
+        <div class="tool-card" onclick="window.open('https://www.paxos.com/pax-gold','_blank')">
+          <div class="tool-top">
+            <div class="tool-logo">
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=paxos.com&sz=128" alt="Paxos" referrerPolicy="no-referrer" />
+            </div>
+            <div class="tool-badges"><span class="badge badge-free">Free</span></div>
+          </div>
+          <div class="tool-name">PAX Gold (PAXG)</div>
+          <div class="tool-desc">Digital gold token backed by physical gold. Each token represents one fine troy ounce of a London Good Delivery gold bar, stored in Brink's vaults.</div>
+          <div class="tool-footer"><span class="tool-category-tag">Tokenized Gold</span><span class="tool-arrow"></span></div>
         </div>
       </div>
     </div>
