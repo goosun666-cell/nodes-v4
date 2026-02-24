@@ -78,8 +78,8 @@ h1 .line2 { display: block; font-size: 0.5em; letter-spacing: 8px; color: var(--
 .tool-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .tool-logo { width: 44px; height: 44px; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; border-radius: 4px; transition: all 0.3s ease; }
 .tool-card:hover .tool-logo { filter: drop-shadow(0 0 8px var(--gold-glow)); border-color: var(--gold-primary); }
-.official-logo { width: 28px; height: 28px; object-fit: contain; filter: grayscale(100%) sepia(100%) hue-rotate(5deg) saturate(400%) brightness(0.8) contrast(1.2); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-.tool-card:hover .official-logo { filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5)); transform: scale(1.1); }
+.official-logo { width: 28px; height: 28px; object-fit: contain; filter: grayscale(100%) opacity(0.7); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 4px; }
+.tool-card:hover .official-logo { filter: grayscale(0%) opacity(1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3)); transform: scale(1.15); }
 .tool-badges { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
 .badge { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border: 1px solid; border-radius: 2px; }
 .badge-free { color: var(--gold-primary); border-color: var(--glass-border); background: rgba(212,175,55,0.05); }
@@ -203,7 +203,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
         <div class="tool-card" onclick="trackAndOpen('https://partner.bybit.com/b/148777', 'Bybit')">
           <div class="tool-top">
             <div class="tool-logo">
-              <img class="official-logo" src="https://cryptologos.cc/logos/bybit-logo.svg?v=035" alt="Bybit" referrerPolicy="no-referrer" />
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=bybit.com&sz=128" alt="Bybit" referrerPolicy="no-referrer" />
             </div>
             <div class="tool-badges"><span class="badge badge-aff">★ Affiliate</span><span class="badge badge-hot">Hot</span></div>
           </div>
@@ -215,7 +215,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
         <div class="tool-card" onclick="trackAndOpen('https://www.kxmqpwrlvjt.com/join/35399257', 'OKX')">
           <div class="tool-top">
             <div class="tool-logo">
-              <img class="official-logo" src="https://cryptologos.cc/logos/okb-okb-logo.svg?v=035" alt="OKX" referrerPolicy="no-referrer" />
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=okx.com&sz=128" alt="OKX" referrerPolicy="no-referrer" />
             </div>
             <div class="tool-badges"><span class="badge badge-aff">★ Affiliate</span><span class="badge badge-new">New</span></div>
           </div>
@@ -227,7 +227,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
         <div class="tool-card" onclick="trackAndOpen('https://shop.ledger.com/?r=YOURCODEHERE', 'Ledger')">
           <div class="tool-top">
             <div class="tool-logo">
-              <img class="official-logo" src="https://upload.wikimedia.org/wikipedia/commons/8/87/Ledger_logo.svg" alt="Ledger" referrerPolicy="no-referrer" />
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=ledger.com&sz=128" alt="Ledger" referrerPolicy="no-referrer" />
             </div>
             <div class="tool-badges"><span class="badge badge-aff">★ Affiliate</span></div>
           </div>
@@ -239,7 +239,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
         <div class="tool-card" onclick="trackAndOpen('https://www.bsmkweb.com/referral/earn-together/refer2earn-usdc/claim?hl=zh-CN&ref=GRO_28502_6JL30&utm_source=default', 'Binance')">
           <div class="tool-top">
             <div class="tool-logo">
-              <img class="official-logo" src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=035" alt="Binance" referrerPolicy="no-referrer" />
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=binance.com&sz=128" alt="Binance" referrerPolicy="no-referrer" />
             </div>
             <div class="tool-badges"><span class="badge badge-aff">★ Affiliate</span><span class="badge badge-hot">Hot</span></div>
           </div>
@@ -251,7 +251,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
         <div class="tool-card" onclick="trackAndOpen('https://www.bitget.rocks/zh-CN/referral/register?clacCode=L4GPMM8X&from=%2Fzh-CN%2Fevents%2Freferral-all-program&source=events&utmSource=PremierInviter', 'Bitget')">
           <div class="tool-top">
             <div class="tool-logo">
-              <img class="official-logo" src="https://cryptologos.cc/logos/bitget-token-bgb-logo.svg?v=035" alt="Bitget" referrerPolicy="no-referrer" />
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=bitget.com&sz=128" alt="Bitget" referrerPolicy="no-referrer" />
             </div>
             <div class="tool-badges"><span class="badge badge-aff">★ Affiliate</span><span class="badge badge-new">New</span></div>
           </div>
@@ -263,7 +263,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
         <div class="tool-card" onclick="trackAndOpen('https://www.htx.com.gt/invite/zh-cn/1f?invite_code=sqz2c223', 'HTX')">
           <div class="tool-top">
             <div class="tool-logo">
-              <img class="official-logo" src="https://cryptologos.cc/logos/huobi-token-ht-logo.svg?v=035" alt="HTX" referrerPolicy="no-referrer" />
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=htx.com&sz=128" alt="HTX" referrerPolicy="no-referrer" />
             </div>
             <div class="tool-badges"><span class="badge badge-aff">★ Affiliate</span><span class="badge badge-hot">Hot</span></div>
           </div>
@@ -280,7 +280,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
       <div class="tools-grid">
         <div class="tool-card" onclick="window.open('https://etherscan.io','_blank')">
           <div class="tool-top"><div class="tool-logo">
-              <img class="official-logo" src="https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=035" alt="Etherscan" referrerPolicy="no-referrer" />
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=etherscan.io&sz=128" alt="Etherscan" referrerPolicy="no-referrer" />
             </div><div class="tool-badges"><span class="badge badge-free">Free</span></div></div>
           <div class="tool-name">Etherscan</div>
           <div class="tool-desc">The leading Ethereum blockchain explorer. Track transactions, wallets, smart contracts, and token transfers.</div>
@@ -288,7 +288,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
         </div>
         <div class="tool-card" onclick="window.open('https://dune.com','_blank')">
           <div class="tool-top"><div class="tool-logo">
-              <img class="official-logo" src="https://cryptologos.cc/logos/dune-network-dun-logo.svg?v=035" alt="Dune" referrerPolicy="no-referrer" />
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=dune.com&sz=128" alt="Dune" referrerPolicy="no-referrer" />
             </div><div class="tool-badges"><span class="badge badge-free">Free</span><span class="badge badge-hot">Hot</span></div></div>
           <div class="tool-name">Dune Analytics</div>
           <div class="tool-desc">Query blockchain data with SQL. Build and share dashboards on DeFi, NFTs, DEXs, and any on-chain activity.</div>
@@ -296,7 +296,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
         </div>
         <div class="tool-card" onclick="window.open('https://nansen.ai','_blank')">
           <div class="tool-top"><div class="tool-logo">
-              <img class="official-logo" src="https://cryptologos.cc/logos/nexus-mutual-nxm-logo.svg?v=035" alt="Nansen" referrerPolicy="no-referrer" />
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=nansen.ai&sz=128" alt="Nansen" referrerPolicy="no-referrer" />
             </div><div class="tool-badges"><span class="badge badge-paid">Paid</span></div></div>
           <div class="tool-name">Nansen</div>
           <div class="tool-desc">Blockchain analytics with wallet labels. Track smart money, identify alpha, and monitor whale movements.</div>
@@ -304,7 +304,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
         </div>
         <div class="tool-card" onclick="window.open('https://defillama.com','_blank')">
           <div class="tool-top"><div class="tool-logo">
-              <img class="official-logo" src="https://cryptologos.cc/logos/llama-logo.svg?v=035" alt="DeFiLlama" referrerPolicy="no-referrer" />
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=defillama.com&sz=128" alt="DeFiLlama" referrerPolicy="no-referrer" />
             </div><div class="tool-badges"><span class="badge badge-free">Free</span><span class="badge badge-hot">Hot</span></div></div>
           <div class="tool-name">DeFiLlama</div>
           <div class="tool-desc">The #1 DeFi TVL aggregator. Track total value locked across 200+ protocols and 100+ blockchains.</div>
@@ -318,7 +318,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
       <div class="tools-grid">
         <div class="tool-card" onclick="window.open('https://app.uniswap.org','_blank')">
           <div class="tool-top"><div class="tool-logo">
-              <img class="official-logo" src="https://cryptologos.cc/logos/uniswap-uni-logo.svg?v=035" alt="Uniswap" referrerPolicy="no-referrer" />
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=uniswap.org&sz=128" alt="Uniswap" referrerPolicy="no-referrer" />
             </div><div class="tool-badges"><span class="badge badge-free">Free</span><span class="badge badge-hot">Hot</span></div></div>
           <div class="tool-name">Uniswap</div>
           <div class="tool-desc">The largest decentralized exchange. Swap any ERC-20 token with deep liquidity pools and permissionless trading.</div>
@@ -326,7 +326,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
         </div>
         <div class="tool-card" onclick="window.open('https://aave.com','_blank')">
           <div class="tool-top"><div class="tool-logo">
-              <img class="official-logo" src="https://cryptologos.cc/logos/aave-aave-logo.svg?v=035" alt="Aave" referrerPolicy="no-referrer" />
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=aave.com&sz=128" alt="Aave" referrerPolicy="no-referrer" />
             </div><div class="tool-badges"><span class="badge badge-free">Free</span></div></div>
           <div class="tool-name">Aave</div>
           <div class="tool-desc">Leading decentralized lending protocol. Supply assets to earn yield or borrow against your crypto collateral.</div>
@@ -334,7 +334,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
         </div>
         <div class="tool-card" onclick="window.open('https://1inch.io','_blank')">
           <div class="tool-top"><div class="tool-logo">
-              <img class="official-logo" src="https://cryptologos.cc/logos/1inch-1inch-logo.svg?v=035" alt="1inch" referrerPolicy="no-referrer" />
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=1inch.io&sz=128" alt="1inch" referrerPolicy="no-referrer" />
             </div><div class="tool-badges"><span class="badge badge-free">Free</span><span class="badge badge-new">New</span></div></div>
           <div class="tool-name">1inch</div>
           <div class="tool-desc">DEX aggregator that splits your swap across multiple exchanges to get you the best possible rate every time.</div>
@@ -342,7 +342,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
         </div>
         <div class="tool-card" onclick="window.open('https://yearn.fi','_blank')">
           <div class="tool-top"><div class="tool-logo">
-              <img class="official-logo" src="https://cryptologos.cc/logos/yearn-finance-yfi-logo.svg?v=035" alt="Yearn" referrerPolicy="no-referrer" />
+              <img class="official-logo" src="https://www.google.com/s2/favicons?domain=yearn.fi&sz=128" alt="Yearn" referrerPolicy="no-referrer" />
             </div><div class="tool-badges"><span class="badge badge-free">Free</span></div></div>
           <div class="tool-name">Yearn Finance</div>
           <div class="tool-desc">Automated yield optimization. Deposit assets and let Yearn's vaults automatically maximize your DeFi yield.</div>
