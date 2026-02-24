@@ -27,7 +27,7 @@ body { background-color: var(--bg-base); color: var(--text-main); font-family: v
 header { position: sticky; top: 30px; z-index: 10; padding: 0 40px; border-bottom: 1px solid var(--glass-border); background: rgba(3,3,3,0.8); backdrop-filter: blur(10px); }
 nav { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo-icon { width: 24px; height: 24px; background: linear-gradient(135deg, var(--gold-primary), var(--gold-bright)); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); animation: pulse 3s ease-in-out infinite; }
+.logo-img { width: 32px; height: 32px; object-fit: contain; border-radius: 50%; animation: pulse 3s ease-in-out infinite; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
 .logo-text { font-family: var(--font-display); font-size: 18px; font-weight: 900; color: #fff; letter-spacing: 1px; }
 .logo-text span { color: var(--gold-primary); }
@@ -142,7 +142,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
 <header>
   <nav>
     <a href="#" class="logo">
-      <div class="logo-icon"></div>
+      <img src="/logo.png" alt="GOSUN CAPITAL" class="logo-img" />
       <span class="logo-text">GOSUN <span>CAPITAL</span> | GAIA Nodes</span>
     </a>
     <ul class="nav-links">
