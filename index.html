@@ -142,7 +142,17 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
 <header>
   <nav>
     <a href="#" class="logo">
-      <img src="https://raw.githubusercontent.com/goosun666-cell/nodes-v4/main/logo.png" alt="GOSUN CAPITAL" class="brand-logo" />
+      <svg class="brand-logo" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="16,2 30,10 30,22 16,30 2,22 2,10" stroke="#D4AF37" stroke-width="1.5" fill="none" />
+        <polygon points="16,6 24,16 16,26 8,16" stroke="#FFDF00" stroke-width="1.5" fill="none" />
+        <circle cx="16" cy="16" r="3" fill="#FFDF00" />
+        <line x1="16" y1="2" x2="16" y2="6" stroke="#D4AF37" stroke-width="1.5" />
+        <line x1="16" y1="26" x2="16" y2="30" stroke="#D4AF37" stroke-width="1.5" />
+        <line x1="2" y1="10" x2="8" y2="16" stroke="#D4AF37" stroke-width="1.5" />
+        <line x1="30" y1="10" x2="24" y2="16" stroke="#D4AF37" stroke-width="1.5" />
+        <line x1="2" y1="22" x2="8" y2="16" stroke="#D4AF37" stroke-width="1.5" />
+        <line x1="30" y1="22" x2="24" y2="16" stroke="#D4AF37" stroke-width="1.5" />
+      </svg>
       <span class="logo-text">GOSUN <span>CAPITAL</span> | GAIA Nodes</span>
     </a>
     <ul class="nav-links">
@@ -682,20 +692,20 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
   
   async function fetchPrices() {
       try {
-          const res = await fetch('https://api.kraken.com/0/public/Ticker?pair=XBTUSD,ETHUSD');
+          const [btcRes, ethRes] = await Promise.all([
+              fetch('https://api.gemini.com/v1/pubticker/btcusd'),
+              fetch('https://api.gemini.com/v1/pubticker/ethusd')
+          ]);
           
-          if (!res.ok) {
+          if (!btcRes.ok || !ethRes.ok) {
               throw new Error('Network response was not ok');
           }
           
-          const data = await res.json();
+          const btcData = await btcRes.json();
+          const ethData = await ethRes.json();
           
-          if (data.error && data.error.length > 0) {
-              throw new Error(data.error.join(', '));
-          }
-          
-          const btcPrice = parseFloat(data.result.XXBTZUSD.c[0]);
-          const ethPrice = parseFloat(data.result.XETHZUSD.c[0]);
+          const btcPrice = parseFloat(btcData.last);
+          const ethPrice = parseFloat(ethData.last);
           
           document.getElementById('btc-price').innerText = formatNumber(btcPrice);
           document.getElementById('btc-price-2').innerText = formatNumber(btcPrice);
