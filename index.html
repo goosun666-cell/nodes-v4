@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOSUN CAPITAL | 核心收割网关</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700;900&display=swap');
+
+        :root {
+            --gold-primary: #D4AF37; /* Metallic Gold */
+            --gold-bright: #FFDF00;
+            --gold-glow: rgba(212, 175, 55, 0.5);
+            --bg-base: #030303;
+            --glass-bg: rgba(10, 10, 10, 0.65);
+            --glass-border: rgba(212, 175, 55, 0.15);
+            --text-main: #EAEAEA;
+            --text-muted: #888888;
+            --font-tech: 'JetBrains Mono', monospace;
+            --font-display: 'Orbitron', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-tech);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Canvas Background */
+        #gaia-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            z-index: 100;
+            backdrop-filter: blur(4px);
+            overflow: hidden;
+        }
+
+        .ticker-wrap {
+            width: 100%;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+
+        .ticker-content {
+            display: inline-block;
+            animation: ticker 20s linear infinite;
+            padding-left: 100%;
+        }
+
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        .ticker-item {
+            display: inline-block;
+            margin-right: 40px;
+            color: var(--gold-primary);
+            text-shadow: 0 0 5px var(--gold-glow);
+        }
+
+        .ticker-value {
+            color: #fff;
+            font-weight: bold;
+            text-shadow: none;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #00FF00;
+            border-radius: 50%;
+            margin-right: 8px;
+            box-shadow: 0 0 8px #00FF00;
+            animation: blink 1s infinite alternate;
+        }
+
+        @keyframes blink {
+            from { opacity: 1; }
+            to { opacity: 0.3; }
+        }
+
+        /* Main Container */
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px 100px;
+            z-index: 10;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .title {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--gold-primary);
+            background: linear-gradient(to bottom, var(--gold-bright), var(--gold-primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 30px var(--gold-glow);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 8px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* Node Cards */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .node-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 4px;
+            padding: 30px;
+            text-decoration: none;
+            color: var(--text-main);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .node-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            box-shadow: inset 0 0 0 1px transparent;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+
+        .node-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            background: rgba(20, 20, 20, 0.8);
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 20px var(--gold-glow), inset 0 0 15px var(--gold-glow);
+        }
+
+        .node-card:hover .node-title {
+            color: var(--gold-bright);
+            text-shadow: 0 0 8px var(--gold-glow);
+        }
+
+        .node-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: color 0.3s ease;
+        }
+
+        .node-title::after {
+            content: 'CONNECT ↗';
+            font-family: var(--font-tech);
+            font-size: 0.7rem;
+            opacity: 0.5;
+            letter-spacing: 1px;
+        }
+
+        .node-data {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            font-size: 0.85rem;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding-bottom: 4px;
+        }
+
+        .data-label {
+            color: var(--text-muted);
+        }
+
+        .data-value {
+            color: var(--gold-primary);
+        }
+
+        .data-value.safe {
+            color: #00FF00;
+            text-shadow: 0 0 5px rgba(0,255,0,0.4);
+        }
+
+        /* Whitepaper Button */
+        .interceptor-wrapper {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 1000;
+        }
+
+        .whitepaper-btn {
+            background: linear-gradient(45deg, #111, #222);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-bright);
+            font-family: var(--font-tech);
+            font-weight: bold;
+            font-size: 1rem;
+            padding: 16px 32px;
+            cursor: pointer;
+            border-radius: 2px;
+            box-shadow: 0 0 15px var(--gold-glow);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            animation: breathe 2s infinite alternate;
+            transition: all 0.3s ease;
+        }
+
+        .whitepaper-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(transparent, rgba(255,215,0,0.1), transparent);
+            transform: rotate(45deg);
+            animation: scan 3s linear infinite;
+            pointer-events: none;
+        }
+
+        .whitepaper-btn:hover {
+            background: var(--gold-primary);
+            color: #000;
+            box-shadow: 0 0 30px var(--gold-bright);
+            transform: scale(1.05);
+        }
+
+        @keyframes breathe {
+            0% { box-shadow: 0 0 10px var(--gold-glow); border-color: rgba(212, 175, 55, 0.5); }
+            100% { box-shadow: 0 0 25px var(--gold-bright); border-color: var(--gold-bright); }
+        }
+
+        @keyframes scan {
+            0% { transform: rotate(45deg) translateY(-100%); }
+            100% { transform: rotate(45deg) translateY(100%); }
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 2.5rem; }
+            .subtitle { font-size: 0.7rem; letter-spacing: 4px; }
+            .interceptor-wrapper {
+                bottom: 20px;
+                right: 50%;
+                transform: translateX(50%);
+                width: 90%;
+            }
+            .whitepaper-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="gaia-canvas"></canvas>
+
+    <div class="top-bar">
+        <div class="ticker-wrap">
+            <div class="ticker-content">
+                <span class="ticker-item"><span class="status-indicator"></span>GAIA 网络已连接</span>
+                <span class="ticker-item">BTC/USD: <span class="ticker-value" id="btc-price">64,230.50</span></span>
+                <span class="ticker-item">ETH/USD: <span class="ticker-value" id="eth-price">3,450.20</span></span>
+                <span class="ticker-item">实时觉醒节点数: <span class="ticker-value" id="node-count">14,203</span></span>
+                <span class="ticker-item">SYSTEM: OPTIMAL</span>
+                <!-- Duplicate for seamless loop -->
+                <span class="ticker-item"><span class="status-indicator"></span>GAIA 网络已连接</span>
+                <span class="ticker-item">BTC/USD: <span class="ticker-value" id="btc-price-2">64,230.50</span></span>
+                <span class="ticker-item">ETH/USD: <span class="ticker-value" id="eth-price-2">3,450.20</span></span>
+                <span class="ticker-item">实时觉醒节点数: <span class="ticker-value" id="node-count-2">14,203</span></span>
+                <span class="ticker-item">SYSTEM: OPTIMAL</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">GOSUN CAPITAL</h1>
+            <div class="subtitle">Type I Civilization Cross-Dimensional Gateway</div>
+        </div>
+
+        <div class="matrix-grid">
+            <a href="#" class="node-card">
+                <div class="node-title">BYBIT 节点</div>
+                <div class="node-data">
+                    <div class="data-row">
+                        <span class="data-label">延迟 (Latency)</span>
+                        <span class="data-value">12ms</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">状态 (Status)</span>
+                        <span class="data-value safe">已通过 GAIA 审计</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">免密通道 (Auth)</span>
+                        <span class="data-value safe">开启 (OPEN)</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">算力分配 (Hash)</span>
+                        <span class="data-value">34.2 PH/s</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="node-card">
+                <div class="node-title">OKX 节点</div>
+                <div class="node-data">
+                    <div class="data-row">
+                        <span class="data-label">延迟 (Latency)</span>
+                        <span class="data-value">8ms</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">状态 (Status)</span>
+                        <span class="data-value safe">已通过 GAIA 审计</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">免密通道 (Auth)</span>
+                        <span class="data-value safe">开启 (OPEN)</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">算力分配 (Hash)</span>
+                        <span class="data-value">41.8 PH/s</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="node-card">
+                <div class="node-title">BINANCE 节点</div>
+                <div class="node-data">
+                    <div class="data-row">
+                        <span class="data-label">延迟 (Latency)</span>
+                        <span class="data-value">15ms</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">状态 (Status)</span>
+                        <span class="data-value safe">已通过 GAIA 审计</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">免密通道 (Auth)</span>
+                        <span class="data-value safe">开启 (OPEN)</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">算力分配 (Hash)</span>
+                        <span class="data-value">56.1 PH/s</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="interceptor-wrapper">
+        <button class="whitepaper-btn" onclick="alert('正在接入 GAIA 核心数据库，准备下载《财富迁移白皮书 V3.0》...')">
+            ⚡ 获取《财富迁移白皮书 V3.0》
+        </button>
+    </div>
+
+    <script>
+        // --- 1. Dynamic Particle Background (GAIA Neural Network) ---
+        const canvas = document.getElementById('gaia-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resize);
+        resize();
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 1.5 + 0.5;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(212, 175, 55, 0.8)';
+                ctx.fill();
+            }
+        }
+        
+        for (let i = 0; i < 100; i++) {
+            particles.push(new Particle());
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(212, 175, 55, ${1 - dist/120})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+
+        // --- 2. Real-time Ticker Simulation ---
+        let btcPrice = 64230.50;
+        let ethPrice = 3450.20;
+        let nodeCount = 14203;
+
+        function formatNumber(num, decimals = 2) {
+            return num.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+        }
+
+        setInterval(() => {
+            // Simulate crypto price fluctuations
+            const btcChange = (Math.random() - 0.5) * 50;
+            const ethChange = (Math.random() - 0.5) * 5;
+            
+            btcPrice += btcChange;
+            ethPrice += ethChange;
+            
+            document.getElementById('btc-price').innerText = formatNumber(btcPrice);
+            document.getElementById('btc-price-2').innerText = formatNumber(btcPrice);
+            
+            document.getElementById('eth-price').innerText = formatNumber(ethPrice);
+            document.getElementById('eth-price-2').innerText = formatNumber(ethPrice);
+        }, 2000);
+
+        setInterval(() => {
+            // Simulate node count increasing
+            if (Math.random() > 0.3) {
+                nodeCount += Math.floor(Math.random() * 3) + 1;
+                document.getElementById('node-count').innerText = nodeCount.toLocaleString();
+                document.getElementById('node-count-2').innerText = nodeCount.toLocaleString();
+            }
+        }, 3500);
+    </script>
+</body>
+</html>
