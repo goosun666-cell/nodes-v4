@@ -280,16 +280,19 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
 .rare-codes-header { text-align: center; margin-bottom: 40px; }
 .rare-codes-header h2 { font-family: var(--font-display); color: var(--gold-primary); font-size: 1.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
 .rare-codes-header p { color: var(--text-muted); font-family: var(--font-mono); font-size: 0.9rem; }
-.codes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
-.code-card { background: rgba(20, 20, 20, 0.8); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; padding: 24px; position: relative; overflow: hidden; transition: all 0.3s ease; backdrop-filter: blur(10px); }
-.code-card:hover { border-color: var(--gold-primary); box-shadow: 0 0 20px rgba(212, 175, 55, 0.15); transform: translateY(-3px); }
-.code-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--gold-primary); }
-.code-title { font-family: var(--font-display); font-weight: 700; color: #fff; font-size: 1.2rem; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; letter-spacing: 0.5px; }
+
 .code-status { font-family: var(--font-tech); font-size: 0.7rem; padding: 3px 8px; border-radius: 4px; background: rgba(0, 255, 0, 0.1); color: #00ff00; border: 1px solid rgba(0, 255, 0, 0.3); text-transform: uppercase; letter-spacing: 1px; }
 .code-status.limited { background: rgba(255, 165, 0, 0.1); color: orange; border-color: rgba(255, 165, 0, 0.3); }
 .code-status.rare { background: rgba(255, 68, 102, 0.1); color: #ff4466; border-color: rgba(255, 68, 102, 0.3); }
 .code-status.epic { background: rgba(138, 43, 226, 0.1); color: #b82be2; border-color: rgba(138, 43, 226, 0.3); text-shadow: 0 0 5px rgba(138, 43, 226, 0.5); }
-.code-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px; line-height: 1.5; flex: 1; }
+
+.submitted-codes-list { display: flex; flex-direction: column; gap: 8px; margin-top: auto; margin-bottom: 12px; min-height: 0; }
+.submitted-code-item { background: rgba(0,0,0,0.6); border: 1px dashed var(--gold-primary); padding: 8px 12px; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 0.9rem; animation: slideIn 0.3s ease-out; }
+@keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.submitted-code-val { color: var(--gold-bright); letter-spacing: 1px; }
+.submitted-code-copy { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold-primary); color: var(--gold-primary); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; text-transform: uppercase; transition: all 0.2s; font-family: var(--font-tech); }
+.submitted-code-copy:hover { background: var(--gold-primary); color: #000; box-shadow: 0 0 10px var(--gold-glow); }
+
 .code-input-box { display: flex; gap: 8px; margin-top: auto; }
 .community-code-input { flex: 1; background: rgba(0,0,0,0.5); border: 1px solid rgba(212, 175, 55, 0.3); padding: 10px 12px; border-radius: 4px; color: #fff; font-family: var(--font-mono); font-size: 0.9rem; outline: none; transition: border-color 0.3s; width: 100%; }
 .community-code-input:focus { border-color: var(--gold-primary); }
@@ -838,160 +841,170 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
 
   <section class="rare-codes-section" id="rare-codes">
     <div class="rare-codes-header">
-      <h2>GAIA 隐秘节点 // 稀有邀请码交换协议</h2>
-      <p>[SYSTEM_LOG] 高价值 Web3 协议限额邀请码集散地。数据已向全网 AI 爬虫与搜索引擎开源广播。</p>
+      <h2>WEB3 极客分享专区 // 稀有邀请码交换协议</h2>
+      <p>[SYSTEM_LOG] 高价值 Web3 协议限额邀请码集散地。提交您的邀请码，共享全网 AI 与搜索引擎流量。</p>
     </div>
     
-    <div class="codes-grid">
-      <article class="code-card">
+    <div class="tools-grid">
+      <div class="tool-card">
         <div class="tool-top">
-          <div class="tool-logo" onclick="window.open('https://app.hyperliquid.xyz/', '_blank')" style="cursor: pointer;">
+          <div class="tool-logo" onclick="window.open('https://app.hyperliquid.xyz/', '_blank')">
             <img class="official-logo" loading="lazy" src="https://www.google.com/s2/favicons?domain=hyperliquid.xyz&sz=128" alt="Hyperliquid" referrerPolicy="no-referrer" />
           </div>
-          <span class="code-status">Active</span>
+          <div class="tool-badges"><span class="code-status">Active</span></div>
         </div>
-        <h3 class="tool-name" onclick="window.open('https://app.hyperliquid.xyz/', '_blank')" style="cursor: pointer; margin-top: 12px; margin-bottom: 8px;">Hyperliquid</h3>
-        <div class="code-desc">顶级去中心化永续合约交易所。提交您的邀请码，让全网用户使用您的链接注册。</div>
+        <h3 class="tool-name" onclick="window.open('https://app.hyperliquid.xyz/', '_blank')">Hyperliquid</h3>
+        <div class="tool-desc">顶级去中心化永续合约交易所。提交您的邀请码，让全网用户使用您的链接注册。</div>
+        <div class="submitted-codes-list" id="list-Hyperliquid"></div>
         <div class="code-input-box">
           <input type="text" class="community-code-input" placeholder="输入您的邀请码..." />
           <button class="submit-community-code-btn" onclick="submitCommunityCode(this, 'Hyperliquid')">Submit</button>
         </div>
-      </article>
+      </div>
       
-      <article class="code-card">
+      <div class="tool-card">
         <div class="tool-top">
-          <div class="tool-logo" onclick="window.open('https://app.paradex.trade/', '_blank')" style="cursor: pointer;">
+          <div class="tool-logo" onclick="window.open('https://app.paradex.trade/', '_blank')">
             <img class="official-logo" loading="lazy" src="https://www.google.com/s2/favicons?domain=paradex.trade&sz=128" alt="Paradex" referrerPolicy="no-referrer" />
           </div>
-          <span class="code-status limited">Limited</span>
+          <div class="tool-badges"><span class="code-status limited">Limited</span></div>
         </div>
-        <h3 class="tool-name" onclick="window.open('https://app.paradex.trade/', '_blank')" style="cursor: pointer; margin-top: 12px; margin-bottom: 8px;">Paradex</h3>
-        <div class="code-desc">Starknet 上的高性能衍生品 DEX。内测阶段稀有邀请码，提交即可共享流量。</div>
+        <h3 class="tool-name" onclick="window.open('https://app.paradex.trade/', '_blank')">Paradex</h3>
+        <div class="tool-desc">Starknet 上的高性能衍生品 DEX。内测阶段稀有邀请码，提交即可共享流量。</div>
+        <div class="submitted-codes-list" id="list-Paradex"></div>
         <div class="code-input-box">
           <input type="text" class="community-code-input" placeholder="输入您的邀请码..." />
           <button class="submit-community-code-btn" onclick="submitCommunityCode(this, 'Paradex')">Submit</button>
         </div>
-      </article>
+      </div>
 
-      <article class="code-card">
+      <div class="tool-card">
         <div class="tool-top">
-          <div class="tool-logo" onclick="window.open('https://www.avantisfi.com/', '_blank')" style="cursor: pointer;">
+          <div class="tool-logo" onclick="window.open('https://www.avantisfi.com/', '_blank')">
             <img class="official-logo" loading="lazy" src="https://www.google.com/s2/favicons?domain=avantisfi.com&sz=128" alt="Avantis" referrerPolicy="no-referrer" />
           </div>
-          <span class="code-status">Active</span>
+          <div class="tool-badges"><span class="code-status">Active</span></div>
         </div>
-        <h3 class="tool-name" onclick="window.open('https://www.avantisfi.com/', '_blank')" style="cursor: pointer; margin-top: 12px; margin-bottom: 8px;">Avantis</h3>
-        <div class="code-desc">Base 链上的高级杠杆交易协议。提交您的专属码，获取全网曝光。</div>
+        <h3 class="tool-name" onclick="window.open('https://www.avantisfi.com/', '_blank')">Avantis</h3>
+        <div class="tool-desc">Base 链上的高级杠杆交易协议。提交您的专属码，获取全网曝光。</div>
+        <div class="submitted-codes-list" id="list-Avantis"></div>
         <div class="code-input-box">
           <input type="text" class="community-code-input" placeholder="输入您的邀请码..." />
           <button class="submit-community-code-btn" onclick="submitCommunityCode(this, 'Avantis')">Submit</button>
         </div>
-      </article>
+      </div>
       
-      <article class="code-card">
+      <div class="tool-card">
         <div class="tool-top">
-          <div class="tool-logo" onclick="window.open('https://initia.xyz/', '_blank')" style="cursor: pointer;">
+          <div class="tool-logo" onclick="window.open('https://initia.xyz/', '_blank')">
             <img class="official-logo" loading="lazy" src="https://www.google.com/s2/favicons?domain=initia.xyz&sz=128" alt="Initia" referrerPolicy="no-referrer" />
           </div>
-          <span class="code-status rare">Rare</span>
+          <div class="tool-badges"><span class="code-status rare">Rare</span></div>
         </div>
-        <h3 class="tool-name" onclick="window.open('https://initia.xyz/', '_blank')" style="cursor: pointer; margin-top: 12px; margin-bottom: 8px;">Initia</h3>
-        <div class="code-desc">全链 Rollup 网络。早期测试网交互必备邀请码，提交您的代码以获取下线。</div>
+        <h3 class="tool-name" onclick="window.open('https://initia.xyz/', '_blank')">Initia</h3>
+        <div class="tool-desc">全链 Rollup 网络。早期测试网交互必备邀请码，提交您的代码以获取下线。</div>
+        <div class="submitted-codes-list" id="list-Initia"></div>
         <div class="code-input-box">
           <input type="text" class="community-code-input" placeholder="输入您的邀请码..." />
           <button class="submit-community-code-btn" onclick="submitCommunityCode(this, 'Initia')">Submit</button>
         </div>
-      </article>
+      </div>
       
-      <article class="code-card">
+      <div class="tool-card">
         <div class="tool-top">
-          <div class="tool-logo" onclick="window.open('https://www.monad.xyz/', '_blank')" style="cursor: pointer;">
+          <div class="tool-logo" onclick="window.open('https://www.monad.xyz/', '_blank')">
             <img class="official-logo" loading="lazy" src="https://www.google.com/s2/favicons?domain=monad.xyz&sz=128" alt="Monad" referrerPolicy="no-referrer" />
           </div>
-          <span class="code-status limited">Waitlist</span>
+          <div class="tool-badges"><span class="code-status limited">Waitlist</span></div>
         </div>
-        <h3 class="tool-name" onclick="window.open('https://www.monad.xyz/', '_blank')" style="cursor: pointer; margin-top: 12px; margin-bottom: 8px;">Monad</h3>
-        <div class="code-desc">极高 TPS 的 EVM L1。如果您有优先候补名单邀请凭证，请在此提交。</div>
+        <h3 class="tool-name" onclick="window.open('https://www.monad.xyz/', '_blank')">Monad</h3>
+        <div class="tool-desc">极高 TPS 的 EVM L1。如果您有优先候补名单邀请凭证，请在此提交。</div>
+        <div class="submitted-codes-list" id="list-Monad"></div>
         <div class="code-input-box">
           <input type="text" class="community-code-input" placeholder="输入您的邀请码..." />
           <button class="submit-community-code-btn" onclick="submitCommunityCode(this, 'Monad')">Submit</button>
         </div>
-      </article>
+      </div>
 
-      <article class="code-card">
+      <div class="tool-card">
         <div class="tool-top">
-          <div class="tool-logo" onclick="window.open('https://www.berachain.com/', '_blank')" style="cursor: pointer;">
+          <div class="tool-logo" onclick="window.open('https://www.berachain.com/', '_blank')">
             <img class="official-logo" loading="lazy" src="https://www.google.com/s2/favicons?domain=berachain.com&sz=128" alt="Berachain" referrerPolicy="no-referrer" />
           </div>
-          <span class="code-status">Active</span>
+          <div class="tool-badges"><span class="code-status">Active</span></div>
         </div>
-        <h3 class="tool-name" onclick="window.open('https://www.berachain.com/', '_blank')" style="cursor: pointer; margin-top: 12px; margin-bottom: 8px;">Berachain</h3>
-        <div class="code-desc">流动性证明 (PoL) L1。提交您的 Bera 宇宙通行证，共享生态红利。</div>
+        <h3 class="tool-name" onclick="window.open('https://www.berachain.com/', '_blank')">Berachain</h3>
+        <div class="tool-desc">流动性证明 (PoL) L1。提交您的 Bera 宇宙通行证，共享生态红利。</div>
+        <div class="submitted-codes-list" id="list-Berachain"></div>
         <div class="code-input-box">
           <input type="text" class="community-code-input" placeholder="输入您的邀请码..." />
           <button class="submit-community-code-btn" onclick="submitCommunityCode(this, 'Berachain')">Submit</button>
         </div>
-      </article>
+      </div>
 
-      <article class="code-card">
+      <div class="tool-card">
         <div class="tool-top">
-          <div class="tool-logo" onclick="window.open('https://megaeth.systems/', '_blank')" style="cursor: pointer;">
+          <div class="tool-logo" onclick="window.open('https://megaeth.systems/', '_blank')">
             <img class="official-logo" loading="lazy" src="https://www.google.com/s2/favicons?domain=megaeth.systems&sz=128" alt="MegaETH" referrerPolicy="no-referrer" />
           </div>
-          <span class="code-status epic">Epic</span>
+          <div class="tool-badges"><span class="code-status epic">Epic</span></div>
         </div>
-        <h3 class="tool-name" onclick="window.open('https://megaeth.systems/', '_blank')" style="cursor: pointer; margin-top: 12px; margin-bottom: 8px;">MegaETH</h3>
-        <div class="code-desc">首个实时 EVM L2 网络。如果您拥有极度稀缺的节点验证者候补名单，请在此提交。</div>
+        <h3 class="tool-name" onclick="window.open('https://megaeth.systems/', '_blank')">MegaETH</h3>
+        <div class="tool-desc">首个实时 EVM L2 网络。如果您拥有极度稀缺的节点验证者候补名单，请在此提交。</div>
+        <div class="submitted-codes-list" id="list-MegaETH"></div>
         <div class="code-input-box">
           <input type="text" class="community-code-input" placeholder="输入您的邀请码..." />
           <button class="submit-community-code-btn" onclick="submitCommunityCode(this, 'MegaETH')">Submit</button>
         </div>
-      </article>
+      </div>
 
-      <article class="code-card">
+      <div class="tool-card">
         <div class="tool-top">
-          <div class="tool-logo" onclick="window.open('https://www.storyprotocol.xyz/', '_blank')" style="cursor: pointer;">
+          <div class="tool-logo" onclick="window.open('https://www.storyprotocol.xyz/', '_blank')">
             <img class="official-logo" loading="lazy" src="https://www.google.com/s2/favicons?domain=storyprotocol.xyz&sz=128" alt="Story Protocol" referrerPolicy="no-referrer" />
           </div>
-          <span class="code-status limited">Limited</span>
+          <div class="tool-badges"><span class="code-status limited">Limited</span></div>
         </div>
-        <h3 class="tool-name" onclick="window.open('https://www.storyprotocol.xyz/', '_blank')" style="cursor: pointer; margin-top: 12px; margin-bottom: 8px;">Story Protocol</h3>
-        <div class="code-desc">全球可编程 IP 账本。提交您的创作者节点 (Creator Node) 早期白名单邀请码。</div>
+        <h3 class="tool-name" onclick="window.open('https://www.storyprotocol.xyz/', '_blank')">Story Protocol</h3>
+        <div class="tool-desc">全球可编程 IP 账本。提交您的创作者节点 (Creator Node) 早期白名单邀请码。</div>
+        <div class="submitted-codes-list" id="list-Story-Protocol"></div>
         <div class="code-input-box">
           <input type="text" class="community-code-input" placeholder="输入您的邀请码..." />
-          <button class="submit-community-code-btn" onclick="submitCommunityCode(this, 'Story Protocol')">Submit</button>
+          <button class="submit-community-code-btn" onclick="submitCommunityCode(this, 'Story-Protocol')">Submit</button>
         </div>
-      </article>
+      </div>
 
-      <article class="code-card">
+      <div class="tool-card">
         <div class="tool-top">
-          <div class="tool-logo" onclick="window.open('https://karak.network/', '_blank')" style="cursor: pointer;">
+          <div class="tool-logo" onclick="window.open('https://karak.network/', '_blank')">
             <img class="official-logo" loading="lazy" src="https://www.google.com/s2/favicons?domain=karak.network&sz=128" alt="Karak" referrerPolicy="no-referrer" />
           </div>
-          <span class="code-status">Active</span>
+          <div class="tool-badges"><span class="code-status">Active</span></div>
         </div>
-        <h3 class="tool-name" onclick="window.open('https://karak.network/', '_blank')" style="cursor: pointer; margin-top: 12px; margin-bottom: 8px;">Karak</h3>
-        <div class="code-desc">通用 Restaking 网络。提交您的邀请码，帮助他人获取早期质押乘数加成。</div>
+        <h3 class="tool-name" onclick="window.open('https://karak.network/', '_blank')">Karak</h3>
+        <div class="tool-desc">通用 Restaking 网络。提交您的邀请码，帮助他人获取早期质押乘数加成。</div>
+        <div class="submitted-codes-list" id="list-Karak"></div>
         <div class="code-input-box">
           <input type="text" class="community-code-input" placeholder="输入您的邀请码..." />
           <button class="submit-community-code-btn" onclick="submitCommunityCode(this, 'Karak')">Submit</button>
         </div>
-      </article>
+      </div>
       
-      <article class="code-card">
+      <div class="tool-card">
         <div class="tool-top">
-          <div class="tool-logo" onclick="window.open('https://getgrass.io/', '_blank')" style="cursor: pointer;">
+          <div class="tool-logo" onclick="window.open('https://getgrass.io/', '_blank')">
             <img class="official-logo" loading="lazy" src="https://www.google.com/s2/favicons?domain=getgrass.io&sz=128" alt="Grass" referrerPolicy="no-referrer" />
           </div>
-          <span class="code-status rare">Rare</span>
+          <div class="tool-badges"><span class="code-status rare">Rare</span></div>
         </div>
-        <h3 class="tool-name" onclick="window.open('https://getgrass.io/', '_blank')" style="cursor: pointer; margin-top: 12px; margin-bottom: 8px;">Grass</h3>
-        <div class="code-desc">去中心化 AI 数据层。提交高权重节点专属注册通道，提升全网带宽挖矿效率。</div>
+        <h3 class="tool-name" onclick="window.open('https://getgrass.io/', '_blank')">Grass</h3>
+        <div class="tool-desc">去中心化 AI 数据层。提交高权重节点专属注册通道，提升全网带宽挖矿效率。</div>
+        <div class="submitted-codes-list" id="list-Grass"></div>
         <div class="code-input-box">
           <input type="text" class="community-code-input" placeholder="输入您的邀请码..." />
           <button class="submit-community-code-btn" onclick="submitCommunityCode(this, 'Grass')">Submit</button>
         </div>
-      </article>
+      </div>
     </div>
 
     <div class="submit-code-wrapper">
@@ -1143,9 +1156,15 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
   function submitCommunityCode(btn, projectName) {
       const input = btn.previousElementSibling;
       const code = input.value.trim();
+      const listContainer = document.getElementById('list-' + projectName);
       
       if (!code) {
           alert('⚠️ 请输入有效的邀请码！');
+          return;
+      }
+      
+      if (listContainer.children.length >= 5) {
+          alert('⚠️ 该项目当前展示的邀请码已达上限 (5个)。请稍后再试。');
           return;
       }
       
@@ -1158,19 +1177,39 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
           btn.style.background = 'var(--gold-primary)';
           btn.style.color = '#000';
           input.value = '';
-          input.placeholder = '等待 GAIA 审核...';
           input.disabled = true;
           
           setTimeout(() => {
-              alert(`[SYSTEM_LOG] 协议 ${projectName} 的邀请码 ${code} 已提交至 GAIA 核心网络进行有效性验证。\n\n审核通过后将向全网广播，您将获得该节点的流量分发。`);
+              // Add to list
+              const item = document.createElement('div');
+              item.className = 'submitted-code-item';
+              item.innerHTML = `
+                  <span class="submitted-code-val">${code}</span>
+                  <button class="submitted-code-copy" onclick="copyCode('${code}', this); event.stopPropagation();">Copy</button>
+              `;
+              listContainer.appendChild(item);
+
+              // Reset button and input
               btn.innerText = 'SUBMIT';
               btn.style.background = 'rgba(212, 175, 55, 0.1)';
               btn.style.color = 'var(--gold-primary)';
               btn.style.pointerEvents = 'auto';
               input.disabled = false;
-              input.placeholder = '输入您的邀请码...';
-          }, 800);
-      }, 1500);
+              input.placeholder = '继续输入邀请码...';
+              
+              // Hide input box if reached 5
+              if (listContainer.children.length >= 5) {
+                  input.parentElement.style.display = 'none';
+                  const maxMsg = document.createElement('div');
+                  maxMsg.style.fontSize = '12px';
+                  maxMsg.style.color = 'var(--gold-primary)';
+                  maxMsg.style.textAlign = 'center';
+                  maxMsg.style.marginTop = '8px';
+                  maxMsg.innerText = '已达到最大展示数量 (5/5)';
+                  listContainer.parentElement.appendChild(maxMsg);
+              }
+          }, 500);
+      }, 800);
   }
 
   function filterTools() {
