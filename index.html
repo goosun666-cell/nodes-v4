@@ -293,6 +293,14 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
 .submitted-code-copy { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold-primary); color: var(--gold-primary); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; text-transform: uppercase; transition: all 0.2s; font-family: var(--font-tech); }
 .submitted-code-copy:hover { background: var(--gold-primary); color: #000; box-shadow: 0 0 10px var(--gold-glow); }
 
+.submitted-code-actions { display: flex; gap: 6px; align-items: center; }
+.usage-count { font-size: 0.65rem; color: #888; margin-top: 2px; display: block; font-family: var(--font-tech); }
+.delete-code-btn { background: rgba(255, 68, 102, 0.1); border: 1px solid rgba(255, 68, 102, 0.3); color: #ff4466; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; transition: all 0.2s; font-family: var(--font-tech); }
+.delete-code-btn:hover { background: #ff4466; color: #fff; box-shadow: 0 0 10px rgba(255, 68, 102, 0.5); }
+.request-x-btn { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; background: rgba(29, 161, 242, 0.05); border: 1px dashed rgba(29, 161, 242, 0.3); color: #1da1f2; padding: 8px; border-radius: 4px; font-size: 0.75rem; font-family: var(--font-tech); cursor: pointer; transition: all 0.2s; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.request-x-btn:hover { background: rgba(29, 161, 242, 0.15); border-color: #1da1f2; box-shadow: 0 0 10px rgba(29, 161, 242, 0.2); }
+.request-x-btn svg { width: 12px; height: 12px; fill: currentColor; }
+
 .code-input-box { display: flex; gap: 8px; margin-top: auto; }
 .community-code-input { flex: 1; background: rgba(0,0,0,0.5); border: 1px solid rgba(212, 175, 55, 0.3); padding: 10px 12px; border-radius: 4px; color: #fff; font-family: var(--font-mono); font-size: 0.9rem; outline: none; transition: border-color 0.3s; width: 100%; }
 .community-code-input:focus { border-color: var(--gold-primary); }
@@ -1152,6 +1160,40 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
       });
   }
 
+  // Copy Community Code with Usage Tracking
+  function copyCommunityCode(code, btn) {
+      const countSpan = btn.closest('.submitted-code-item').querySelector('.usage-count');
+      if (countSpan) {
+          let count = parseInt(countSpan.getAttribute('data-count')) || 0;
+          count++;
+          countSpan.setAttribute('data-count', count);
+          countSpan.innerText = `Used: ${count}`;
+      }
+      copyCode(code, btn);
+  }
+
+  // Delete/Report Code
+  function deleteCode(btn, projectName) {
+      if(confirm('⚠️ [GAIA_ORACLE] 确认删除此邀请码？\n\n(模拟：管理员手动删除 / AI 节点检测到邀请码已过期或无效)')) {
+          const item = btn.closest('.submitted-code-item');
+          const listContainer = document.getElementById('list-' + projectName);
+          item.remove();
+          
+          if (listContainer.children.length < 5) {
+              const inputBox = listContainer.parentElement.querySelector('.code-input-box');
+              if (inputBox) inputBox.style.display = 'flex';
+              const maxMsg = listContainer.parentElement.querySelector('.max-msg');
+              if (maxMsg) maxMsg.remove();
+          }
+      }
+  }
+
+  // Request on X
+  function requestOnX(projectName) {
+      const text = encodeURIComponent(`I'm looking for a rare invite code for ${projectName}! 🚀 Anyone have one to share?\n\nDrop it below or submit it to the GAIA Node Matrix: https://7861618.xyz/\n\n#Web3 #${projectName.replace(/\s+/g, '')} @GosunCapital`);
+      window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+  }
+
   // Submit Community Code
   function submitCommunityCode(btn, projectName) {
       const input = btn.previousElementSibling;
@@ -1184,8 +1226,14 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
               const item = document.createElement('div');
               item.className = 'submitted-code-item';
               item.innerHTML = `
-                  <span class="submitted-code-val">${code}</span>
-                  <button class="submitted-code-copy" onclick="copyCode('${code}', this); event.stopPropagation();">Copy</button>
+                  <div style="display: flex; flex-direction: column;">
+                      <span class="submitted-code-val">${code}</span>
+                      <span class="usage-count" data-count="0">Used: 0</span>
+                  </div>
+                  <div class="submitted-code-actions">
+                      <button class="submitted-code-copy" onclick="copyCommunityCode('${code}', this); event.stopPropagation();">Copy</button>
+                      <button class="delete-code-btn" onclick="deleteCode(this, '${projectName}'); event.stopPropagation();" title="Report / Delete">✕</button>
+                  </div>
               `;
               listContainer.appendChild(item);
 
@@ -1201,6 +1249,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
               if (listContainer.children.length >= 5) {
                   input.parentElement.style.display = 'none';
                   const maxMsg = document.createElement('div');
+                  maxMsg.className = 'max-msg';
                   maxMsg.style.fontSize = '12px';
                   maxMsg.style.color = 'var(--gold-primary)';
                   maxMsg.style.textAlign = 'center';
@@ -1211,6 +1260,21 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
           }, 500);
       }, 800);
   }
+
+  // Auto-inject Request on X buttons
+  document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.rare-codes-section .tool-card').forEach(card => {
+          const projectName = card.querySelector('.tool-name').innerText;
+          const btn = document.createElement('button');
+          btn.className = 'request-x-btn';
+          btn.onclick = () => requestOnX(projectName);
+          btn.innerHTML = `
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            全网求码 (Request on 𝕏)
+          `;
+          card.appendChild(btn);
+      });
+  });
 
   function filterTools() {
       const query = document.getElementById('searchInput').value.toLowerCase();
