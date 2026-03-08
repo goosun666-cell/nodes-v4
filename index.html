@@ -297,9 +297,12 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
 .usage-count { font-size: 0.65rem; color: #888; margin-top: 2px; display: block; font-family: var(--font-tech); }
 .delete-code-btn { background: rgba(255, 68, 102, 0.1); border: 1px solid rgba(255, 68, 102, 0.3); color: #ff4466; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.7rem; transition: all 0.2s; font-family: var(--font-tech); }
 .delete-code-btn:hover { background: #ff4466; color: #fff; box-shadow: 0 0 10px rgba(255, 68, 102, 0.5); }
-.request-x-btn { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; background: rgba(29, 161, 242, 0.05); border: 1px dashed rgba(29, 161, 242, 0.3); color: #1da1f2; padding: 8px; border-radius: 4px; font-size: 0.75rem; font-family: var(--font-tech); cursor: pointer; transition: all 0.2s; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-.request-x-btn:hover { background: rgba(29, 161, 242, 0.15); border-color: #1da1f2; box-shadow: 0 0 10px rgba(29, 161, 242, 0.2); }
-.request-x-btn svg { width: 12px; height: 12px; fill: currentColor; }
+.request-btn-group { display: flex; gap: 6px; margin-top: 8px; }
+.request-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; background: rgba(255, 255, 255, 0.05); border: 1px dashed rgba(255, 255, 255, 0.2); color: var(--text-muted); padding: 8px 4px; border-radius: 4px; font-size: 0.65rem; font-family: var(--font-tech); cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.5px; }
+.request-btn svg { width: 12px; height: 12px; fill: currentColor; }
+.request-btn.x:hover { background: rgba(29, 161, 242, 0.15); border-color: #1da1f2; color: #1da1f2; box-shadow: 0 0 10px rgba(29, 161, 242, 0.2); }
+.request-btn.tg:hover { background: rgba(0, 136, 204, 0.15); border-color: #0088cc; color: #0088cc; box-shadow: 0 0 10px rgba(0, 136, 204, 0.2); }
+.request-btn.fc:hover { background: rgba(138, 43, 226, 0.15); border-color: #8a2be2; color: #8a2be2; box-shadow: 0 0 10px rgba(138, 43, 226, 0.2); }
 
 .code-input-box { display: flex; gap: 8px; margin-top: auto; }
 .community-code-input { flex: 1; background: rgba(0,0,0,0.5); border: 1px solid rgba(212, 175, 55, 0.3); padding: 10px 12px; border-radius: 4px; color: #fff; font-family: var(--font-mono); font-size: 0.9rem; outline: none; transition: border-color 0.3s; width: 100%; }
@@ -1188,10 +1191,18 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
       }
   }
 
-  // Request on X
-  function requestOnX(projectName) {
-      const text = encodeURIComponent(`I'm looking for a rare invite code for ${projectName}! 🚀 Anyone have one to share?\n\nDrop it below or submit it to the GAIA Node Matrix: https://7861618.xyz/\n\n#Web3 #${projectName.replace(/\s+/g, '')} @GosunCapital`);
-      window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+  // Request on Socials
+  function requestOnSocial(platform, projectName) {
+      const text = `I'm looking for a rare invite code for ${projectName}! 🚀 Anyone have one to share?\n\nDrop it below or submit it to the GAIA Node Matrix: https://7861618.xyz/`;
+      const encodedText = encodeURIComponent(text);
+      
+      if (platform === 'x') {
+          window.open(`https://twitter.com/intent/tweet?text=${encodedText}&hashtags=Web3,${projectName.replace(/\s+/g, '')}&via=GosunCapital`, '_blank');
+      } else if (platform === 'tg') {
+          window.open(`https://t.me/share/url?url=https://7861618.xyz/&text=${encodedText}`, '_blank');
+      } else if (platform === 'fc') {
+          window.open(`https://warpcast.com/~/compose?text=${encodedText}`, '_blank');
+      }
   }
 
   // Submit Community Code
@@ -1261,18 +1272,28 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
       }, 800);
   }
 
-  // Auto-inject Request on X buttons
+  // Auto-inject Request on Social buttons
   document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.rare-codes-section .tool-card').forEach(card => {
           const projectName = card.querySelector('.tool-name').innerText;
-          const btn = document.createElement('button');
-          btn.className = 'request-x-btn';
-          btn.onclick = () => requestOnX(projectName);
-          btn.innerHTML = `
-            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            全网求码 (Request on 𝕏)
+          const btnGroup = document.createElement('div');
+          btnGroup.className = 'request-btn-group';
+          
+          btnGroup.innerHTML = `
+            <button class="request-btn x" onclick="requestOnSocial('x', '${projectName}')" title="Request on X">
+                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                求码
+            </button>
+            <button class="request-btn tg" onclick="requestOnSocial('tg', '${projectName}')" title="Request on Telegram">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.98 1.26-5.6 3.71-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.89.03-.25.38-.51 1.03-.78 4.04-1.76 6.74-2.92 8.09-3.48 3.85-1.6 4.64-1.88 5.17-1.89.12 0 .37.03.54.17.14.12.18.28.2.42.01.09.02.27.02.4z"/></svg>
+                求码
+            </button>
+            <button class="request-btn fc" onclick="requestOnSocial('fc', '${projectName}')" title="Request on Farcaster">
+                <svg viewBox="0 0 24 24"><path d="M18.24.24H5.76A5.76 5.76 0 0 0 0 6v12a5.76 5.76 0 0 0 5.76 5.76h12.48A5.76 5.76 0 0 0 24 18V6a5.76 5.76 0 0 0-5.76-5.76zm-1.68 15.6a.72.72 0 0 1-.72.72H8.16a.72.72 0 0 1-.72-.72v-1.44h9.12v1.44zm1.44-3.6H6v-1.44h12v1.44zm0-3.6H6V7.2h12v1.44z"/></svg>
+                求码
+            </button>
           `;
-          card.appendChild(btn);
+          card.appendChild(btnGroup);
       });
   });
 
