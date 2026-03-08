@@ -356,8 +356,8 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
     <ul class="nav-links">
       <li><a href="#">节点目录</a></li>
       <li><a href="#">DeFi 协议</a></li>
-      <li><a href="#">NFT 矩阵</a></li>
-      <li><a href="#">神谕研究</a></li>
+      <li><a href="#rare-codes">稀有邀请码</a></li>
+      <li><a href="#tutorials">深度教程</a></li>
     </ul>
     <div class="nav-actions">
       <a href="https://gosun.qzz.io" target="_blank" class="nav-link-official">⌂ 理想国母舰 (Official Site)</a>
@@ -1025,6 +1025,40 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
       </button>
     </div>
   </section>
+
+  <section class="rare-codes-section" id="tutorials" style="margin-top: 20px;">
+    <div class="rare-codes-header">
+      <h2>WEB3 深度教程 // 节点与空投指南</h2>
+      <p>[SYSTEM_LOG] 每日自动生成的 Web3 深度投研与实操指南，助您抢占早期红利。</p>
+    </div>
+    <div class="tools-grid">
+      <!-- Tutorial 1 -->
+      <a href="/tutorials/grass-node-2026.html" class="tool-card" style="text-decoration: none;">
+        <div class="tool-top">
+          <div class="tool-logo">
+            <img class="official-logo" loading="lazy" src="https://www.google.com/s2/favicons?domain=getgrass.io&sz=128" alt="Grass" referrerPolicy="no-referrer" />
+          </div>
+          <div class="tool-badges"><span class="badge badge-hot">HOT</span><span class="badge badge-new">NEW</span></div>
+        </div>
+        <h3 class="tool-name">2026 年最全 Grass 节点部署指南</h3>
+        <div class="tool-desc">详细图文解析如何在 2026 年高效部署 Grass 节点，最大化带宽收益与空投预期。包含多设备防封号策略。</div>
+        <div class="tool-footer"><span class="tool-category-tag">DePIN / Node</span><span class="tool-arrow"></span></div>
+      </a>
+      
+      <!-- Tutorial 2 -->
+      <a href="/tutorials/megaeth-testnet-guide.html" class="tool-card" style="text-decoration: none;">
+        <div class="tool-top">
+          <div class="tool-logo">
+            <img class="official-logo" loading="lazy" src="https://www.google.com/s2/favicons?domain=megaeth.systems&sz=128" alt="MegaETH" referrerPolicy="no-referrer" />
+          </div>
+          <div class="tool-badges"><span class="badge badge-new">NEW</span></div>
+        </div>
+        <h3 class="tool-name">MegaETH 测试网零撸交互全攻略</h3>
+        <div class="tool-desc">首个实时以太坊 L2 MegaETH 测试网交互教程。手把手教你零成本获取测试币，完成核心 DApp 交互，埋伏早期空投。</div>
+        <div class="tool-footer"><span class="tool-category-tag">L2 / Airdrop</span><span class="tool-arrow"></span></div>
+      </a>
+    </div>
+  </section>
 </main>
 
 <div class="interceptor-wrapper">
@@ -1200,7 +1234,13 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
   // Local Storage Management
   function getSavedCodes() {
       const saved = localStorage.getItem('gaia_community_codes');
-      return saved ? JSON.parse(saved) : {};
+      if (!saved) return {};
+      try {
+          return JSON.parse(saved);
+      } catch (e) {
+          console.error('Failed to parse saved codes:', e);
+          return {};
+      }
   }
 
   function saveCodeToStorage(projectName, code) {
