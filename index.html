@@ -303,6 +303,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
 .request-btn.x:hover { background: rgba(29, 161, 242, 0.15); border-color: #1da1f2; color: #1da1f2; box-shadow: 0 0 10px rgba(29, 161, 242, 0.2); }
 .request-btn.tg:hover { background: rgba(0, 136, 204, 0.15); border-color: #0088cc; color: #0088cc; box-shadow: 0 0 10px rgba(0, 136, 204, 0.2); }
 .request-btn.fc:hover { background: rgba(138, 43, 226, 0.15); border-color: #8a2be2; color: #8a2be2; box-shadow: 0 0 10px rgba(138, 43, 226, 0.2); }
+.request-btn.yt:hover { background: rgba(255, 0, 0, 0.15); border-color: #ff0000; color: #ff0000; box-shadow: 0 0 10px rgba(255, 0, 0, 0.2); }
 
 .code-input-box { display: flex; gap: 8px; margin-top: auto; }
 .community-code-input { flex: 1; background: rgba(0,0,0,0.5); border: 1px solid rgba(212, 175, 55, 0.3); padding: 10px 12px; border-radius: 4px; color: #fff; font-family: var(--font-mono); font-size: 0.9rem; outline: none; transition: border-color 0.3s; width: 100%; }
@@ -1205,6 +1206,25 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
       }
   }
 
+  // Copy Promo Text for YouTube/Comments
+  function copyPromoText(btn, projectName) {
+      const text = `大佬们，谁有 ${projectName} 的稀有邀请码？🚀 求一个！\n可以直接发在这里，或者提交到 GAIA 节点矩阵大家一起撸流量：https://7861618.xyz/ 🔥`;
+      navigator.clipboard.writeText(text).then(() => {
+          const originalHTML = btn.innerHTML;
+          btn.innerHTML = '已复制!';
+          btn.style.color = '#ff0000';
+          btn.style.borderColor = '#ff0000';
+          setTimeout(() => {
+              btn.innerHTML = originalHTML;
+              btn.style.color = '';
+              btn.style.borderColor = '';
+          }, 2000);
+      }).catch(err => {
+          console.error('Copy failed', err);
+          alert('复制失败，请手动复制。');
+      });
+  }
+
   // Submit Community Code
   function submitCommunityCode(btn, projectName) {
       const input = btn.previousElementSibling;
@@ -1291,6 +1311,10 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
             <button class="request-btn fc" onclick="requestOnSocial('fc', '${projectName}')" title="Request on Farcaster">
                 <svg viewBox="0 0 24 24"><path d="M18.24.24H5.76A5.76 5.76 0 0 0 0 6v12a5.76 5.76 0 0 0 5.76 5.76h12.48A5.76 5.76 0 0 0 24 18V6a5.76 5.76 0 0 0-5.76-5.76zm-1.68 15.6a.72.72 0 0 1-.72.72H8.16a.72.72 0 0 1-.72-.72v-1.44h9.12v1.44zm1.44-3.6H6v-1.44h12v1.44zm0-3.6H6V7.2h12v1.44z"/></svg>
                 求码
+            </button>
+            <button class="request-btn yt" onclick="copyPromoText(this, '${projectName}')" title="Copy Promo Text for YouTube Comments">
+                <svg viewBox="0 0 24 24"><path d="M21.582 6.186a2.684 2.684 0 0 0-1.884-1.898C17.986 3.8 12 3.8 12 3.8s-5.986 0-7.698.488a2.684 2.684 0 0 0-1.884 1.898C1.93 7.91 1.93 12 1.93 12s0 4.09.488 5.814a2.684 2.684 0 0 0 1.884 1.898c1.712.488 7.698.488 7.698.488s5.986 0 7.698-.488a2.684 2.684 0 0 0 1.884-1.898C22.07 16.09 22.07 12 22.07 12s0-4.09-.488-5.814zM9.91 15.518V8.482L15.928 12l-6.018 3.518z"/></svg>
+                复制文案
             </button>
           `;
           card.appendChild(btnGroup);
