@@ -25,6 +25,16 @@
 <meta name="twitter:description" content="Access curated, institutional-grade crypto nodes. Get the best referral codes for Binance, OKX, Bybit, Paradex, and DeFi platforms.">
 <meta name="twitter:image" content="https://images.unsplash.com/photo-1639762681485-074b7f4fc8bc?ixlib=rb-4.0.3&fm=jpg&fit=crop&w=1200&h=630&q=80">
 
+<!-- Farcaster Frame / Base Social Integration -->
+<meta property="fc:frame" content="vNext">
+<meta property="fc:frame:image" content="https://images.unsplash.com/photo-1639762681485-074b7f4fc8bc?ixlib=rb-4.0.3&fm=jpg&fit=crop&w=1200&h=630&q=80">
+<meta property="fc:frame:button:1" content="🌐 Enter GAIA Matrix">
+<meta property="fc:frame:button:1:action" content="link">
+<meta property="fc:frame:button:1:target" content="https://7861618.xyz/">
+<meta property="fc:frame:button:2" content="💎 View Nodes">
+<meta property="fc:frame:button:2:action" content="link">
+<meta property="fc:frame:button:2:target" content="https://7861618.xyz/">
+
 <!-- Performance Preconnects -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -965,57 +975,20 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
       }
   }
 
-  // Share to Base Chain (On-chain Memo)
-  async function shareToBase() {
-      if (typeof window.ethereum === 'undefined') {
-          alert('⚠️ 请先安装 Web3 钱包 (如 MetaMask, Coinbase Wallet) 才能发送上链数据！\n(Please install a Web3 wallet to share on-chain!)');
-          return;
-      }
-      try {
-          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-          const account = accounts[0];
-
-          try {
-              await window.ethereum.request({
-                  method: 'wallet_switchEthereumChain',
-                  params: [{ chainId: '0x2105' }], // Base Mainnet (8453)
-              });
-          } catch (switchError) {
-              if (switchError.code === 4902) {
-                  await window.ethereum.request({
-                      method: 'wallet_addEthereumChain',
-                      params: [{
-                          chainId: '0x2105',
-                          chainName: 'Base',
-                          rpcUrls: ['https://mainnet.base.org'],
-                          nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
-                          blockExplorerUrls: ['https://basescan.org']
-                      }],
-                  });
-              } else {
-                  throw switchError;
-              }
-          }
-
-          const text = "GOSUN CAPITAL | GAIA 节点矩阵 - https://7861618.xyz/";
-          // Convert text to hex data for the transaction
-          const hexData = '0x' + Array.from(new TextEncoder().encode(text)).map(b => b.toString(16).padStart(2, '0')).join('');
-
-          const txHash = await window.ethereum.request({
-              method: 'eth_sendTransaction',
-              params: [{
-                  from: account,
-                  to: account, // Send to self (0 ETH) to write data safely
-                  value: '0x0',
-                  data: hexData
-              }],
-          });
-
-          alert(`✅ 成功发起 BASE 链上交易！\n交易哈希: ${txHash}\n您的分享已永久记录在 BASE 区块链上！`);
-      } catch (error) {
-          console.error(error);
-          alert('❌ 上链分享失败或被取消 (Transaction failed or canceled)。');
-      }
+  // Share to Base Wallet (Coinbase Wallet Social Feed / Frames)
+  function shareToBase() {
+      const url = 'https://7861618.xyz/';
+      const text = 'GOSUN CAPITAL | GAIA 节点矩阵 - Access curated, institutional-grade crypto nodes.';
+      
+      // Copy to clipboard first
+      navigator.clipboard.writeText(`${text} ${url}`).then(() => {
+          alert('✅ 链接已复制！\n\n即将为您唤起 Base 钱包 (Coinbase Wallet)。\n请在钱包的「社交/探索」页面粘贴此链接，它将自动渲染为精美的 Base Frame 交互卡片！');
+          // Deep link to Coinbase Wallet
+          window.open('https://go.cb-w.com/', '_blank');
+      }).catch(err => {
+          console.error('Failed to copy: ', err);
+          window.open('https://go.cb-w.com/', '_blank');
+      });
   }
 </script>
 </body>
