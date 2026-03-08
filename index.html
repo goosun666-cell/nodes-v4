@@ -1166,9 +1166,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
 
   // Load saved codes on startup
   document.addEventListener('DOMContentLoaded', () => {
-      loadSavedCodes();
-      
-      // Auto-inject Request on Social buttons
+      // Auto-inject Request on Social buttons FIRST
       document.querySelectorAll('.rare-codes-section .tool-card').forEach(card => {
           const projectName = card.querySelector('.tool-name').innerText;
           const btnGroup = document.createElement('div');
@@ -1194,6 +1192,9 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
           `;
           card.appendChild(btnGroup);
       });
+
+      // THEN load saved codes
+      loadSavedCodes();
   });
 
   // Local Storage Management
@@ -1261,14 +1262,25 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
           if (listContainer.children.length >= 5) {
               const inputBox = listContainer.parentElement.querySelector('.code-input-box');
               if (inputBox) inputBox.style.display = 'none';
-              const maxMsg = document.createElement('div');
-              maxMsg.className = 'max-msg';
-              maxMsg.style.fontSize = '12px';
-              maxMsg.style.color = 'var(--gold-primary)';
-              maxMsg.style.textAlign = 'center';
-              maxMsg.style.marginTop = '8px';
-              maxMsg.innerText = '已达到最大展示数量 (5/5)';
-              listContainer.parentElement.appendChild(maxMsg);
+              
+              // Only add maxMsg if it doesn't already exist
+              if (!listContainer.parentElement.querySelector('.max-msg')) {
+                  const maxMsg = document.createElement('div');
+                  maxMsg.className = 'max-msg';
+                  maxMsg.style.fontSize = '12px';
+                  maxMsg.style.color = 'var(--gold-primary)';
+                  maxMsg.style.textAlign = 'center';
+                  maxMsg.style.marginTop = '8px';
+                  maxMsg.innerText = '已达到最大展示数量 (5/5)';
+                  
+                  // Insert BEFORE the request buttons group
+                  const btnGroup = listContainer.parentElement.querySelector('.request-btn-group');
+                  if (btnGroup) {
+                      listContainer.parentElement.insertBefore(maxMsg, btnGroup);
+                  } else {
+                      listContainer.parentElement.appendChild(maxMsg);
+                  }
+              }
           }
       }
   }
@@ -1347,7 +1359,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
   function submitCommunityCode(btn, projectName) {
       const input = btn.previousElementSibling;
       const code = input.value.trim();
-      const listContainer = document.getElementById('list-' + projectName);
+      const listContainer = document.getElementById('list-' + projectName.replace(/\s+/g, '-'));
       
       if (!code) {
           alert('⚠️ 请输入有效的邀请码！');
@@ -1401,14 +1413,25 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
               // Hide input box if reached 5
               if (listContainer.children.length >= 5) {
                   input.parentElement.style.display = 'none';
-                  const maxMsg = document.createElement('div');
-                  maxMsg.className = 'max-msg';
-                  maxMsg.style.fontSize = '12px';
-                  maxMsg.style.color = 'var(--gold-primary)';
-                  maxMsg.style.textAlign = 'center';
-                  maxMsg.style.marginTop = '8px';
-                  maxMsg.innerText = '已达到最大展示数量 (5/5)';
-                  listContainer.parentElement.appendChild(maxMsg);
+                  
+                  // Only add maxMsg if it doesn't already exist
+                  if (!listContainer.parentElement.querySelector('.max-msg')) {
+                      const maxMsg = document.createElement('div');
+                      maxMsg.className = 'max-msg';
+                      maxMsg.style.fontSize = '12px';
+                      maxMsg.style.color = 'var(--gold-primary)';
+                      maxMsg.style.textAlign = 'center';
+                      maxMsg.style.marginTop = '8px';
+                      maxMsg.innerText = '已达到最大展示数量 (5/5)';
+                      
+                      // Insert BEFORE the request buttons group
+                      const btnGroup = listContainer.parentElement.querySelector('.request-btn-group');
+                      if (btnGroup) {
+                          listContainer.parentElement.insertBefore(maxMsg, btnGroup);
+                      } else {
+                          listContainer.parentElement.appendChild(maxMsg);
+                      }
+                  }
               }
           }, 500);
       }, 800);
