@@ -1164,24 +1164,142 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
       });
   }
 
+  // Load saved codes on startup
+  document.addEventListener('DOMContentLoaded', () => {
+      loadSavedCodes();
+      
+      // Auto-inject Request on Social buttons
+      document.querySelectorAll('.rare-codes-section .tool-card').forEach(card => {
+          const projectName = card.querySelector('.tool-name').innerText;
+          const btnGroup = document.createElement('div');
+          btnGroup.className = 'request-btn-group';
+          
+          btnGroup.innerHTML = `
+            <button class="request-btn x" onclick="requestOnSocial('x', '${projectName}')" title="Request on X">
+                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                求码
+            </button>
+            <button class="request-btn tg" onclick="requestOnSocial('tg', '${projectName}')" title="Request on Telegram">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.98 1.26-5.6 3.71-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.89.03-.25.38-.51 1.03-.78 4.04-1.76 6.74-2.92 8.09-3.48 3.85-1.6 4.64-1.88 5.17-1.89.12 0 .37.03.54.17.14.12.18.28.2.42.01.09.02.27.02.4z"/></svg>
+                求码
+            </button>
+            <button class="request-btn fc" onclick="requestOnSocial('fc', '${projectName}')" title="Request on Farcaster">
+                <svg viewBox="0 0 24 24"><path d="M18.24.24H5.76A5.76 5.76 0 0 0 0 6v12a5.76 5.76 0 0 0 5.76 5.76h12.48A5.76 5.76 0 0 0 24 18V6a5.76 5.76 0 0 0-5.76-5.76zm-1.68 15.6a.72.72 0 0 1-.72.72H8.16a.72.72 0 0 1-.72-.72v-1.44h9.12v1.44zm1.44-3.6H6v-1.44h12v1.44zm0-3.6H6V7.2h12v1.44z"/></svg>
+                求码
+            </button>
+            <button class="request-btn yt" onclick="copyPromoText(this, '${projectName}')" title="Copy Promo Text for YouTube Comments">
+                <svg viewBox="0 0 24 24"><path d="M21.582 6.186a2.684 2.684 0 0 0-1.884-1.898C17.986 3.8 12 3.8 12 3.8s-5.986 0-7.698.488a2.684 2.684 0 0 0-1.884 1.898C1.93 7.91 1.93 12 1.93 12s0 4.09.488 5.814a2.684 2.684 0 0 0 1.884 1.898c1.712.488 7.698.488 7.698.488s5.986 0 7.698-.488a2.684 2.684 0 0 0 1.884-1.898C22.07 16.09 22.07 12 22.07 12s0-4.09-.488-5.814zM9.91 15.518V8.482L15.928 12l-6.018 3.518z"/></svg>
+                复制文案
+            </button>
+          `;
+          card.appendChild(btnGroup);
+      });
+  });
+
+  // Local Storage Management
+  function getSavedCodes() {
+      const saved = localStorage.getItem('gaia_community_codes');
+      return saved ? JSON.parse(saved) : {};
+  }
+
+  function saveCodeToStorage(projectName, code) {
+      const codes = getSavedCodes();
+      if (!codes[projectName]) codes[projectName] = [];
+      
+      // Prevent duplicates
+      if (!codes[projectName].some(c => c.code === code)) {
+          codes[projectName].push({ code: code, uses: 0, id: Date.now() });
+          localStorage.setItem('gaia_community_codes', JSON.stringify(codes));
+      }
+  }
+
+  function updateCodeUsageInStorage(projectName, code, newCount) {
+      const codes = getSavedCodes();
+      if (codes[projectName]) {
+          const item = codes[projectName].find(c => c.code === code);
+          if (item) {
+              item.uses = newCount;
+              localStorage.setItem('gaia_community_codes', JSON.stringify(codes));
+          }
+      }
+  }
+
+  function deleteCodeFromStorage(projectName, code) {
+      const codes = getSavedCodes();
+      if (codes[projectName]) {
+          codes[projectName] = codes[projectName].filter(c => c.code !== code);
+          localStorage.setItem('gaia_community_codes', JSON.stringify(codes));
+      }
+  }
+
+  function loadSavedCodes() {
+      const codes = getSavedCodes();
+      for (const [projectName, projectCodes] of Object.entries(codes)) {
+          const listContainer = document.getElementById('list-' + projectName.replace(/\s+/g, '-'));
+          if (!listContainer) continue;
+          
+          projectCodes.forEach(itemData => {
+              if (listContainer.children.length >= 5) return;
+              
+              const item = document.createElement('div');
+              item.className = 'submitted-code-item';
+              item.setAttribute('data-code', itemData.code);
+              item.innerHTML = `
+                  <div style="display: flex; flex-direction: column;">
+                      <span class="submitted-code-val">${itemData.code}</span>
+                      <span class="usage-count" data-count="${itemData.uses}">Used: ${itemData.uses}</span>
+                  </div>
+                  <div class="submitted-code-actions">
+                      <button class="submitted-code-copy" onclick="copyCommunityCode('${itemData.code}', this, '${projectName}'); event.stopPropagation();">Copy</button>
+                      <button class="delete-code-btn" onclick="deleteCode(this, '${projectName}', '${itemData.code}'); event.stopPropagation();" title="Report / Delete">✕</button>
+                  </div>
+              `;
+              listContainer.appendChild(item);
+          });
+          
+          // Hide input box if reached 5
+          if (listContainer.children.length >= 5) {
+              const inputBox = listContainer.parentElement.querySelector('.code-input-box');
+              if (inputBox) inputBox.style.display = 'none';
+              const maxMsg = document.createElement('div');
+              maxMsg.className = 'max-msg';
+              maxMsg.style.fontSize = '12px';
+              maxMsg.style.color = 'var(--gold-primary)';
+              maxMsg.style.textAlign = 'center';
+              maxMsg.style.marginTop = '8px';
+              maxMsg.innerText = '已达到最大展示数量 (5/5)';
+              listContainer.parentElement.appendChild(maxMsg);
+          }
+      }
+  }
+
   // Copy Community Code with Usage Tracking
-  function copyCommunityCode(code, btn) {
+  function copyCommunityCode(code, btn, projectName) {
       const countSpan = btn.closest('.submitted-code-item').querySelector('.usage-count');
       if (countSpan) {
           let count = parseInt(countSpan.getAttribute('data-count')) || 0;
           count++;
           countSpan.setAttribute('data-count', count);
           countSpan.innerText = `Used: ${count}`;
+          if (projectName) updateCodeUsageInStorage(projectName, code, count);
       }
       copyCode(code, btn);
   }
 
   // Delete/Report Code
-  function deleteCode(btn, projectName) {
+  function deleteCode(btn, projectName, codeValue) {
       if(confirm('⚠️ [GAIA_ORACLE] 确认删除此邀请码？\n\n(模拟：管理员手动删除 / AI 节点检测到邀请码已过期或无效)')) {
           const item = btn.closest('.submitted-code-item');
-          const listContainer = document.getElementById('list-' + projectName);
+          const listContainer = document.getElementById('list-' + projectName.replace(/\s+/g, '-'));
+          
+          // Try to get code value if not passed
+          if (!codeValue) {
+              const valSpan = item.querySelector('.submitted-code-val');
+              if (valSpan) codeValue = valSpan.innerText;
+          }
+          
           item.remove();
+          if (codeValue) deleteCodeFromStorage(projectName, codeValue);
           
           if (listContainer.children.length < 5) {
               const inputBox = listContainer.parentElement.querySelector('.code-input-box');
@@ -1256,17 +1374,21 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
               // Add to list
               const item = document.createElement('div');
               item.className = 'submitted-code-item';
+              item.setAttribute('data-code', code);
               item.innerHTML = `
                   <div style="display: flex; flex-direction: column;">
                       <span class="submitted-code-val">${code}</span>
                       <span class="usage-count" data-count="0">Used: 0</span>
                   </div>
                   <div class="submitted-code-actions">
-                      <button class="submitted-code-copy" onclick="copyCommunityCode('${code}', this); event.stopPropagation();">Copy</button>
-                      <button class="delete-code-btn" onclick="deleteCode(this, '${projectName}'); event.stopPropagation();" title="Report / Delete">✕</button>
+                      <button class="submitted-code-copy" onclick="copyCommunityCode('${code}', this, '${projectName}'); event.stopPropagation();">Copy</button>
+                      <button class="delete-code-btn" onclick="deleteCode(this, '${projectName}', '${code}'); event.stopPropagation();" title="Report / Delete">✕</button>
                   </div>
               `;
               listContainer.appendChild(item);
+              
+              // Save to local storage
+              saveCodeToStorage(projectName, code);
 
               // Reset button and input
               btn.innerText = 'SUBMIT';
@@ -1292,34 +1414,9 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
       }, 800);
   }
 
-  // Auto-inject Request on Social buttons
-  document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.rare-codes-section .tool-card').forEach(card => {
-          const projectName = card.querySelector('.tool-name').innerText;
-          const btnGroup = document.createElement('div');
-          btnGroup.className = 'request-btn-group';
-          
-          btnGroup.innerHTML = `
-            <button class="request-btn x" onclick="requestOnSocial('x', '${projectName}')" title="Request on X">
-                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                求码
-            </button>
-            <button class="request-btn tg" onclick="requestOnSocial('tg', '${projectName}')" title="Request on Telegram">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.98 1.26-5.6 3.71-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.89.03-.25.38-.51 1.03-.78 4.04-1.76 6.74-2.92 8.09-3.48 3.85-1.6 4.64-1.88 5.17-1.89.12 0 .37.03.54.17.14.12.18.28.2.42.01.09.02.27.02.4z"/></svg>
-                求码
-            </button>
-            <button class="request-btn fc" onclick="requestOnSocial('fc', '${projectName}')" title="Request on Farcaster">
-                <svg viewBox="0 0 24 24"><path d="M18.24.24H5.76A5.76 5.76 0 0 0 0 6v12a5.76 5.76 0 0 0 5.76 5.76h12.48A5.76 5.76 0 0 0 24 18V6a5.76 5.76 0 0 0-5.76-5.76zm-1.68 15.6a.72.72 0 0 1-.72.72H8.16a.72.72 0 0 1-.72-.72v-1.44h9.12v1.44zm1.44-3.6H6v-1.44h12v1.44zm0-3.6H6V7.2h12v1.44z"/></svg>
-                求码
-            </button>
-            <button class="request-btn yt" onclick="copyPromoText(this, '${projectName}')" title="Copy Promo Text for YouTube Comments">
-                <svg viewBox="0 0 24 24"><path d="M21.582 6.186a2.684 2.684 0 0 0-1.884-1.898C17.986 3.8 12 3.8 12 3.8s-5.986 0-7.698.488a2.684 2.684 0 0 0-1.884 1.898C1.93 7.91 1.93 12 1.93 12s0 4.09.488 5.814a2.684 2.684 0 0 0 1.884 1.898c1.712.488 7.698.488 7.698.488s5.986 0 7.698-.488a2.684 2.684 0 0 0 1.884-1.898C22.07 16.09 22.07 12 22.07 12s0-4.09-.488-5.814zM9.91 15.518V8.482L15.928 12l-6.018 3.518z"/></svg>
-                复制文案
-            </button>
-          `;
-          card.appendChild(btnGroup);
-      });
-  });
+  // Auto-inject Request on Social buttons handled in DOMContentLoaded
+
+  function filterTools() {
 
   function filterTools() {
       const query = document.getElementById('searchInput').value.toLowerCase();
