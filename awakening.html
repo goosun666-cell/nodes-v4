@@ -150,12 +150,177 @@
   .header h1 { color: var(--gold-primary); font-size: 28px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; font-family: var(--font-display); font-weight: 700; }
   .system-log { color: var(--text-muted); font-size: 14px; line-height: 1.6; font-family: 'Courier New', Courier, monospace; }
 
-  /* 动态进度条 */
-  .progress-container { background: #111; padding: 25px; border-radius: 8px; border: 1px solid #333; text-align: center; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-  .progress-text { font-size: 16px; color: #ccc; margin-bottom: 15px; }
-  .progress-text span { color: #d4af37; font-weight: bold; font-size: 28px; }
-  .progress-bar-bg { width: 100%; height: 12px; background: #000; border-radius: 6px; overflow: hidden; border: 1px solid #444; }
-  .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #8b7322, #d4af37); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+  /* Awakening Roadmap */
+  .roadmap-container {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 16px;
+    padding: 40px 20px 30px;
+    margin-bottom: 40px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05);
+    overflow-x: auto;
+  }
+  .roadmap-title {
+    text-align: center;
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 22px;
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .roadmap-track {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 30px;
+    min-width: 800px;
+  }
+  .roadmap-line {
+    position: absolute;
+    top: 55px;
+    left: 65px;
+    right: 65px;
+    height: 6px;
+    background: #222;
+    z-index: 1;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
+  }
+  .roadmap-line-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #8b7322, #FFDF00);
+    width: 0%;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  }
+  .tier-node {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 80px;
+  }
+  .tier-label {
+    font-size: 11px;
+    color: #666;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    height: 28px;
+    line-height: 1.2;
+    transition: color 0.3s;
+  }
+  .tier-badge {
+    width: 60px;
+    height: 70px;
+    background: #111;
+    border: 2px solid #333;
+    border-radius: 12px 12px 25px 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.8), inset 0 2px 5px rgba(255,255,255,0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+  .tier-badge::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    width: 40px;
+    height: 8px;
+    background: rgba(0,0,0,0.8);
+    border-radius: 50%;
+    filter: blur(3px);
+    transition: all 0.4s;
+  }
+  .tier-node.active .tier-label {
+    color: var(--gold-primary);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+  }
+  .tier-node.active .tier-badge {
+    border-color: var(--gold-primary);
+    background: linear-gradient(145deg, #2a220a, #111);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4), inset 0 2px 10px rgba(255,223,0,0.2);
+    transform: translateY(-5px);
+  }
+  .tier-node.active .tier-badge::after {
+    background: rgba(212, 175, 55, 0.3);
+    width: 50px;
+    bottom: -20px;
+  }
+  .tier-req {
+    font-family: var(--font-tech);
+    font-size: 14px;
+    font-weight: 700;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.3s;
+  }
+  .tier-req span {
+    color: #555;
+    font-size: 12px;
+  }
+  .tier-node.active .tier-req {
+    color: #fff;
+  }
+  .tier-node.active .tier-req span {
+    color: #00FF00;
+  }
+
+  /* You Indicator */
+  .you-indicator {
+    position: absolute;
+    top: -25px;
+    left: 0%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+  }
+  .you-text {
+    font-size: 10px;
+    color: #00FF00;
+    font-weight: bold;
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .you-arrow {
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #00FF00;
+    animation: bounce 1s infinite alternate;
+  }
+  .you-avatar {
+    font-size: 24px;
+    margin-top: 4px;
+    filter: drop-shadow(0 0 8px rgba(0,255,0,0.6));
+  }
+
+  @keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(4px); }
+  }
 
   /* 任务列表区块 */
   .matrix-content { position: relative; padding-bottom: 100px; }
@@ -233,16 +398,80 @@
 
 <div class="container">
   <div class="header">
-    <h1>⚡ GAIA 数字公民 12 阶打卡协议</h1>
+    <h1>⚡ GAIA 数字公民 九段打卡协议</h1>
     <p class="system-log">[SYSTEM_LOG] 警告：您目前可能仍暴露在旧世界矩阵的监控之下。<br>请依照下方协议逐一补齐主权防线。当进度达到 100%，您将正式成为第一类文明公民。</p>
   </div>
 
-  <div class="progress-container">
-    <div class="progress-text">主权觉醒进度：<span id="progressPercent">0%</span></div>
-    <div class="progress-bar-bg">
-      <div class="progress-fill" id="progressFill"></div>
+  <div class="roadmap-container">
+    <div class="roadmap-title">GAIA 觉醒星图 (Awakening Roadmap)</div>
+    
+    <div class="roadmap-track">
+      <div class="roadmap-line">
+        <div class="roadmap-line-fill" id="roadmapFill"></div>
+      </div>
+      
+      <div class="you-indicator" id="youIndicator" style="left: 0%;">
+        <div class="you-text">You</div>
+        <div class="you-arrow"></div>
+        <div class="you-avatar">👽</div>
+      </div>
+
+      <div class="tier-node active" id="tier-0">
+        <div class="tier-label">初段<br>守拙</div>
+        <div class="tier-badge">♟️</div>
+        <div class="tier-req"><span>⚡</span> 0%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-1">
+        <div class="tier-label">二段<br>若愚</div>
+        <div class="tier-badge">🛡️</div>
+        <div class="tier-req"><span>⚡</span> 12%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-2">
+        <div class="tier-label">三段<br>斗力</div>
+        <div class="tier-badge">⚔️</div>
+        <div class="tier-req"><span>⚡</span> 25%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-3">
+        <div class="tier-label">四段<br>小巧</div>
+        <div class="tier-badge">🧩</div>
+        <div class="tier-req"><span>⚡</span> 37%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-4">
+        <div class="tier-label">五段<br>用智</div>
+        <div class="tier-badge">🧠</div>
+        <div class="tier-req"><span>⚡</span> 50%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-5">
+        <div class="tier-label">六段<br>通幽</div>
+        <div class="tier-badge">🌌</div>
+        <div class="tier-req"><span>⚡</span> 62%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-6">
+        <div class="tier-label">七段<br>具体</div>
+        <div class="tier-badge">🏛️</div>
+        <div class="tier-req"><span>⚡</span> 75%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-7">
+        <div class="tier-label">八段<br>坐照</div>
+        <div class="tier-badge">🧘</div>
+        <div class="tier-req"><span>⚡</span> 87%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-8">
+        <div class="tier-label">九段<br>入神</div>
+        <div class="tier-badge">👑</div>
+        <div class="tier-req"><span>⚡</span> 100%</div>
+      </div>
     </div>
-    <p style="color: #666; font-size: 12px; margin-top: 12px; margin-bottom: 0;">状态：<span id="user-status-text" style="color:#d4af37;">正在校验链上身份...</span></p>
+    
+    <p style="text-align: center; color: #666; font-size: 12px; margin-top: 30px; margin-bottom: 0;">状态：<span id="user-status-text" style="color:#d4af37;">正在校验链上身份...</span></p>
   </div>
 
   <div class="matrix-content">
@@ -258,7 +487,7 @@
     <div id="secure-content">
       
       <div class="stage-block">
-        <h2 class="stage-title">第一阶：信息自由与肉身隐匿</h2>
+        <h2 class="stage-title">初段·守拙：信息自由与肉身隐匿</h2>
         <div class="task-item">
           <div class="task-left">
             <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
@@ -278,7 +507,7 @@
       <div id="advanced-stages">
         
         <div class="stage-block">
-          <h2 class="stage-title">第二阶：数字身份主权与 POA 破壁</h2>
+          <h2 class="stage-title">二段·若愚：数字身份主权</h2>
           <div class="task-item">
             <div class="task-left">
               <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
@@ -286,6 +515,10 @@
             </div>
             <a href="experts.html" class="action-btn">查看教程</a>
           </div>
+        </div>
+
+        <div class="stage-block">
+          <h2 class="stage-title">三段·斗力：高维信用破壁</h2>
           <div class="task-item">
             <div class="task-left">
               <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
@@ -296,7 +529,7 @@
         </div>
 
         <div class="stage-block">
-          <h2 class="stage-title">第三阶：跨维资产流转与出金链路</h2>
+          <h2 class="stage-title">四段·小巧：加密法币通道</h2>
           <div class="task-item">
             <div class="task-left">
               <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
@@ -304,6 +537,10 @@
             </div>
             <a href="index.html#wallets" class="action-btn">申请 U 卡</a>
           </div>
+        </div>
+
+        <div class="stage-block">
+          <h2 class="stage-title">五段·用智：离岸金融防线</h2>
           <div class="task-item">
             <div class="task-left">
               <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
@@ -311,6 +548,10 @@
             </div>
             <a href="experts.html" class="action-btn">获取通道</a>
           </div>
+        </div>
+
+        <div class="stage-block">
+          <h2 class="stage-title">六段·通幽：资产抗脆性与隔离</h2>
           <div class="task-item">
             <div class="task-left">
               <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
@@ -328,7 +569,7 @@
         </div>
 
         <div class="stage-block">
-          <h2 class="stage-title">第四阶：造物主引擎与算力杠杆</h2>
+          <h2 class="stage-title">七段·具体：造物主引擎与算力</h2>
           <div class="task-item">
             <div class="task-left">
               <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
@@ -346,7 +587,7 @@
         </div>
 
         <div class="stage-block locked-stage" id="familyOffice">
-          <h2>🔒 终极阶：GOSUN 主权家族办公室</h2>
+          <h2>🔒 八段·坐照 / 九段·入神：主权家族办公室</h2>
           <p style="font-size: 13px; margin-top:10px;">[SYSTEM_LOG] 包含离岸实体 LLC 注册、硬件级 OpSec 与多签金库协议。<br>觉醒进度需达到 80% 以上方可解锁查看权限。</p>
         </div>
 
@@ -451,10 +692,25 @@
     checkboxes.forEach(cb => { if(cb.checked) checked++; });
     const percent = Math.round((checked / total) * 100);
     
-    document.getElementById('progressPercent').innerText = percent + '%';
-    document.getElementById('progressFill').style.width = percent + '%';
+    // Update Roadmap Fill
+    document.getElementById('roadmapFill').style.width = percent + '%';
     
-    // 家族办公室隐藏关卡解锁逻辑
+    // Update You Indicator Position
+    const youIndicator = document.getElementById('youIndicator');
+    youIndicator.style.left = \`calc(30px + (100% - 60px) * \${percent / 100})\`;
+
+    // Activate Tiers
+    document.getElementById('tier-0').classList.toggle('active', percent >= 0);
+    document.getElementById('tier-1').classList.toggle('active', percent >= 12);
+    document.getElementById('tier-2').classList.toggle('active', percent >= 25);
+    document.getElementById('tier-3').classList.toggle('active', percent >= 37);
+    document.getElementById('tier-4').classList.toggle('active', percent >= 50);
+    document.getElementById('tier-5').classList.toggle('active', percent >= 62);
+    document.getElementById('tier-6').classList.toggle('active', percent >= 75);
+    document.getElementById('tier-7').classList.toggle('active', percent >= 87);
+    document.getElementById('tier-8').classList.toggle('active', percent >= 100);
+    
+    // 家族办公室隐藏关卡解锁逻辑 (80% 触发)
     const familyOffice = document.getElementById('familyOffice');
     if(percent >= 80) {
       familyOffice.classList.remove('locked-stage');
@@ -463,7 +719,7 @@
       familyOffice.style.border = 'none';
       familyOffice.style.borderLeft = '3px solid #d4af37';
       familyOffice.innerHTML = `
-        <h2 class="stage-title" style="color: #d4af37;">👑 终极阶：GOSUN 主权家族办公室 (已解锁)</h2>
+        <h2 class="stage-title" style="color: #d4af37;">👑 八段·坐照 / 九段·入神：主权家族办公室 (已解锁)</h2>
         <div class="task-item">
           <div class="task-left">
             <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
@@ -479,7 +735,49 @@
           <a href="#" class="action-btn">获取金库图纸</a>
         </div>
       `;
+    } else {
+      // 进度回退时的锁定逻辑
+      if (!familyOffice.classList.contains('locked-stage')) {
+          familyOffice.classList.add('locked-stage');
+          familyOffice.style = ""; // 恢复默认样式
+          familyOffice.innerHTML = `
+            <h2>🔒 八段·坐照 / 九段·入神：主权家族办公室</h2>
+            <p style="font-size: 13px; margin-top:10px;">[SYSTEM_LOG] 包含离岸实体 LLC 注册、硬件级 OpSec 与多签金库协议。<br>觉醒进度需达到 80% 以上方可解锁查看权限。</p>
+          `;
+      }
     }
+
+    // 🏆 终极创世空投神匣逻辑 (100% 触发)
+    let airdropBox = document.getElementById('gosun-airdrop-box');
+    if (percent === 100) {
+      if (!airdropBox) {
+        airdropBox = document.createElement('div');
+        airdropBox.id = 'gosun-airdrop-box';
+        airdropBox.style.marginTop = '35px';
+        airdropBox.style.padding = '40px 20px';
+        airdropBox.style.background = 'linear-gradient(135deg, #1a1500, #332900)';
+        airdropBox.style.border = '2px solid #d4af37';
+        airdropBox.style.borderRadius = '8px';
+        airdropBox.style.textAlign = 'center';
+        airdropBox.style.boxShadow = '0 0 30px rgba(212, 175, 55, 0.4)';
+        airdropBox.innerHTML = `
+          <h2 style="color: #00ff00; margin-top: 0; font-size: 22px; text-shadow: 0 0 10px rgba(0,255,0,0.5);">⚡ 协议补全：第一类文明公民已认证 ⚡</h2>
+          <p style="color: #d4af37; font-size: 15px; margin-bottom: 25px;">系统已锁定您的高维坐标。您已获得 GOSUN 创世节点资格。</p>
+          <button onclick="claimAirdrop()" style="background: #d4af37; color: #000; font-weight: bold; font-size: 16px; padding: 15px 30px; border: none; border-radius: 4px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); transition: all 0.3s;">
+            开启创世神匣
+          </button>
+        `;
+        document.getElementById('advanced-stages').appendChild(airdropBox);
+      }
+    } else {
+      if (airdropBox) {
+        airdropBox.remove();
+      }
+    }
+  }
+
+  function claimAirdrop() {
+    alert("🎉 恭喜！您的创世节点坐标已记录。\n\n请截图此页面并发送给 GOSUN 首席架构师，获取您的专属创世神匣空投！");
   }
 
   // Auth Modal Logic
