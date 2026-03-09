@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAIA 前线实战智库 | GOSUN CAPITAL</title>
+<style>
+  /* GAIA 底层暗黑与金边视觉规范 */
+  body { background-color: #080808; color: #e0e0e0; font-family: 'Inter', 'Courier New', Courier, monospace; margin: 0; padding: 0; }
+  
+  /* 导航栏占位（与主页保持一致） */
+  .top-nav { padding: 20px; text-align: right; background: #050505; border-bottom: 1px solid #333; display: flex; justify-content: flex-end; align-items: center; }
+  .top-nav a { color: #888; text-decoration: none; margin-left: 20px; font-weight: bold; transition: color 0.3s; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+  .top-nav a:hover { color: #d4af37; text-shadow: 0 0 8px rgba(212, 175, 55, 0.5); }
+
+  /* 核心容器 */
+  .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+
+  /* 架构师真言模块 */
+  .architect-confession { background: linear-gradient(145deg, #111, #0a0a0a); border-left: 4px solid #d4af37; padding: 40px; margin-bottom: 60px; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; overflow: hidden; }
+  .architect-confession::after { content: 'GOSUN'; position: absolute; bottom: -20px; right: -10px; font-size: 100px; font-weight: 900; color: rgba(212, 175, 55, 0.03); pointer-events: none; }
+  .architect-confession h2 { color: #d4af37; margin-top: 0; font-size: 24px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px; }
+  .architect-confession p { color: #bbb; line-height: 1.8; font-size: 16px; margin-bottom: 20px; }
+  .architect-confession strong { color: #fff; border-bottom: 1px solid #d4af37; }
+  .architect-signature { text-align: right; color: #d4af37; font-style: italic; margin-top: 30px; font-weight: bold; letter-spacing: 1px; }
+
+  /* 情报检索控制台 */
+  .control-panel { background: #151515; border: 1px solid #333; padding: 30px; border-radius: 8px; margin-bottom: 40px; display: flex; flex-direction: column; gap: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+  .search-box { display: flex; }
+  .search-box input { flex: 1; padding: 15px 20px; background: #000; border: 1px solid #444; color: #d4af37; font-family: inherit; font-size: 16px; border-radius: 4px; outline: none; transition: all 0.3s; }
+  .search-box input:focus { border-color: #d4af37; box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+  
+  /* 维度过滤器 */
+  .filter-tabs { display: flex; gap: 12px; flex-wrap: wrap; }
+  .filter-btn { background: #222; color: #888; border: 1px solid #333; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-family: inherit; font-size: 13px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+  .filter-btn:hover { border-color: #d4af37; color: #fff; background: rgba(212, 175, 55, 0.05); }
+  .filter-btn.active { background: #d4af37; color: #000; border-color: #d4af37; font-weight: bold; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+
+  /* 专家矩阵网格 */
+  .expert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 30px; }
+  .expert-card { background: #121212; border: 1px solid #2a2a2a; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  .expert-card:hover { border-color: #d4af37; transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+  
+  /* 卡片信息区 */
+  .expert-info { padding: 20px; position: relative; border-bottom: 1px solid #222; }
+  .expert-info h3 { margin: 0 0 10px 0; color: #d4af37; font-size: 18px; letter-spacing: 0.5px; }
+  .expert-info span.tag { font-size: 10px; background: rgba(212, 175, 55, 0.1); padding: 4px 8px; border-radius: 3px; color: #d4af37; margin-left: 10px; vertical-align: middle; border: 1px solid rgba(212, 175, 55, 0.2); text-transform: uppercase; }
+  .expert-info p { font-size: 14px; color: #aaa; margin: 0; line-height: 1.6; }
+  .view-count { position: absolute; top: 20px; right: 20px; background: rgba(0, 255, 0, 0.05); color: #00ff00; font-size: 11px; padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(0, 255, 0, 0.3); font-weight: bold; font-family: monospace; }
+  
+  /* YouTube 内嵌容器 */
+  .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000; }
+  .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  
+  /* 降维收割按钮 (CTA) */
+  .gosun-cta { background: #0a0a0a; padding: 20px; text-align: center; margin-top: auto; }
+  .gosun-cta a { color: #d4af37; text-decoration: none; font-weight: bold; font-size: 14px; display: block; padding: 14px 10px; border: 1px dashed #d4af37; border-radius: 4px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+  .gosun-cta a:hover { background: #d4af37; color: #000; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 768px) {
+    .container { padding: 20px 15px; }
+    .architect-confession { padding: 25px; }
+    .expert-grid { grid-template-columns: 1fr; }
+    .top-nav { justify-content: center; padding: 15px; }
+    .top-nav a { margin: 0 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="index.html">⌂ 帝国 WEB3 枢纽 (主舱)</a>
+  <a href="awakening.html" style="color: #00ff00;">⚡ 觉醒打卡</a>
+  <a href="index.html#auth">⚡ 验证数字身份</a>
+</div>
+
+<div class="container">
+  
+  <div class="architect-confession">
+    <h2>👁️ 架构师真言：从 10 分钟的倒计时，到 GOSUN 节点矩阵</h2>
+    <p>“这一切，是从一个每天只能免费连 10 分钟的 VPN 开始的。</p>
+    <p>当初我没有任何资金，极度渴望翻越那堵墙去看看真正的世界。<strong>我下载过无数个宣称能翻墙的软件，绝大多数都是假的——要么根本连不上，要么就是无底洞的付费陷阱。</strong>在经历了无数次欺骗后，我只能用那个每天 10 分钟的免费额度，掐着秒表去疯狂检索、去试错。时间一到，世界再次陷入黑暗。</p>
+    <p>过去一年，我从那 10 分钟起步，在旧世界与 Web3 的交界处踩遍了所有的坑：交过高昂的跨链摩擦税、因为不懂风控被冻结过离岸账户。在黑暗森林里，<strong>最贵的从来不是本金，而是试错的时间。</strong></p>
+    <p>建立 GOSUN CAPITAL，是用我几千个小时的血泪，硬生生砸出来的一条<strong>『绝对生路』</strong>。在这里，您看到的每一个实战录像、每一条出金链路，都是我亲自过滤掉无数骗局后，跑通了闭环的。</p>
+    <p>您在 GOSUN 节约下的每一分钟生命、少交的每一分冤枉钱，都是我们为您赎回的真正自由。欢迎登舰，踩着我的伤疤，去追求更高的文明。”</p>
+    <div class="architect-signature">—— GOSUN 首席架构师 (Chief Architect)</div>
+  </div>
+
+  <div class="control-panel">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="▶ 检索协议 / 痛点 (例: OpenClaw, iFAST, ITIN, 地址证明)...">
+    </div>
+    <div class="filter-tabs" id="filterTabs">
+      <button class="filter-btn active" data-expert="all">全量智库 (All)</button>
+      <button class="filter-btn" data-expert="ai">AI 与算力防御 (AI/DePIN)</button>
+      <button class="filter-btn" data-expert="fiat">离岸与法币洗礼 (Fiat/Bank)</button>
+      <button class="filter-btn" data-expert="identity">高维身份破壁 (POA/ITIN)</button>
+      <button class="filter-btn" data-expert="cycle">周期投研 (Macro)</button>
+    </div>
+  </div>
+
+  <div class="expert-grid" id="videoGrid">
+
+    <div class="expert-card" data-expert="ai" data-project="openclaw gpt5.4 grass ai 自动化 节点" data-views="854000">
+      <div class="expert-info">
+        <h3>零度解说 <span class="tag">AI实战专家</span></h3>
+        <span class="view-count">🔥 85.4W 热度</span>
+        <p>GPT-5.4 与 OpenClaw 原生操控电脑落地测试，挂机释放时间主权。</p>
+      </div>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/2WbwRwmDHlA" allowfullscreen></iframe>
+      </div>
+      <div class="gosun-cta">
+        <a href="https://app.grass.io/register/?referralCode=341C66l-4Qt3fhc" target="_blank">⚡ 挂载节点：使用 GOSUN 通道 [341C66l] 提取装备</a>
+      </div>
+    </div>
+
+    <div class="expert-card" data-expert="fiat" data-project="ifast ocbc 离岸账户 银行 出金 法币" data-views="620000">
+      <div class="expert-info">
+        <h3>黑皮小妹 <span class="tag">离岸架构专家</span></h3>
+        <span class="view-count">🔥 62.0W 热度</span>
+        <p>深度破解 2026 全球数字银行 KYC 规则与大额无损出金链路。</p>
+      </div>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/djwW-n52Q0g" allowfullscreen></iframe>
+      </div>
+      <div class="gosun-cta">
+        <a href="https://www.ifastgb.com/tellafriend/yahuag774" target="_blank">⚡ 专属授权：获取 iFAST 免 30 镑开户邀请</a>
+      </div>
+    </div>
+
+    <div class="expert-card" data-expert="identity" data-project="poa 地址证明 账单 虚拟信箱 uk postbox 认证" data-views="580000">
+      <div class="expert-info">
+        <h3>高维防线破解 <span class="tag">POA破壁</span></h3>
+        <span class="view-count">🔥 58.0W 热度</span>
+        <p>终结痛点：解决无海外地址证明(POA)死穴，合法租赁信箱生成账单。</p>
+      </div>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/u_p8wW_XvO8" allowfullscreen title="POA Guide Placeholder"></iframe>
+      </div>
+      <div class="gosun-cta">
+        <a href="https://www.ukpostbox.com/" target="_blank">⚡ 提取通关文牒：租赁真实物理信箱获取账单</a>
+      </div>
+    </div>
+
+    <div class="expert-card" data-expert="identity" data-project="itin ein 美国税号 信用卡 离岸账户 信用分" data-views="710000">
+      <div class="expert-info">
+        <h3>涂山晏 <span class="tag">跨维信用实战</span></h3>
+        <span class="view-count">🔥 71.0W 热度</span>
+        <p>不出国门合法获取美国个人税号(ITIN)，零基础建立原生信用解锁美卡。</p>
+      </div>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/R_I8m7XfGfM" allowfullscreen></iframe>
+      </div>
+      <div class="gosun-cta">
+        <a href="https://www.irs.gov/individuals/individual-taxpayer-identification-number" target="_blank">⚡ 获取底层特权：通过 GOSUN 认证通道申请 ITIN</a>
+      </div>
+    </div>
+
+    <div class="expert-card" data-expert="cycle" data-project="宏观 周期 逃顶 抄底 趋势 hyperliquid dex" data-views="450000">
+      <div class="expert-info">
+        <h3>加密招财猫 <span class="tag">周期投研专家</span></h3>
+        <span class="view-count">🔥 45.0W 热度</span>
+        <p>基于 Pi Cycle 与链上数据的精确大底推演，抗击通胀奴役。</p>
+      </div>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/W12yJ9Wzje0" allowfullscreen></iframe>
+      </div>
+      <div class="gosun-cta">
+        <a href="https://app.hyperliquid.xyz/join/GOSUN" target="_blank">⚡ 阵地部署：前往 Hyperliquid (邀请码 GOSUN) 建仓</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const videoGrid = document.getElementById('videoGrid');
+  const expertCards = Array.from(document.querySelectorAll('.expert-card'));
+
+  // 1. 系统初始化：按热度（播放量）自动降序排列
+  function sortCards() {
+    expertCards.sort((a, b) => parseInt(b.getAttribute('data-views')) - parseInt(a.getAttribute('data-views')));
+    expertCards.forEach(card => videoGrid.appendChild(card));
+  }
+
+  // 2. 核心过滤引擎（搜索词 + 分类标签）
+  function filterMatrix() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const activeTab = document.querySelector('.filter-btn.active').getAttribute('data-expert');
+
+    expertCards.forEach(card => {
+      const cardExpert = card.getAttribute('data-expert');
+      const cardProject = card.getAttribute('data-project').toLowerCase();
+      
+      const matchesExpert = (activeTab === 'all' || activeTab === cardExpert);
+      const matchesSearch = cardProject.includes(searchTerm);
+
+      if (matchesExpert && matchesSearch) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  // 绑定事件
+  searchInput.addEventListener('input', filterMatrix);
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      filterMatrix();
+    });
+  });
+
+  // 执行启动序列
+  sortCards();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAIA 觉醒打卡系统 | GOSUN CAPITAL</title>
+<style>
+  /* 基础视觉规范 */
+  body { background-color: #080808; color: #e0e0e0; font-family: 'Inter', 'Courier New', Courier, monospace; margin: 0; padding: 0; position: relative; }
+  .top-nav { padding: 20px; text-align: right; background: #050505; border-bottom: 1px solid #333; display: flex; justify-content: flex-end; align-items: center; }
+  .top-nav a { color: #888; text-decoration: none; margin-left: 20px; font-weight: bold; transition: color 0.3s; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+  .top-nav a:hover { color: #d4af37; text-shadow: 0 0 8px rgba(212, 175, 55, 0.5); }
+  
+  .container { max-width: 900px; margin: 40px auto; padding: 0 20px; position: relative; }
+  .header { text-align: center; border-bottom: 1px dashed #d4af37; padding-bottom: 20px; margin-bottom: 30px; }
+  .header h1 { color: #d4af37; font-size: 26px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+  .system-log { color: #888; font-size: 14px; line-height: 1.6; }
+
+  /* 动态进度条 */
+  .progress-container { background: #111; padding: 25px; border-radius: 8px; border: 1px solid #333; text-align: center; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+  .progress-text { font-size: 16px; color: #ccc; margin-bottom: 15px; }
+  .progress-text span { color: #d4af37; font-weight: bold; font-size: 28px; }
+  .progress-bar-bg { width: 100%; height: 12px; background: #000; border-radius: 6px; overflow: hidden; border: 1px solid #444; }
+  .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #8b7322, #d4af37); transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+
+  /* 任务列表区块 */
+  .matrix-content { position: relative; padding-bottom: 100px; }
+  .stage-block { background: #121212; border-left: 3px solid #d4af37; padding: 20px 25px; border-radius: 4px; margin-bottom: 25px; transition: all 0.3s; }
+  .stage-block:hover { border-color: #fff; background: #151515; }
+  .stage-title { color: #d4af37; font-size: 18px; margin-top: 0; margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+  
+  /* 具体任务项 */
+  .task-item { display: flex; align-items: flex-start; justify-content: space-between; padding: 15px 0; border-bottom: 1px dashed #2a2a2a; }
+  .task-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .task-left { display: flex; align-items: flex-start; gap: 15px; flex: 1; }
+  input[type="checkbox"] { width: 22px; height: 22px; margin-top: 2px; cursor: pointer; accent-color: #d4af37; flex-shrink: 0; }
+  .task-desc { font-size: 14px; color: #aaa; line-height: 1.5; }
+  .task-desc strong { color: #fff; font-size: 15px; display: block; margin-bottom: 4px; }
+  
+  /* 动作按钮 */
+  .action-btn { background: transparent; color: #d4af37; text-decoration: none; padding: 6px 15px; font-size: 12px; border: 1px solid #d4af37; border-radius: 4px; transition: all 0.3s; white-space: nowrap; margin-left: 20px; font-weight: bold; }
+  .action-btn:hover { background: #d4af37; color: #000; }
+
+  /* === 核心：拦截遮罩与模糊层 === */
+  .blur-filter { filter: blur(8px) grayscale(80%); pointer-events: none; user-select: none; opacity: 0.4; }
+  
+  .auth-overlay { position: absolute; top: 180px; left: 0; width: 100%; height: calc(100% - 180px); display: flex; justify-content: center; align-items: flex-start; padding-top: 150px; z-index: 50; }
+  .auth-box { background: #0d0d0d; border: 1px solid #d4af37; padding: 40px; border-radius: 8px; text-align: center; max-width: 450px; box-shadow: 0 0 40px rgba(0,0,0,0.9), 0 0 15px rgba(212, 175, 55, 0.2); }
+  .auth-box h2 { color: #ff3333; margin-top: 0; letter-spacing: 1px; }
+  .go-auth-btn { display: inline-block; margin-top: 20px; background: #d4af37; color: #000; text-decoration: none; padding: 12px 25px; font-weight: bold; border-radius: 4px; transition: all 0.3s; }
+  .go-auth-btn:hover { background: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.5); }
+
+  /* 底部锁定的高维防线 */
+  .locked-stage { opacity: 0.3; filter: grayscale(100%); pointer-events: none; border-left-color: #444; border: 1px dashed #444; text-align: center; padding: 40px 20px; }
+  .locked-stage h2 { color: #666; }
+
+  @media (max-width: 768px) {
+    .top-nav { justify-content: center; padding: 15px; }
+    .top-nav a { margin: 0 10px; font-size: 12px; }
+    .header h1 { font-size: 20px; }
+    .progress-text span { font-size: 22px; }
+    .task-item { flex-direction: column; gap: 10px; }
+    .action-btn { margin-left: 0; width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="index.html">⌂ 帝国 WEB3 枢纽</a>
+  <a href="think-tank.html">👁️ 前线实战智库</a>
+  <a href="index.html#auth">⚡ 验证身份</a>
+</div>
+
+<div class="container">
+  <div class="header">
+    <h1>⚡ GAIA 数字公民 12 阶打卡协议</h1>
+    <p class="system-log">[SYSTEM_LOG] 警告：您目前可能仍暴露在旧世界矩阵的监控之下。<br>请依照下方协议逐一补齐主权防线。当进度达到 100%，您将正式成为第一类文明公民。</p>
+  </div>
+
+  <div class="progress-container">
+    <div class="progress-text">主权觉醒进度：<span id="progressPercent">0%</span></div>
+    <div class="progress-bar-bg">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <p style="color: #666; font-size: 12px; margin-top: 12px; margin-bottom: 0;">状态：<span id="user-status-text" style="color:#d4af37;">正在校验链上身份...</span></p>
+  </div>
+
+  <div class="matrix-content">
+    
+    <div id="auth-lock-screen" class="auth-overlay" style="display: none;">
+      <div class="auth-box">
+        <h2>🔒 访问权限受限</h2>
+        <p style="color: #aaa; font-size: 14px; line-height: 1.6;">系统未检测到您的有效数字身份。剩余 10 阶高级防线（涵盖海外实体、合规出金、ITIN 税号、多签金库等）及云端进度保存功能，<strong style="color:#d4af37;">仅对 GOSUN 认证节点开放。</strong></p>
+        <a href="index.html#auth" class="go-auth-btn">返回主舱连接 Web3 钱包 / TG ⚡</a>
+      </div>
+    </div>
+
+    <div id="secure-content">
+      
+      <div class="stage-block">
+        <h2 class="stage-title">第一阶：信息自由与肉身隐匿</h2>
+        <div class="task-item">
+          <div class="task-left">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+            <div class="task-desc"><strong>[节点穿透]</strong> 部署全局 VPN，夺回底层网络视野。</div>
+          </div>
+          <a href="index.html" class="action-btn">获取节点</a>
+        </div>
+        <div class="task-item">
+          <div class="task-left">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+            <div class="task-desc"><strong>[通讯割裂]</strong> 注册 Proton 邮箱并转移核心账号至非 +86 手机号。</div>
+          </div>
+          <a href="index.html#proxies" class="action-btn">获取保号卡</a>
+        </div>
+      </div>
+
+      <div id="advanced-stages">
+        
+        <div class="stage-block">
+          <h2 class="stage-title">第二阶：数字身份主权与 POA 破壁</h2>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[POA 通关]</strong> 租赁英美真实物理信箱，合法生成海外地址证明账单。</div>
+            </div>
+            <a href="think-tank.html" class="action-btn">查看教程</a>
+          </div>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[终极税号]</strong> 成功申请美国联邦税号 (ITIN)，突破国籍限制。</div>
+            </div>
+            <a href="think-tank.html" class="action-btn">ITIN 代理通道</a>
+          </div>
+        </div>
+
+        <div class="stage-block">
+          <h2 class="stage-title">第三阶：跨维资产流转与出金链路</h2>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[加密 U 卡]</strong> 办理 Ready Metal 或 PokePay，打通线下消费流。</div>
+            </div>
+            <a href="index.html#wallets" class="action-btn">申请 U 卡</a>
+          </div>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[数字离岸]</strong> 开设受监管的离岸数字银行 (如 iFAST / Wise)。</div>
+            </div>
+            <a href="think-tank.html" class="action-btn">获取通道</a>
+          </div>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[周期防线]</strong> 在顶级 DEX (Hyperliquid/Aevo) 建立抗通胀仓位。</div>
+            </div>
+            <a href="index.html#trading" class="action-btn">建仓协议</a>
+          </div>
+        </div>
+
+        <div class="stage-block">
+          <h2 class="stage-title">第四阶：造物主引擎与算力杠杆</h2>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[云端隔离]</strong> 部署独立 VPS 服务器，确保 IP 纯净防风控。</div>
+            </div>
+            <a href="index.html#vps" class="action-btn">租赁 VPS</a>
+          </div>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[算力收割]</strong> 挂载 Grass 等 DePIN 节点，实现带宽/算力变现自动化。</div>
+            </div>
+            <a href="https://app.grass.io/register/?referralCode=341C66l-4Qt3fhc" target="_blank" class="action-btn">提取节点码</a>
+          </div>
+        </div>
+
+        <div class="stage-block locked-stage" id="familyOffice">
+          <h2>🔒 终极阶：GOSUN 主权家族办公室</h2>
+          <p style="font-size: 13px; margin-top:10px;">[SYSTEM_LOG] 包含离岸实体 LLC 注册、硬件级 OpSec 与多签金库协议。<br>觉醒进度需达到 80% 以上方可解锁查看权限。</p>
+        </div>
+
+      </div> </div> </div>
+</div>
+
+<script>
+  // 1. 页面加载时，检查本地存储是否有授权记录（来自 index.html 的登录）
+  window.onload = function() {
+    const savedAddress = localStorage.getItem('gaia_user_address');
+    const savedTgUser = localStorage.getItem('gaia_tg_user');
+    
+    const advancedStages = document.getElementById('advanced-stages');
+    const lockScreen = document.getElementById('auth-lock-screen');
+    const statusText = document.getElementById('user-status-text');
+
+    if (savedAddress || savedTgUser) {
+      // ✅ 已登录：移除模糊，隐藏锁屏
+      advancedStages.classList.remove('blur-filter');
+      lockScreen.style.display = 'none';
+      
+      let identity = savedAddress ? 
+                     (savedAddress.substring(0,6) + '...' + savedAddress.substring(38)) : 
+                     ('@' + JSON.parse(savedTgUser).username);
+      statusText.innerHTML = `🟢 已绑定数字主权: ${identity} | 进度已开启云端同步`;
+      
+      // TODO: 这里以后可以通过 Supabase 读取该用户的历史打卡记录，并勾选 checkbox
+    } else {
+      // ❌ 未登录：开启模糊，显示锁屏拦截
+      advancedStages.classList.add('blur-filter');
+      lockScreen.style.display = 'flex';
+      statusText.innerHTML = `🔴 未授权，当前页面处于只读与锁定状态`;
+      
+      // 禁用复选框，防止未登录乱点
+      document.querySelectorAll('.task-checkbox').forEach(cb => cb.disabled = true);
+    }
+  };
+
+  // 2. 更新进度条逻辑
+  function updateProgress() {
+    const checkboxes = document.querySelectorAll('.task-checkbox');
+    const total = checkboxes.length;
+    let checked = 0;
+    
+    checkboxes.forEach(cb => { if(cb.checked) checked++; });
+    const percent = Math.round((checked / total) * 100);
+    
+    document.getElementById('progressPercent').innerText = percent + '%';
+    document.getElementById('progressFill').style.width = percent + '%';
+    
+    // TODO: 以后在这里加上一句 supabase.from('user_progress').update(...) 实时保存到数据库
+    
+    // 进度达到 80% 以上，解锁家族办公室
+    const familyOffice = document.getElementById('familyOffice');
+    if(percent >= 80) {
+      familyOffice.classList.remove('locked-stage');
+      familyOffice.style.textAlign = 'left';
+      familyOffice.style.padding = '20px 25px';
+      familyOffice.style.border = 'none';
+      familyOffice.style.borderLeft = '3px solid #d4af37';
+      familyOffice.innerHTML = `
+        <h2 class="stage-title" style="color: #d4af37;">👑 终极阶：GOSUN 主权家族办公室 (已解锁)</h2>
+        <div class="task-item">
+          <div class="task-left">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+            <div class="task-desc"><strong>[法人面纱]</strong> 注册特拉华/怀俄明 LLC，开设机构级账户彻底规避个人风控。</div>
+          </div>
+          <a href="#" class="action-btn" style="color:#fff; background:#d4af37;">预约首席架构师</a>
+        </div>
+        <div class="task-item">
+          <div class="task-left">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+            <div class="task-desc"><strong>[家族方舟]</strong> 部署 Safe 多签智能合约，完成资产跨代传承与死人开关设置。</div>
+          </div>
+          <a href="#" class="action-btn">获取金库图纸</a>
+        </div>
+      `;
+    }
+  }
+</script>
+
+</body>
+</html>
