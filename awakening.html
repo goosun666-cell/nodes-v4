@@ -484,6 +484,19 @@
 
   // Auth Modal Logic
   function openAuthModal() {
+    const savedAddress = localStorage.getItem('gaia_user_address');
+    const savedTgUser = localStorage.getItem('gaia_tg_user');
+    
+    if (savedAddress || savedTgUser) {
+      if (confirm('⚠️ 您已连接 GAIA 矩阵身份。\n\n是否确认断开连接并退出？')) {
+        localStorage.removeItem('gaia_user_address');
+        localStorage.removeItem('gaia_tg_user');
+        alert('✅ 已成功断开连接。');
+        window.location.reload();
+      }
+      return;
+    }
+    
     document.getElementById('authModal').style.display = 'flex';
   }
   function closeAuthModal() {
@@ -521,6 +534,33 @@
     closeAuthModal();
     window.location.reload();
   }
+
+  function updateAuthBtnState() {
+    const btn = document.querySelector('.go-auth-btn');
+    if (!btn) return;
+    const savedAddress = localStorage.getItem('gaia_user_address');
+    const savedTgUser = localStorage.getItem('gaia_tg_user');
+    
+    if (savedAddress) {
+      btn.innerHTML = '🟢 已连接: ' + savedAddress.substring(0,6) + '... (点击断开)';
+      btn.style.background = '#111';
+      btn.style.color = '#00ff00';
+      btn.style.border = '1px solid #00ff00';
+    } else if (savedTgUser) {
+      const tgUser = JSON.parse(savedTgUser);
+      btn.innerHTML = '🟢 @' + tgUser.username + ' (点击断开)';
+      btn.style.background = '#111';
+      btn.style.color = '#00ff00';
+      btn.style.border = '1px solid #00ff00';
+    } else {
+      btn.innerHTML = '返回主舱连接 Web3 钱包 / TG ⚡';
+      btn.style.background = '#d4af37';
+      btn.style.color = '#000';
+      btn.style.border = 'none';
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', updateAuthBtnState);
 </script>
 
 <!-- Auth Modal -->

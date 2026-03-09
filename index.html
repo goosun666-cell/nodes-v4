@@ -2000,6 +2000,19 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
 
   // Auth Modal Logic
   function openAuthModal() {
+    const savedAddress = localStorage.getItem('gaia_user_address');
+    const savedTgUser = localStorage.getItem('gaia_tg_user');
+    
+    if (savedAddress || savedTgUser) {
+      if (confirm('⚠️ 您已连接 GAIA 矩阵身份。\n\n是否确认断开连接并退出？')) {
+        localStorage.removeItem('gaia_user_address');
+        localStorage.removeItem('gaia_tg_user');
+        alert('✅ 已成功断开连接。');
+        updateAuthBtnState();
+      }
+      return;
+    }
+    
     document.getElementById('authModal').style.display = 'flex';
   }
   function closeAuthModal() {
@@ -2053,6 +2066,10 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
       btn.innerHTML = '🟢 @' + tgUser.username;
       btn.style.color = '#00ff00';
       btn.style.borderColor = '#00ff00';
+    } else {
+      btn.innerHTML = '⚡ 接入 GAIA 矩阵身份';
+      btn.style.color = '';
+      btn.style.borderColor = '';
     }
   }
 

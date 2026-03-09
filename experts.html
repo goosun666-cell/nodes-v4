@@ -491,6 +491,7 @@
 
   // 执行启动序列
   sortCards();
+  updateAuthBtnState();
 
   // Confession Toggle Logic
   function toggleConfession() {
@@ -514,6 +515,19 @@
 
   // Auth Modal Logic
   function openAuthModal() {
+    const savedAddress = localStorage.getItem('gaia_user_address');
+    const savedTgUser = localStorage.getItem('gaia_tg_user');
+    
+    if (savedAddress || savedTgUser) {
+      if (confirm('⚠️ 您已连接 GAIA 矩阵身份。\n\n是否确认断开连接并退出？')) {
+        localStorage.removeItem('gaia_user_address');
+        localStorage.removeItem('gaia_tg_user');
+        alert('✅ 已成功断开连接。');
+        window.location.reload();
+      }
+      return;
+    }
+    
     document.getElementById('authModal').style.display = 'flex';
   }
   function closeAuthModal() {
@@ -550,6 +564,28 @@
     alert('✅ Telegram 授权成功！\n欢迎, @' + user.username);
     closeAuthModal();
     window.location.reload();
+  }
+
+  function updateAuthBtnState() {
+    const btn = document.querySelector('.cyber-connect-btn');
+    if (!btn) return;
+    const savedAddress = localStorage.getItem('gaia_user_address');
+    const savedTgUser = localStorage.getItem('gaia_tg_user');
+    
+    if (savedAddress) {
+      btn.innerHTML = '<span class="pulse-dot"></span>已连接: ' + savedAddress.substring(0,6) + '...';
+      btn.style.color = '#00ff00';
+      btn.style.borderColor = '#00ff00';
+    } else if (savedTgUser) {
+      const tgUser = JSON.parse(savedTgUser);
+      btn.innerHTML = '<span class="pulse-dot"></span>@' + tgUser.username;
+      btn.style.color = '#00ff00';
+      btn.style.borderColor = '#00ff00';
+    } else {
+      btn.innerHTML = '<span class="pulse-dot"></span>接入节点';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    }
   }
 </script>
 
