@@ -2006,20 +2006,34 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
     document.getElementById('authModal').style.display = 'none';
   }
   
-  function mockWeb3Login() {
-    // 模拟 Web3 登录逻辑
-    const mockAddress = "0x" + Math.random().toString(16).slice(2, 10) + "..." + Math.random().toString(16).slice(2, 6);
-    localStorage.setItem('gaia_user_address', mockAddress);
-    alert('✅ Web3 钱包连接成功！\n地址: ' + mockAddress + '\n\n您现在可以前往【觉醒打卡】系统了。');
-    closeAuthModal();
-    updateAuthBtnState();
+  async function web3Login() {
+    if (typeof window.ethereum !== 'undefined') {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const address = accounts[0];
+        localStorage.setItem('gaia_user_address', address);
+        alert('✅ Web3 钱包连接成功！\n地址: ' + address + '\n\n您现在可以前往【觉醒打卡】系统了。');
+        closeAuthModal();
+        updateAuthBtnState();
+      } catch (error) {
+        console.error(error);
+        alert('❌ 连接钱包失败或被拒绝');
+      }
+    } else {
+      const confirmMock = confirm('❌ 未检测到 Web3 钱包环境 (如 MetaMask 或 OKX Wallet)。\n\n是否使用【模拟地址】进行体验？');
+      if (confirmMock) {
+        const mockAddress = "0x" + Math.random().toString(16).slice(2, 10) + "..." + Math.random().toString(16).slice(2, 6);
+        localStorage.setItem('gaia_user_address', mockAddress);
+        alert('✅ 模拟 Web3 钱包连接成功！\n地址: ' + mockAddress + '\n\n您现在可以前往【觉醒打卡】系统了。');
+        closeAuthModal();
+        updateAuthBtnState();
+      }
+    }
   }
 
-  function mockTgLogin() {
-    // 模拟 TG 登录逻辑
-    const mockUser = { id: 12345678, username: "GaiaAwakener" };
-    localStorage.setItem('gaia_tg_user', JSON.stringify(mockUser));
-    alert('✅ Telegram 授权成功！\n欢迎, @' + mockUser.username + '\n\n您现在可以前往【觉醒打卡】系统了。');
+  function onTelegramAuth(user) {
+    localStorage.setItem('gaia_tg_user', JSON.stringify(user));
+    alert('✅ Telegram 授权成功！\n欢迎, @' + user.username + '\n\n您现在可以前往【觉醒打卡】系统了。');
     closeAuthModal();
     updateAuthBtnState();
   }
@@ -2053,12 +2067,13 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
     <h2>⚡ 接入 GAIA 矩阵身份</h2>
     <p>抛弃旧世界的“邮箱+密码”。<br>请使用您的数字主权资产进行加密鉴权，<br>您的进度将同步至觉醒者档案库。</p>
     
-    <button class="auth-option-btn" onclick="mockWeb3Login()">
+    <button class="auth-option-btn" onclick="web3Login()">
       🦊 Web3 钱包直连 (MetaMask / OKX)
     </button>
-    <button class="auth-option-btn" onclick="mockTgLogin()">
-      ✈️ Telegram 匿名授权
-    </button>
+    <div style="display: flex; justify-content: center; margin-bottom: 15px; background: #111; border: 1px solid #333; padding: 10px; border-radius: 4px; transition: all 0.3s;" onmouseover="this.style.borderColor='#d4af37'" onmouseout="this.style.borderColor='#333'">
+      <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="Gosuncapital_bot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+    </div>
+    <p style="font-size: 11px; color: #555; margin-top: 0;">* TG 授权需在您绑定的域名 (7861618.xyz) 下方可生效</p>
   </div>
 </div>
 
