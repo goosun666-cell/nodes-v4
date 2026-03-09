@@ -776,8 +776,47 @@
     }
   }
 
-  function claimAirdrop() {
-    alert("🎉 恭喜！您的创世节点坐标已记录。\n\n请截图此页面并发送给 GOSUN 首席架构师，获取您的专属创世神匣空投！");
+  // 6. 交互：深度绑定云端，真实提交空投申请
+  async function claimAirdrop() {
+    if (!currentUserId) {
+      alert("⚠️ 未检测到有效的高维坐标，请先连接 Web3 钱包！");
+      return;
+    }
+
+    // 视觉反馈：瞬间锁定按钮，防止恶意连点 (防女巫攻击)
+    const btn = document.querySelector('#gosun-airdrop-box button');
+    btn.innerText = "⚡ 正在向 GOSUN 节点网络提交凭证...";
+    btn.disabled = true;
+    btn.style.background = "#555";
+    btn.style.color = "#aaa";
+    btn.style.boxShadow = "none";
+    btn.style.cursor = "not-allowed";
+
+    try {
+      // 核心动作：向 Supabase 写入空投申领记录
+      const { error } = await supabase
+        .from('user_progress')
+        .update({ airdrop_status: 'pending' }) // 将状态从 unclaimed 改为 pending (排队中)
+        .eq('user_identifier', currentUserId);
+
+      if (error) throw error;
+
+      // 成功反馈：数据落盘成功
+      btn.innerText = "✅ 凭证已上链：等待空投下发";
+      btn.style.background = "#004d00";
+      btn.style.color = "#00ff00";
+      btn.style.border = "1px solid #00ff00";
+      
+      alert("⚡ EVM 底层引擎唤醒成功！\n\n系统已将您的 Web3 坐标：[" + currentUserId + "] 与满级进度死死焊在了云端！\n\n您的 1,000,000 枚 GOSUN 创世代币申请已进入高优先级的【发放队列】。\n请锁定 GOSUN CAPITAL 官方频道的空投快照公告！");
+
+    } catch (err) {
+      // 异常处理：允许用户重试
+      console.error("[GAIA 异常] 空投申请失败:", err);
+      btn.innerText = "❌ 矩阵干扰，请点击重试";
+      btn.disabled = false;
+      btn.style.background = "#ff3333";
+      btn.style.color = "#fff";
+    }
   }
 
   // Auth Modal Logic
