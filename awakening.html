@@ -54,6 +54,16 @@
   .locked-stage { opacity: 0.3; filter: grayscale(100%); pointer-events: none; border-left-color: #444; border: 1px dashed #444; text-align: center; padding: 40px 20px; }
   .locked-stage h2 { color: #666; }
 
+  /* Auth Modal Styles */
+  .auth-modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 9999; display: none; justify-content: center; align-items: center; }
+  .auth-modal { background: #0a0a0a; border: 1px solid #d4af37; padding: 40px; border-radius: 8px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.9), 0 0 15px rgba(212, 175, 55, 0.2); position: relative; }
+  .auth-modal h2 { color: #d4af37; margin-top: 0; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .auth-modal p { color: #888; font-size: 13px; line-height: 1.6; margin-bottom: 30px; }
+  .auth-option-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 15px; margin-bottom: 15px; background: #111; border: 1px solid #333; color: #fff; font-weight: bold; cursor: pointer; border-radius: 4px; transition: all 0.3s; }
+  .auth-option-btn:hover { border-color: #d4af37; background: rgba(212, 175, 55, 0.1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+  .auth-close { position: absolute; top: 15px; right: 20px; color: #666; cursor: pointer; font-size: 20px; transition: color 0.3s; }
+  .auth-close:hover { color: #fff; }
+
   @media (max-width: 768px) {
     .top-nav { justify-content: center; padding: 15px; }
     .top-nav a { margin: 0 10px; font-size: 12px; }
@@ -68,8 +78,11 @@
 
 <div class="top-nav">
   <a href="index.html">⌂ 帝国 WEB3 枢纽</a>
-  <a href="think-tank.html">👁️ 前线实战智库</a>
-  <a href="index.html#auth">⚡ 验证身份</a>
+  <a href="experts.html">👁️ 前线实战智库</a>
+  
+  <a href="https://t.me/+o7EqMnXqknA1ODA8" target="_blank" style="color: #d4af37;">📢 接收高维神谕 (TG频道)</a>
+  
+  <a href="#auth" onclick="openAuthModal()">⚡ 验证数字身份</a>
 </div>
 
 <div class="container">
@@ -92,7 +105,7 @@
       <div class="auth-box">
         <h2>🔒 访问权限受限</h2>
         <p style="color: #aaa; font-size: 14px; line-height: 1.6;">系统未检测到您的有效数字身份。剩余 10 阶高级防线（涵盖海外实体、合规出金、ITIN 税号、多签金库等）及云端进度保存功能，<strong style="color:#d4af37;">仅对 GOSUN 认证节点开放。</strong></p>
-        <a href="index.html#auth" class="go-auth-btn">返回主舱连接 Web3 钱包 / TG ⚡</a>
+        <a href="#auth" onclick="openAuthModal()" class="go-auth-btn">返回主舱连接 Web3 钱包 / TG ⚡</a>
       </div>
     </div>
 
@@ -125,14 +138,14 @@
               <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
               <div class="task-desc"><strong>[POA 通关]</strong> 租赁英美真实物理信箱，合法生成海外地址证明账单。</div>
             </div>
-            <a href="think-tank.html" class="action-btn">查看教程</a>
+            <a href="experts.html" class="action-btn">查看教程</a>
           </div>
           <div class="task-item">
             <div class="task-left">
               <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
               <div class="task-desc"><strong>[终极税号]</strong> 成功申请美国联邦税号 (ITIN)，突破国籍限制。</div>
             </div>
-            <a href="think-tank.html" class="action-btn">ITIN 代理通道</a>
+            <a href="experts.html" class="action-btn">ITIN 代理通道</a>
           </div>
         </div>
 
@@ -150,7 +163,7 @@
               <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
               <div class="task-desc"><strong>[数字离岸]</strong> 开设受监管的离岸数字银行 (如 iFAST / Wise)。</div>
             </div>
-            <a href="think-tank.html" class="action-btn">获取通道</a>
+            <a href="experts.html" class="action-btn">获取通道</a>
           </div>
           <div class="task-item">
             <div class="task-left">
@@ -158,6 +171,13 @@
               <div class="task-desc"><strong>[周期防线]</strong> 在顶级 DEX (Hyperliquid/Aevo) 建立抗通胀仓位。</div>
             </div>
             <a href="index.html#trading" class="action-btn">建仓协议</a>
+          </div>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[物理防线]</strong> 配置硬件冷钱包 (Trezor/Ledger)，实现私钥物理隔离。</div>
+            </div>
+            <a href="index.html#wallets" class="action-btn">获取冷钱包</a>
           </div>
         </div>
 
@@ -187,9 +207,18 @@
       </div> </div> </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  // 1. 页面加载时，检查本地存储是否有授权记录（来自 index.html 的登录）
-  window.onload = function() {
+  // 1. 初始化云端大脑 (使用您专属的神谕密钥)
+  const supabaseUrl = 'https://hufvrlvjfukvyowjyzjb.supabase.co';
+  const supabaseKey = 'sb_publishable_fR83YVV1F2c6aIijmBLtiA_79Z__5UJ';
+  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+  // 全局变量，记录当前用户的唯一身份标识
+  let currentUserId = null;
+
+  // 2. 页面加载序列
+  window.onload = async function() {
     const savedAddress = localStorage.getItem('gaia_user_address');
     const savedTgUser = localStorage.getItem('gaia_tg_user');
     
@@ -198,29 +227,77 @@
     const statusText = document.getElementById('user-status-text');
 
     if (savedAddress || savedTgUser) {
-      // ✅ 已登录：移除模糊，隐藏锁屏
+      // ✅ 已授权：解开迷雾
       advancedStages.classList.remove('blur-filter');
       lockScreen.style.display = 'none';
       
-      let identity = savedAddress ? 
-                     (savedAddress.substring(0,6) + '...' + savedAddress.substring(38)) : 
-                     ('@' + JSON.parse(savedTgUser).username);
-      statusText.innerHTML = `🟢 已绑定数字主权: ${identity} | 进度已开启云端同步`;
+      if (savedAddress) {
+        currentUserId = savedAddress;
+        let shortAddr = savedAddress.substring(0,6) + '...' + savedAddress.substring(38);
+        statusText.innerHTML = `🟢 已绑定 Web3 节点: ${shortAddr} | 进度已开启云端同步`;
+      } else {
+        currentUserId = JSON.parse(savedTgUser).id.toString(); // 使用 TG 的数字 ID 作为唯一主键
+        let tgName = '@' + JSON.parse(savedTgUser).username;
+        statusText.innerHTML = `🟢 已绑定跨维身份: ${tgName} | 进度已开启云端同步`;
+      }
       
-      // TODO: 这里以后可以通过 Supabase 读取该用户的历史打卡记录，并勾选 checkbox
+      // 解锁复选框
+      document.querySelectorAll('.task-checkbox').forEach(cb => cb.disabled = false);
+
+      // ⚡ 核心：从云端拉取该用户的打卡历史
+      await loadProgressFromCloud();
+      
     } else {
-      // ❌ 未登录：开启模糊，显示锁屏拦截
+      // ❌ 未授权：绝对锁定
       advancedStages.classList.add('blur-filter');
       lockScreen.style.display = 'flex';
       statusText.innerHTML = `🔴 未授权，当前页面处于只读与锁定状态`;
-      
-      // 禁用复选框，防止未登录乱点
       document.querySelectorAll('.task-checkbox').forEach(cb => cb.disabled = true);
     }
   };
 
-  // 2. 更新进度条逻辑
-  function updateProgress() {
+  // 3. 从云端拉取进度
+  async function loadProgressFromCloud() {
+    const { data, error } = await supabase
+      .from('user_progress')
+      .select('progress_data')
+      .eq('user_identifier', currentUserId)
+      .single();
+
+    if (data && data.progress_data) {
+      const checkboxes = document.querySelectorAll('.task-checkbox');
+      // 恢复打卡状态
+      data.progress_data.forEach((isChecked, index) => {
+        if (checkboxes[index]) checkboxes[index].checked = isChecked;
+      });
+      // 刷新进度条 UI
+      calculateAndRenderProgress();
+    }
+  }
+
+  // 4. 用户点击打卡，实时同步到云端
+  async function updateProgress() {
+    if (!currentUserId) return; // 未登录防误触
+    
+    calculateAndRenderProgress(); // 先让 UI 瞬间动起来，极致体验
+
+    // 收集所有打卡框的状态打包成 JSON 数组 [true, false, true...]
+    const checkboxes = document.querySelectorAll('.task-checkbox');
+    const progressArray = Array.from(checkboxes).map(cb => cb.checked);
+
+    // 写入 Supabase (Upsert: 有则更新，无则插入)
+    const { error } = await supabase
+      .from('user_progress')
+      .upsert({ 
+        user_identifier: currentUserId, 
+        progress_data: progressArray 
+      }, { onConflict: 'user_identifier' });
+
+    if (error) console.error("[系统异常] 云端同步失败:", error);
+  }
+
+  // 5. 计算并渲染进度条及隐藏关卡
+  function calculateAndRenderProgress() {
     const checkboxes = document.querySelectorAll('.task-checkbox');
     const total = checkboxes.length;
     let checked = 0;
@@ -231,9 +308,7 @@
     document.getElementById('progressPercent').innerText = percent + '%';
     document.getElementById('progressFill').style.width = percent + '%';
     
-    // TODO: 以后在这里加上一句 supabase.from('user_progress').update(...) 实时保存到数据库
-    
-    // 进度达到 80% 以上，解锁家族办公室
+    // 家族办公室隐藏关卡解锁逻辑
     const familyOffice = document.getElementById('familyOffice');
     if(percent >= 80) {
       familyOffice.classList.remove('locked-stage');
@@ -260,7 +335,47 @@
       `;
     }
   }
+
+  // Auth Modal Logic
+  function openAuthModal() {
+    document.getElementById('authModal').style.display = 'flex';
+  }
+  function closeAuthModal() {
+    document.getElementById('authModal').style.display = 'none';
+  }
+  
+  function mockWeb3Login() {
+    const mockAddress = "0x" + Math.random().toString(16).slice(2, 10) + "..." + Math.random().toString(16).slice(2, 6);
+    localStorage.setItem('gaia_user_address', mockAddress);
+    alert('✅ Web3 钱包连接成功！\n地址: ' + mockAddress);
+    closeAuthModal();
+    window.location.reload();
+  }
+
+  function mockTgLogin() {
+    const mockUser = { id: 12345678, username: "GaiaAwakener" };
+    localStorage.setItem('gaia_tg_user', JSON.stringify(mockUser));
+    alert('✅ Telegram 授权成功！\n欢迎, @' + mockUser.username);
+    closeAuthModal();
+    window.location.reload();
+  }
 </script>
+
+<!-- Auth Modal -->
+<div class="auth-modal-overlay" id="authModal">
+  <div class="auth-modal">
+    <div class="auth-close" onclick="closeAuthModal()">✕</div>
+    <h2>⚡ 接入 GAIA 矩阵身份</h2>
+    <p>抛弃旧世界的“邮箱+密码”。<br>请使用您的数字主权资产进行加密鉴权，<br>您的进度将同步至觉醒者档案库。</p>
+    
+    <button class="auth-option-btn" onclick="mockWeb3Login()">
+      🦊 Web3 钱包直连 (MetaMask / OKX)
+    </button>
+    <button class="auth-option-btn" onclick="mockTgLogin()">
+      ✈️ Telegram 匿名授权
+    </button>
+  </div>
+</div>
 
 </body>
 </html>

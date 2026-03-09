@@ -59,6 +59,16 @@
 
   .hidden { display: none !important; }
 
+  /* Auth Modal Styles */
+  .auth-modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 9999; display: none; justify-content: center; align-items: center; }
+  .auth-modal { background: #0a0a0a; border: 1px solid #d4af37; padding: 40px; border-radius: 8px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.9), 0 0 15px rgba(212, 175, 55, 0.2); position: relative; }
+  .auth-modal h2 { color: #d4af37; margin-top: 0; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .auth-modal p { color: #888; font-size: 13px; line-height: 1.6; margin-bottom: 30px; }
+  .auth-option-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 15px; margin-bottom: 15px; background: #111; border: 1px solid #333; color: #fff; font-weight: bold; cursor: pointer; border-radius: 4px; transition: all 0.3s; }
+  .auth-option-btn:hover { border-color: #d4af37; background: rgba(212, 175, 55, 0.1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+  .auth-close { position: absolute; top: 15px; right: 20px; color: #666; cursor: pointer; font-size: 20px; transition: color 0.3s; }
+  .auth-close:hover { color: #fff; }
+
   @media (max-width: 768px) {
     .container { padding: 20px 15px; }
     .architect-confession { padding: 25px; }
@@ -71,9 +81,10 @@
 <body>
 
 <div class="top-nav">
-  <a href="index.html">⌂ 帝国 WEB3 枢纽 (主舱)</a>
-  <a href="awakening.html" style="color: #00ff00;">⚡ 觉醒打卡</a>
-  <a href="index.html#auth">⚡ 验证数字身份</a>
+  <a href="index.html">⌂ 帝国 WEB3 枢纽</a>
+  <a href="experts.html">👁️ 前线实战智库</a>
+  <a href="https://t.me/+o7EqMnXqknA1ODA8" target="_blank" style="color: #d4af37;">📢 接收高维神谕 (TG频道)</a>
+  <a href="#auth" onclick="openAuthModal()">⚡ 验证数字身份</a>
 </div>
 
 <div class="container">
@@ -220,7 +231,47 @@
 
   // 执行启动序列
   sortCards();
+
+  // Auth Modal Logic
+  function openAuthModal() {
+    document.getElementById('authModal').style.display = 'flex';
+  }
+  function closeAuthModal() {
+    document.getElementById('authModal').style.display = 'none';
+  }
+  
+  function mockWeb3Login() {
+    const mockAddress = "0x" + Math.random().toString(16).slice(2, 10) + "..." + Math.random().toString(16).slice(2, 6);
+    localStorage.setItem('gaia_user_address', mockAddress);
+    alert('✅ Web3 钱包连接成功！\n地址: ' + mockAddress);
+    closeAuthModal();
+    window.location.reload();
+  }
+
+  function mockTgLogin() {
+    const mockUser = { id: 12345678, username: "GaiaAwakener" };
+    localStorage.setItem('gaia_tg_user', JSON.stringify(mockUser));
+    alert('✅ Telegram 授权成功！\n欢迎, @' + mockUser.username);
+    closeAuthModal();
+    window.location.reload();
+  }
 </script>
+
+<!-- Auth Modal -->
+<div class="auth-modal-overlay" id="authModal">
+  <div class="auth-modal">
+    <div class="auth-close" onclick="closeAuthModal()">✕</div>
+    <h2>⚡ 接入 GAIA 矩阵身份</h2>
+    <p>抛弃旧世界的“邮箱+密码”。<br>请使用您的数字主权资产进行加密鉴权，<br>您的进度将同步至觉醒者档案库。</p>
+    
+    <button class="auth-option-btn" onclick="mockWeb3Login()">
+      🦊 Web3 钱包直连 (MetaMask / OKX)
+    </button>
+    <button class="auth-option-btn" onclick="mockTgLogin()">
+      ✈️ Telegram 匿名授权
+    </button>
+  </div>
+</div>
 
 </body>
 </html>

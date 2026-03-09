@@ -401,6 +401,16 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
 .submit-code-btn { background: transparent; border: 1px dashed var(--text-muted); color: var(--text-muted); padding: 12px 30px; border-radius: 100px; font-family: var(--font-tech); font-size: 0.9rem; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
 .submit-code-btn:hover { border-color: var(--gold-primary); color: var(--gold-primary); background: rgba(212, 175, 55, 0.05); }
 
+/* Auth Modal Styles */
+.auth-modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 9999; display: none; justify-content: center; align-items: center; }
+.auth-modal { background: #0a0a0a; border: 1px solid var(--gold-primary); padding: 40px; border-radius: 8px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.9), 0 0 15px rgba(212, 175, 55, 0.2); position: relative; }
+.auth-modal h2 { color: var(--gold-primary); margin-top: 0; font-family: var(--font-display); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+.auth-modal p { color: var(--text-muted); font-size: 13px; line-height: 1.6; margin-bottom: 30px; }
+.auth-option-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 15px; margin-bottom: 15px; background: #111; border: 1px solid #333; color: #fff; font-family: var(--font-tech); font-weight: bold; cursor: pointer; border-radius: 4px; transition: all 0.3s; }
+.auth-option-btn:hover { border-color: var(--gold-primary); background: rgba(212, 175, 55, 0.1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+.auth-close { position: absolute; top: 15px; right: 20px; color: #666; cursor: pointer; font-size: 20px; transition: color 0.3s; }
+.auth-close:hover { color: #fff; }
+
 @media (max-width: 768px) { .nav-links { display: none; } .nav-link-official { font-size: 11px; } h1 { font-size: 2rem; } .stats-bar { flex-wrap: wrap; gap: 24px; } .interceptor-wrapper { bottom: 20px; right: 50%; transform: translateX(50%); width: 90%; } .whitepaper-btn { width: 100%; text-align: center; } .share-section { flex-direction: column; gap: 12px; border-radius: 20px; padding: 16px; } .empire-hub-btn { width: 100%; justify-content: center; font-size: 12px; padding: 12px 20px; } .rare-codes-section { padding: 0 20px; } }
 </style>
 </head>
@@ -478,16 +488,15 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
       <li><a href="#">节点目录</a></li>
       <li><a href="#">DeFi 协议</a></li>
       <li><a href="#rare-codes">稀有邀请码</a></li>
-      <li><a href="think-tank.html" style="color: var(--gold-bright); font-weight: bold;">实战智库</a></li>
+      <li><a href="experts.html" style="color: var(--gold-bright); font-weight: bold;">实战智库</a></li>
       <li><a href="awakening.html" style="color: #00ff00; font-weight: bold;">觉醒打卡</a></li>
       <li><a href="#tutorials">深度教程</a></li>
     </ul>
     <div class="nav-actions">
       <a href="https://gosun.qzz.io" target="_blank" class="nav-link-official">⌂ 理想国母舰 (Official Site)</a>
-      <a href="https://web3.7861618.xyz/" target="_blank" class="nav-cta" style="text-decoration: none; display: flex; align-items: center; gap: 6px;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-        帝国 Web3 枢纽
-      </a>
+      <button onclick="openAuthModal()" class="nav-cta" id="auth-btn" style="display: flex; align-items: center; gap: 6px;">
+        ⚡ 接入 GAIA 矩阵身份
+      </button>
     </div>
   </nav>
 </header>
@@ -1419,7 +1428,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
       </a>
 
       <!-- Think Tank CTA -->
-      <a href="think-tank.html" class="tool-card" style="text-decoration: none; border: 1px solid var(--gold-primary); background: rgba(212, 175, 55, 0.05);">
+      <a href="experts.html" class="tool-card" style="text-decoration: none; border: 1px solid var(--gold-primary); background: rgba(212, 175, 55, 0.05);">
         <div class="tool-top">
           <div class="tool-logo" style="background: var(--gold-primary); display: flex; align-items: center; justify-content: center; border-radius: 8px;">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
@@ -1973,7 +1982,70 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
           window.open('https://go.cb-w.com/', '_blank');
       });
   }
+
+  // Auth Modal Logic
+  function openAuthModal() {
+    document.getElementById('authModal').style.display = 'flex';
+  }
+  function closeAuthModal() {
+    document.getElementById('authModal').style.display = 'none';
+  }
+  
+  function mockWeb3Login() {
+    // 模拟 Web3 登录逻辑
+    const mockAddress = "0x" + Math.random().toString(16).slice(2, 10) + "..." + Math.random().toString(16).slice(2, 6);
+    localStorage.setItem('gaia_user_address', mockAddress);
+    alert('✅ Web3 钱包连接成功！\n地址: ' + mockAddress + '\n\n您现在可以前往【觉醒打卡】系统了。');
+    closeAuthModal();
+    updateAuthBtnState();
+  }
+
+  function mockTgLogin() {
+    // 模拟 TG 登录逻辑
+    const mockUser = { id: 12345678, username: "GaiaAwakener" };
+    localStorage.setItem('gaia_tg_user', JSON.stringify(mockUser));
+    alert('✅ Telegram 授权成功！\n欢迎, @' + mockUser.username + '\n\n您现在可以前往【觉醒打卡】系统了。');
+    closeAuthModal();
+    updateAuthBtnState();
+  }
+
+  function updateAuthBtnState() {
+    const btn = document.getElementById('auth-btn');
+    if (!btn) return;
+    const savedAddress = localStorage.getItem('gaia_user_address');
+    const savedTgUser = localStorage.getItem('gaia_tg_user');
+    
+    if (savedAddress) {
+      btn.innerHTML = '🟢 已连接: ' + savedAddress.substring(0,6) + '...';
+      btn.style.color = '#00ff00';
+      btn.style.borderColor = '#00ff00';
+    } else if (savedTgUser) {
+      const tgUser = JSON.parse(savedTgUser);
+      btn.innerHTML = '🟢 @' + tgUser.username;
+      btn.style.color = '#00ff00';
+      btn.style.borderColor = '#00ff00';
+    }
+  }
+
+  // 初始化检查登录状态
+  window.addEventListener('DOMContentLoaded', updateAuthBtnState);
 </script>
+
+<!-- Auth Modal -->
+<div class="auth-modal-overlay" id="authModal">
+  <div class="auth-modal">
+    <div class="auth-close" onclick="closeAuthModal()">✕</div>
+    <h2>⚡ 接入 GAIA 矩阵身份</h2>
+    <p>抛弃旧世界的“邮箱+密码”。<br>请使用您的数字主权资产进行加密鉴权，<br>您的进度将同步至觉醒者档案库。</p>
+    
+    <button class="auth-option-btn" onclick="mockWeb3Login()">
+      🦊 Web3 钱包直连 (MetaMask / OKX)
+    </button>
+    <button class="auth-option-btn" onclick="mockTgLogin()">
+      ✈️ Telegram 匿名授权
+    </button>
+  </div>
+</div>
 
 <!-- GAIA Oracle Chat Interaction -->
 <div id="chat-root"></div>
