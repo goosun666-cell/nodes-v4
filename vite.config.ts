@@ -23,6 +23,7 @@ export default defineConfig(({mode}) => {
           awakening: resolve(__dirname, 'awakening.html'),
           privacy: resolve(__dirname, 'privacy.html'),
           terms: resolve(__dirname, 'terms.html'),
+          rateRadar: resolve(__dirname, 'rate-radar.html'),
         },
       },
     },
