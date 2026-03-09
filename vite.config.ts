@@ -1,6 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
+import path, { resolve } from 'path';
 import {defineConfig, loadEnv} from 'vite';
 
 export default defineConfig(({mode}) => {
@@ -13,6 +13,17 @@ export default defineConfig(({mode}) => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
+      },
+    },
+    build: {
+      rollupOptions: {
+        input: {
+          main: resolve(__dirname, 'index.html'),
+          thinkTank: resolve(__dirname, 'think-tank.html'),
+          awakening: resolve(__dirname, 'awakening.html'),
+          privacy: resolve(__dirname, 'privacy.html'),
+          terms: resolve(__dirname, 'terms.html'),
+        },
       },
     },
     server: {
