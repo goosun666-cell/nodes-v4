@@ -119,17 +119,60 @@
   /* 核心容器 */
   .container { max-width: 1200px; margin: 0 auto; padding: 100px 20px 40px; }
 
-  /* 架构师真言模块 */
+  /* 架构师真言模块 (底部折叠) */
+  .architect-confession-wrapper {
+    margin-top: 80px;
+    margin-bottom: 40px;
+    border-top: 1px solid #222;
+    padding-top: 40px;
+  }
+  .confession-toggle {
+    background: transparent;
+    border: 1px solid var(--gold-primary);
+    color: var(--gold-primary);
+    padding: 12px 24px;
+    font-family: var(--font-tech);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+  }
+  .confession-toggle:hover {
+    background: rgba(212, 175, 55, 0.1);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+  }
+  .confession-toggle .icon {
+    font-family: monospace;
+    transition: transform 0.3s ease;
+  }
+  .confession-toggle.open .icon {
+    transform: rotate(180deg);
+  }
+  
   .architect-confession { 
     background: linear-gradient(145deg, #111, #050505); 
     border: 1px solid #222;
     border-left: 4px solid #d4af37; 
     padding: 40px; 
-    margin-bottom: 60px; 
     border-radius: 8px; 
     box-shadow: 0 10px 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(212, 175, 55, 0.02); 
     position: relative; 
     overflow: hidden; 
+    margin-top: 30px;
+    display: none; /* Hidden by default */
+    animation: slideDown 0.4s ease-out forwards;
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
   .architect-confession::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
@@ -299,16 +342,6 @@
 
 <div class="container">
   
-  <div class="architect-confession">
-    <h2>👁️ 架构师真言：从 10 分钟的倒计时，到 GOSUN 节点矩阵</h2>
-    <p>“这一切，是从一个每天只能免费连 10 分钟的 VPN 开始的。</p>
-    <p>当初我没有任何资金，极度渴望翻越那堵墙去看看真正的世界。<strong>我下载过无数个宣称能翻墙的软件，绝大多数都是假的——要么根本连不上，要么就是无底洞的付费陷阱。</strong>在经历了无数次欺骗后，我只能用那个每天 10 分钟的免费额度，掐着秒表去疯狂检索、去试错。时间一到，世界再次陷入黑暗。</p>
-    <p>过去一年，我从那 10 分钟起步，在旧世界与 Web3 的交界处踩遍了所有的坑：交过高昂的跨链摩擦税、因为不懂风控被冻结过离岸账户。在黑暗森林里，<strong>最贵的从来不是本金，而是试错的时间。</strong></p>
-    <p>建立 GOSUN CAPITAL，是用我几千个小时的血泪，硬生生砸出来的一条<strong>『绝对生路』</strong>。在这里，您看到的每一个实战录像、每一条出金链路，都是我亲自过滤掉无数骗局后，跑通了闭环的。</p>
-    <p>您在 GOSUN 节约下的每一分钟生命、少交的每一分冤枉钱，都是我们为您赎回的真正自由。欢迎登舰，踩着我的伤疤，去追求更高的文明。”</p>
-    <div class="architect-signature">—— GOSUN 首席架构师 (Chief Architect)</div>
-  </div>
-
   <div class="control-panel">
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="▶ 检索协议 / 痛点 (例: OpenClaw, iFAST, ITIN, 地址证明)...">
@@ -395,6 +428,23 @@
     </div>
 
   </div>
+
+  <div class="architect-confession-wrapper">
+    <button class="confession-toggle" onclick="toggleConfession()" id="confessionBtn">
+      <span class="icon">▼</span> 架构师真言：只留给有心人 <span class="icon">▼</span>
+    </button>
+    
+    <div class="architect-confession" id="confessionContent">
+      <h2>👁️ 架构师真言：从 10 分钟的倒计时，到 GOSUN 节点矩阵</h2>
+      <p>“这一切，是从一个每天只能免费连 10 分钟的 VPN 开始的。</p>
+      <p>当初我没有任何资金，极度渴望翻越那堵墙去看看真正的世界。<strong>我下载过无数个宣称能翻墙的软件，绝大多数都是假的——要么根本连不上，要么就是无底洞的付费陷阱。</strong>在经历了无数次欺骗后，我只能用那个每天 10 分钟的免费额度，掐着秒表去疯狂检索、去试错。时间一到，世界再次陷入黑暗。</p>
+      <p>过去一年，我从那 10 分钟起步，在旧世界与 Web3 的交界处踩遍了所有的坑：交过高昂的跨链摩擦税、因为不懂风控被冻结过离岸账户。在黑暗森林里，<strong>最贵的从来不是本金，而是试错的时间。</strong></p>
+      <p>建立 GOSUN CAPITAL，是用我几千个小时的血泪，硬生生砸出来的一条<strong>『绝对生路』</strong>。在这里，您看到的每一个实战录像、每一条出金链路，都是我亲自过滤掉无数骗局后，跑通了闭环的。</p>
+      <p>您在 GOSUN 节约下的每一分钟生命、少交的每一分冤枉钱，都是我们为您赎回的真正自由。欢迎登舰，踩着我的伤疤，去追求更高的文明。”</p>
+      <div class="architect-signature">—— GOSUN 首席架构师 (Chief Architect)</div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -441,6 +491,26 @@
 
   // 执行启动序列
   sortCards();
+
+  // Confession Toggle Logic
+  function toggleConfession() {
+    const content = document.getElementById('confessionContent');
+    const btn = document.getElementById('confessionBtn');
+    
+    if (content.style.display === 'block') {
+      content.style.display = 'none';
+      btn.classList.remove('open');
+      btn.innerHTML = '<span class="icon">▼</span> 架构师真言：只留给有心人 <span class="icon">▼</span>';
+    } else {
+      content.style.display = 'block';
+      btn.classList.add('open');
+      btn.innerHTML = '<span class="icon">▲</span> 收起真言 <span class="icon">▲</span>';
+      // Scroll to it smoothly
+      setTimeout(() => {
+        content.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
+    }
+  }
 
   // Auth Modal Logic
   function openAuthModal() {
