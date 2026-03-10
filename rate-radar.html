@@ -6,6 +6,7 @@
     <title>GAIA 全息汇率雷达 | GOSUN CAPITAL</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        * { box-sizing: border-box; }
         /* 极致深邃的背景与主权排版 */
         body { 
             background: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #050505 100%); 
@@ -21,6 +22,7 @@
             max-width: 480px;
             position: relative;
             z-index: 1;
+            padding: 0 15px; /* Add padding to prevent edge clipping */
         }
         
         .flipper {
@@ -58,6 +60,7 @@
             width: 100%;
             height: 100%;
             margin: 0 !important;
+            padding: 40px 35px 35px 35px; /* Ensure padding matches front */
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
             transform: rotateY(180deg);
@@ -306,9 +309,8 @@
                 <div class="rate-card" id="card-visa-consume">
                     <div class="best-badge">最优 (扣款最低)</div>
                     <div class="card-brand">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 32" style="height: 20px; width: auto; margin-right: 8px;">
-                            <path d="M48.216 1.12h-9.967L31 23.328l3.666-18.232C35.033 3.4 36.1 1.12 39.95 1.12M12.9 22.2L16.2 1.12H21.3l-3.3 21.08zm1.8-12.7L2.4 1.12H0l3.6 21.08h5.1L14.7 9.5M39.6 1.12H25.8a1.2 1.2 0 0 0-1.2 1.2L21 22.2h5.1l.6-3.6h6.3l.3 3.6h4.8l1.5-21.08m-.3 13.86h-3.9l.3-6.6zM88.5 1.12a10.8 10.8 0 0 0-3.9.6l-1.2 6.6a10.2 10.2 0 0 1 3.6-.6c2.1 0 3.6 1.2 3.6 3a3.6 3.6 0 0 1-1.2 2.7l-4.2 4.2h1.2a15.6 15.6 0 0 0 3.9-1.2l3.3 12h-5.4l-3-6.6a14.4 14.4 0 0 1-3 .6A9 9 0 0 1 73 17.58a10.8 10.8 0 0 1 1.2-5.4 10.2 10.2 0 0 1 2.4-3.6 9 9 0 0 1 2.4-1.8 10.2 10.2 0 0 1 3-.6H88.5" fill="#1A1FFF"/>
-                            <path d="M12.9 22.2L2.4 1.12H0l12.9 21.08h5.1" fill="#FFC700"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 16" style="height: 16px; width: auto; margin-right: 8px;">
+                            <path d="M14.5 14.5h3.5l2.5-13h-3.5l-2.5 13zm13.5-13h-3.5l-2.5 13h3.5l2.5-13zm-8 0h-3.5l-2.5 13h3.5l2.5-13zm15 0h-3.5l-2.5 13h3.5l2.5-13z" fill="#1A1FFF"/>
                         </svg>
                         <span class="brand-name visa-color">VISA 清算网络</span>
                         <span class="brand-rate" id="rate-visa-consume">等待探测...</span>
@@ -419,9 +421,8 @@
                 <div class="rate-card" id="card-visa-exchange">
                     <div class="best-badge">最优 (换得最多)</div>
                     <div class="card-brand">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 32" style="height: 20px; width: auto; margin-right: 8px;">
-                            <path d="M48.216 1.12h-9.967L31 23.328l3.666-18.232C35.033 3.4 36.1 1.12 39.95 1.12M12.9 22.2L16.2 1.12H21.3l-3.3 21.08zm1.8-12.7L2.4 1.12H0l3.6 21.08h5.1L14.7 9.5M39.6 1.12H25.8a1.2 1.2 0 0 0-1.2 1.2L21 22.2h5.1l.6-3.6h6.3l.3 3.6h4.8l1.5-21.08m-.3 13.86h-3.9l.3-6.6zM88.5 1.12a10.8 10.8 0 0 0-3.9.6l-1.2 6.6a10.2 10.2 0 0 1 3.6-.6c2.1 0 3.6 1.2 3.6 3a3.6 3.6 0 0 1-1.2 2.7l-4.2 4.2h1.2a15.6 15.6 0 0 0 3.9-1.2l3.3 12h-5.4l-3-6.6a14.4 14.4 0 0 1-3 .6A9 9 0 0 1 73 17.58a10.8 10.8 0 0 1 1.2-5.4 10.2 10.2 0 0 1 2.4-3.6 9 9 0 0 1 2.4-1.8 10.2 10.2 0 0 1 3-.6H88.5" fill="#1A1FFF"/>
-                            <path d="M12.9 22.2L2.4 1.12H0l12.9 21.08h5.1" fill="#FFC700"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 16" style="height: 16px; width: auto; margin-right: 8px;">
+                            <path d="M14.5 14.5h3.5l2.5-13h-3.5l-2.5 13zm13.5-13h-3.5l-2.5 13h3.5l2.5-13zm-8 0h-3.5l-2.5 13h3.5l2.5-13zm15 0h-3.5l-2.5 13h3.5l2.5-13z" fill="#1A1FFF"/>
                         </svg>
                         <span class="brand-name visa-color">VISA 清算网络</span>
                         <span class="brand-rate" id="rate-visa-exchange">等待探测...</span>
