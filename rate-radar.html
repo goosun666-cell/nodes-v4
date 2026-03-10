@@ -132,7 +132,43 @@
     </a>
 
     <div class="header">
-        <h2>汇率雷达引擎</h2>
+        <div class="logo-container" style="display: flex; justify-content: center; margin-bottom: 16px;">
+            <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="holoGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#4facfe" stop-opacity="0.3"/>
+                        <stop offset="50%" stop-color="#00f2fe" stop-opacity="0.1"/>
+                        <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
+                    </radialGradient>
+                    <filter id="coreGlow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="2" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                </defs>
+                <!-- Holographic Aura -->
+                <circle cx="50" cy="50" r="45" fill="url(#holoGlow)" />
+                
+                <!-- Outer Radar Ring -->
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#d4af37" stroke-width="1" stroke-dasharray="4 8 20 4" opacity="0.5">
+                    <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="20s" repeatCount="indefinite"/>
+                </circle>
+                <!-- Inner Radar Ring -->
+                <circle cx="50" cy="50" r="32" fill="none" stroke="#00f2fe" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.6">
+                    <animateTransform attributeName="transform" type="rotate" from="360 50 50" to="0 50 50" dur="15s" repeatCount="indefinite"/>
+                </circle>
+                
+                <!-- Multi-dimensional Geometric Star -->
+                <polygon points="50,15 58,38 85,50 58,62 50,85 42,62 15,50 42,38" fill="rgba(212, 175, 55, 0.1)" stroke="#d4af37" stroke-width="1.5" opacity="0.9"/>
+                <polygon points="50,25 55,42 75,50 55,58 50,75 45,58 25,50 45,42" fill="none" stroke="#4facfe" stroke-width="1" opacity="0.7"/>
+                
+                <!-- Core Pulse -->
+                <circle cx="50" cy="50" r="3" fill="#ffffff" filter="url(#coreGlow)">
+                    <animate attributeName="r" values="2;5;2" dur="1.5s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite" />
+                </circle>
+            </svg>
+        </div>
+        <h2>GOSUN 全息汇率雷达</h2>
         <p>[SYS] REAL-TIME FX ROUTING</p>
     </div>
 
