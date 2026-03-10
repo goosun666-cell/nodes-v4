@@ -53,8 +53,8 @@
         .select-wrapper { flex: 1; display: flex; flex-direction: column; gap: 8px; }
         label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
         
-        /* 抹除原生样式，打造暗金属质感 (仅针对 input) */
-        input { 
+        /* 抹除原生样式，打造暗金属质感 (针对 input 和 select) */
+        input, select { 
             appearance: none; -webkit-appearance: none;
             background: rgba(0, 0, 0, 0.5); 
             border: 1px solid rgba(255, 255, 255, 0.1); 
@@ -62,34 +62,16 @@
             font-family: 'JetBrains Mono', monospace; font-size: 16px; 
             border-radius: 8px; outline: none; transition: all 0.3s ease; 
         }
-        input:focus { border-color: #d4af37; background: rgba(0, 0, 0, 0.8); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15); }
+        input:focus, select:focus { border-color: #d4af37; background: rgba(0, 0, 0, 0.8); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15); }
 
-        /* 苹果银色下拉框 */
+        /* 下拉框特殊处理 */
         select { 
-            appearance: none; -webkit-appearance: none;
-            background: linear-gradient(180deg, #fdfdfd 0%, #e3e3e8 100%);
-            border: 1px solid #c8c8cc; 
-            color: #111111; /* 强制黑色文字，确保选中后清晰可见 */
-            padding: 14px 16px; 
-            font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600;
-            border-radius: 8px; outline: none; transition: all 0.3s ease; 
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); 
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); 
             background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; cursor: pointer;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 2px 5px rgba(0,0,0,0.2);
-        }
-        select:focus { 
-            border-color: #d4af37; 
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3), inset 0 1px 0 rgba(255,255,255,0.9); 
         }
         select option { 
-            background: #f5f5f7; 
-            color: #86868b; /* 未选中微亮 */
-            font-weight: normal;
-        }
-        select option:checked { 
-            background: #e3e3e8; 
-            color: #1d1d1f; /* 选中高亮 */
-            font-weight: bold;
+            background: #111; 
+            color: #fff;
         }
 
         /* 苹果银色高级按钮 */
@@ -213,8 +195,9 @@
             <div class="card-brand">
                 <span class="brand-name visa-color">
                     <svg viewBox="0 0 38 12" width="38" height="12">
-                        <path fill="#ffffff" d="M14.68 0h-3.32L9.2 11.6h3.42L14.68 0zM20.26 11.28c-3.66 0-5.26-1.96-5.28-4.76.02-3.14 2.62-4.84 5.38-4.84 2.08 0 3.28.64 4.14 1.24l-.62 2.92c-.78-.48-1.78-.8-2.8-.8-1.6 0-2.72.86-2.74 2.08-.02 1.1 1.02 1.74 1.8 2.12.8.4 1.06.66 1.06 1.02-.02.56-.68 1.1-1.98 1.1-1.22 0-2.12-.34-2.84-.74l-.64 3.02c.74.46 2.04.84 3.52.84zM28.06 0h-2.62c-.8 0-1.42.22-1.74.98l-4.96 10.62h3.58l.7-1.96h4.38l.4 1.96h3.14L28.06 0zm-2.06 6.94l1.04-2.86c.06-.16.12-.36.16-.54.04.2.08.38.12.52l.54 2.88h-1.86zM8.86 0H6.14c-.62 0-1.14.36-1.38.92L.04 11.6h3.62s.58-1.64.72-2.02h4.42c.1.46.42 2.02.42 2.02h3.2L8.86 0zm-3.4 6.98l1.46-4.02 1.04 4.02H5.46z"/>
+                        <path fill="#4facfe" d="M14.68 0h-3.32L9.2 11.6h3.42L14.68 0zM20.26 11.28c-3.66 0-5.26-1.96-5.28-4.76.02-3.14 2.62-4.84 5.38-4.84 2.08 0 3.28.64 4.14 1.24l-.62 2.92c-.78-.48-1.78-.8-2.8-.8-1.6 0-2.72.86-2.74 2.08-.02 1.1 1.02 1.74 1.8 2.12.8.4 1.06.66 1.06 1.02-.02.56-.68 1.1-1.98 1.1-1.22 0-2.12-.34-2.84-.74l-.64 3.02c.74.46 2.04.84 3.52.84zM28.06 0h-2.62c-.8 0-1.42.22-1.74.98l-4.96 10.62h3.58l.7-1.96h4.38l.4 1.96h3.14L28.06 0zm-2.06 6.94l1.04-2.86c.06-.16.12-.36.16-.54.04.2.08.38.12.52l.54 2.88h-1.86zM8.86 0H6.14c-.62 0-1.14.36-1.38.92L.04 11.6h3.62s.58-1.64.72-2.02h4.42c.1.46.42 2.02.42 2.02h3.2L8.86 0zm-3.4 6.98l1.46-4.02 1.04 4.02H5.46z"/>
                     </svg>
+                    VISA 清算网络
                 </span>
                 <span class="brand-rate" id="rate-visa">等待探测...</span>
             </div>
