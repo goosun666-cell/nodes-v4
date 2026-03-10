@@ -335,30 +335,37 @@
 
         <div class="control-group">
             <div class="input-wrapper full-width">
-                <label>外币消费金额 (Amount)</label>
+                <label>交易金额 (Amount)</label>
                 <div class="input-box">
                     <span class="currency-prefix" id="currencySymbol">$</span>
                     <input type="number" id="baseAmount" value="1000" step="0.01">
                 </div>
             </div>
             <div class="input-wrapper">
-                <label>结算 (From)</label>
+                <label>交易币种 (From)</label>
                 <div class="input-box">
                     <select id="currencyFrom" onchange="updateSymbol()">
                         <option value="USD">USD - 美元</option>
+                        <option value="CNY">CNY - 人民币</option>
                         <option value="EUR">EUR - 欧元</option>
                         <option value="GBP">GBP - 英镑</option>
+                        <option value="HKD">HKD - 港币</option>
                         <option value="JPY">JPY - 日元</option>
+                        <option value="SGD">SGD - 新币</option>
                     </select>
                     <svg class="select-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                 </div>
             </div>
             <div class="input-wrapper">
-                <label>本币 (To)</label>
+                <label>结算币种 (To)</label>
                 <div class="input-box">
                     <select id="currencyTo">
-                        <option value="CNY">CNY - 人民币</option>
+                        <option value="CNY" selected>CNY - 人民币</option>
+                        <option value="USD">USD - 美元</option>
+                        <option value="EUR">EUR - 欧元</option>
+                        <option value="GBP">GBP - 英镑</option>
                         <option value="HKD">HKD - 港币</option>
+                        <option value="JPY">JPY - 日元</option>
                         <option value="SGD">SGD - 新币</option>
                     </select>
                     <svg class="select-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
@@ -420,7 +427,7 @@
 </div>
 
 <script>
-    const symbols = { 'USD': '$', 'EUR': '€', 'GBP': '£', 'JPY': '¥' };
+    const symbols = { 'USD': '$', 'EUR': '€', 'GBP': '£', 'JPY': '¥', 'CNY': '¥', 'HKD': 'HK$', 'SGD': 'S$' };
     
     function updateSymbol() {
         const from = document.getElementById('currencyFrom').value;
@@ -458,13 +465,14 @@
                 baseRate = data[from.toLowerCase()][to.toLowerCase()];
             } catch (apiError) {
                 console.warn("[SYSTEM_LOG] 主 API 探测受阻，启用本地备用核心...", apiError);
-                const fallbackRates = {
-                    'USD-CNY': 7.2345, 'USD-HKD': 7.8210, 'USD-SGD': 1.3320,
-                    'EUR-CNY': 7.8520, 'EUR-HKD': 8.5010, 'EUR-SGD': 1.4530,
-                    'GBP-CNY': 9.2050, 'GBP-HKD': 9.9520, 'GBP-SGD': 1.7040,
-                    'JPY-CNY': 0.0485, 'JPY-HKD': 0.0525, 'JPY-SGD': 0.0089
+                // 基于 USD 的离线汇率矩阵 (支持任意双向转换)
+                const fallbackBaseUSD = {
+                    'usd': 1, 'cny': 7.2345, 'hkd': 7.8210, 'sgd': 1.3320, 
+                    'eur': 0.9210, 'gbp': 0.7850, 'jpy': 150.50
                 };
-                baseRate = fallbackRates[`${from}-${to}`] || 1.0;
+                const fromRate = fallbackBaseUSD[from.toLowerCase()] || 1;
+                const toRate = fallbackBaseUSD[to.toLowerCase()] || 1;
+                baseRate = toRate / fromRate;
             }
 
             const visaSpread = 1 + (Math.random() * (0.005 - 0.002) + 0.002); 
