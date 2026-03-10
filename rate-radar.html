@@ -203,11 +203,6 @@
         返回主舱
     </a>
 
-    <div class="mode-switch">
-        <button class="mode-btn active-consume" onclick="switchMode('consume')" id="btn-consume">消费雷达</button>
-        <button class="mode-btn" onclick="switchMode('exchange')" id="btn-exchange">换汇雷达</button>
-    </div>
-
     <div class="flipper" id="flipper">
         
         <!-- ================= FRONT: 消费雷达 (CONSUME) ================= -->
@@ -243,6 +238,11 @@
                 </div>
                 <h2>GOSUN 消费雷达</h2>
                 <p>[SYS] REAL-TIME PAYMENT ROUTING</p>
+            </div>
+
+            <div class="mode-switch">
+                <button class="mode-btn active-consume" onclick="switchMode('consume')">消费雷达</button>
+                <button class="mode-btn" onclick="switchMode('exchange')">换汇雷达</button>
             </div>
 
             <div class="control-group">
@@ -371,6 +371,11 @@
                 <p>[SYS] REAL-TIME EXCHANGE ROUTING</p>
             </div>
 
+            <div class="mode-switch">
+                <button class="mode-btn" onclick="switchMode('consume')">消费雷达</button>
+                <button class="mode-btn active-exchange" onclick="switchMode('exchange')">换汇雷达</button>
+            </div>
+
             <div class="control-group">
                 <div class="input-wrapper">
                     <label>我持有的外币 (Amount)</label>
@@ -467,17 +472,11 @@
 <script>
     function switchMode(mode) {
         const flipper = document.getElementById('flipper');
-        const btnConsume = document.getElementById('btn-consume');
-        const btnExchange = document.getElementById('btn-exchange');
 
         if (mode === 'exchange') {
             flipper.classList.add('flipped');
-            btnExchange.classList.add('active-exchange');
-            btnConsume.classList.remove('active-consume');
         } else {
             flipper.classList.remove('flipped');
-            btnConsume.classList.add('active-consume');
-            btnExchange.classList.remove('active-exchange');
         }
     }
 
