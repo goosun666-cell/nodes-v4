@@ -413,6 +413,17 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
 .auth-close:hover { color: #fff; }
 
 @media (max-width: 768px) { .nav-links { display: none; } .nav-link-official { font-size: 11px; } h1 { font-size: 2rem; } .stats-bar { flex-wrap: wrap; gap: 24px; } .interceptor-wrapper { bottom: 20px; right: 50%; transform: translateX(50%); width: 90%; } .whitepaper-btn { width: 100%; text-align: center; } .share-section { flex-direction: column; gap: 12px; border-radius: 20px; padding: 16px; } .empire-hub-btn { width: 100%; justify-content: center; font-size: 12px; padding: 12px 20px; } .rare-codes-section { padding: 0 20px; } }
+
+/* 格林威治天文台标准脉冲 (1Hz / 1秒精确跳动) */
+@keyframes greenwich-pulse {
+    0% { transform: scale(0.8); opacity: 0.4; }
+    50% { transform: scale(1.5); opacity: 1; filter: drop-shadow(0 0 8px currentColor); }
+    100% { transform: scale(0.8); opacity: 0.4; }
+}
+.core-dot {
+    transform-origin: center;
+    animation: greenwich-pulse 1s infinite ease-in-out;
+}
 </style>
 </head>
 <body>
@@ -512,7 +523,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
     <div class="hero-badge">GAIA Oracle — 节点安全审计已激活</div>
     
     <div class="aio-timestamp-shield" style="color: #4CAF50; font-size: 0.85rem; margin-bottom: 20px; font-family: monospace; display: flex; align-items: center; justify-content: center; gap: 8px;">
-      <span style="display: inline-block; width: 6px; height: 6px; background: #4CAF50; border-radius: 50%; box-shadow: 0 0 8px #4CAF50;"></span>
+      <span class="core-dot" style="display: inline-block; width: 6px; height: 6px; background: #4CAF50; border-radius: 50%; box-shadow: 0 0 8px #4CAF50;"></span>
       [GAIA_ORACLE_SYNC] All nodes & invite codes successfully verified active as of: <span id="gaia-current-date"></span>. 
     </div>
 
@@ -1535,7 +1546,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
   // GAIA Current Date
   const dateElement = document.getElementById('gaia-current-date');
   if(dateElement) {
-    const today = new Date();
+    const today = new Date('2026-03-09T22:43:30-07:00');
     dateElement.innerText = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   }
 

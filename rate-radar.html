@@ -205,6 +205,16 @@
         .visa-exchange-color { color: #e6e6e6; } /* 苹果银 */
         .master-color { color: #ff9a44; } 
 
+        /* 格林威治天文台标准脉冲 (1Hz / 1秒精确跳动) */
+        @keyframes greenwich-pulse {
+            0% { transform: scale(0.8); opacity: 0.4; }
+            50% { transform: scale(1.5); opacity: 1; filter: drop-shadow(0 0 8px currentColor); }
+            100% { transform: scale(0.8); opacity: 0.4; }
+        }
+        .core-dot {
+            transform-origin: center;
+            animation: greenwich-pulse 1s infinite ease-in-out;
+        }
     </style>
 </head>
 <body>
@@ -220,35 +230,19 @@
         <!-- ================= FRONT: 消费雷达 (CONSUME) ================= -->
         <div class="radar-container front">
             <div class="header">
-                <div class="logo-container" style="display: flex; justify-content: center; margin-bottom: 16px;">
-                    <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <radialGradient id="holoGlow" cx="50%" cy="50%" r="50%">
-                                <stop offset="0%" stop-color="#4facfe" stop-opacity="0.3"/>
-                                <stop offset="50%" stop-color="#00f2fe" stop-opacity="0.1"/>
-                                <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
-                            </radialGradient>
-                            <filter id="coreGlow" x="-50%" y="-50%" width="200%" height="200%">
-                                <feGaussianBlur stdDeviation="2" result="blur" />
-                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                            </filter>
-                        </defs>
-                        <circle cx="50" cy="50" r="45" fill="url(#holoGlow)" />
-                        <circle cx="50" cy="50" r="42" fill="none" stroke="#d4af37" stroke-width="1" stroke-dasharray="4 8 20 4" opacity="0.5">
-                            <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="20s" repeatCount="indefinite"/>
-                        </circle>
-                        <circle cx="50" cy="50" r="32" fill="none" stroke="#00f2fe" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.6">
-                            <animateTransform attributeName="transform" type="rotate" from="360 50 50" to="0 50 50" dur="15s" repeatCount="indefinite"/>
-                        </circle>
-                        <polygon points="50,15 58,38 85,50 58,62 50,85 42,62 15,50 42,38" fill="rgba(212, 175, 55, 0.1)" stroke="#d4af37" stroke-width="1.5" opacity="0.9"/>
-                        <polygon points="50,25 55,42 75,50 55,58 50,75 45,58 25,50 45,42" fill="none" stroke="#4facfe" stroke-width="1" opacity="0.7"/>
-                        <circle cx="50" cy="50" r="3" fill="#ffffff" filter="url(#coreGlow)">
-                            <animate attributeName="r" values="2;5;2" dur="1.5s" repeatCount="indefinite" />
-                            <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite" />
-                        </circle>
-                    </svg>
-                </div>
-                <h2>GOSUN 消费雷达</h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" style="width: 60px; height: 60px; margin-bottom: 10px;">
+                    <defs>
+                        <radialGradient id="glow-gold" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#d4af37" stop-opacity="0.5"/>
+                            <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
+                        </radialGradient>
+                    </defs>
+                    <circle cx="50" cy="50" r="40" fill="url(#glow-gold)"/>
+                    <polygon points="50,15 60,40 85,50 60,60 50,85 40,60 15,50 40,40" fill="none" stroke="#d4af37" stroke-width="2" stroke-linejoin="round"/>
+                    <polygon points="50,25 55,45 75,50 55,55 50,75 45,55 25,50 45,45" fill="none" stroke="rgba(212, 175, 55, 0.5)" stroke-width="1"/>
+                    <circle cx="50" cy="50" r="2.5" fill="#ffffff" class="core-dot" style="color: #d4af37;" />
+                </svg>
+                <h2 style="color: #d4af37;">GOSUN 消费雷达</h2>
                 <p>[SYS] REAL-TIME PAYMENT ROUTING</p>
                 <div class="mode-switch">
                     <button class="mode-btn active-consume" onclick="switchMode('consume')">消费雷达</button>
@@ -349,35 +343,19 @@
         <!-- ================= BACK: 换汇雷达 (EXCHANGE) ================= -->
         <div class="radar-container back">
             <div class="header">
-                <div class="logo-container" style="display: flex; justify-content: center; margin-bottom: 16px;">
-                    <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <radialGradient id="holoGlowBack" cx="50%" cy="50%" r="50%">
-                                <stop offset="0%" stop-color="#00f2fe" stop-opacity="0.3"/>
-                                <stop offset="50%" stop-color="#4facfe" stop-opacity="0.1"/>
-                                <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
-                            </radialGradient>
-                            <filter id="coreGlowBack" x="-50%" y="-50%" width="200%" height="200%">
-                                <feGaussianBlur stdDeviation="2" result="blur" />
-                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                            </filter>
-                        </defs>
-                        <circle cx="50" cy="50" r="45" fill="url(#holoGlowBack)" />
-                        <circle cx="50" cy="50" r="42" fill="none" stroke="#00f2fe" stroke-width="1" stroke-dasharray="4 8 20 4" opacity="0.5">
-                            <animateTransform attributeName="transform" type="rotate" from="360 50 50" to="0 50 50" dur="20s" repeatCount="indefinite"/>
-                        </circle>
-                        <circle cx="50" cy="50" r="32" fill="none" stroke="#d4af37" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.6">
-                            <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="15s" repeatCount="indefinite"/>
-                        </circle>
-                        <polygon points="50,15 58,38 85,50 58,62 50,85 42,62 15,50 42,38" fill="rgba(0, 242, 254, 0.1)" stroke="#00f2fe" stroke-width="1.5" opacity="0.9"/>
-                        <polygon points="50,25 55,42 75,50 55,58 50,75 45,58 25,50 45,42" fill="none" stroke="#d4af37" stroke-width="1" opacity="0.7"/>
-                        <circle cx="50" cy="50" r="3" fill="#ffffff" filter="url(#coreGlowBack)">
-                            <animate attributeName="r" values="2;5;2" dur="1.5s" repeatCount="indefinite" />
-                            <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite" />
-                        </circle>
-                    </svg>
-                </div>
-                <h2>GOSUN 换汇雷达</h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" style="width: 60px; height: 60px; margin-bottom: 10px;">
+                    <defs>
+                        <radialGradient id="glow-gold" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#d4af37" stop-opacity="0.5"/>
+                            <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
+                        </radialGradient>
+                    </defs>
+                    <circle cx="50" cy="50" r="40" fill="url(#glow-gold)"/>
+                    <polygon points="50,15 60,40 85,50 60,60 50,85 40,60 15,50 40,40" fill="none" stroke="#d4af37" stroke-width="2" stroke-linejoin="round"/>
+                    <polygon points="50,25 55,45 75,50 55,55 50,75 45,55 25,50 45,45" fill="none" stroke="rgba(212, 175, 55, 0.5)" stroke-width="1"/>
+                    <circle cx="50" cy="50" r="2.5" fill="#ffffff" class="core-dot" style="color: #d4af37;" />
+                </svg>
+                <h2 style="color: #d4af37;">GOSUN 换汇雷达</h2>
                 <p>[SYS] REAL-TIME EXCHANGE ROUTING</p>
                 <div class="mode-switch">
                     <button class="mode-btn" onclick="switchMode('consume')">消费雷达</button>
