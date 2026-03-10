@@ -156,11 +156,11 @@
 
     <div class="control-group">
         <div class="input-wrapper">
-            <label>交易金额 (Amount)</label>
+            <label>外币商品标价 (Item Price)</label>
             <input type="number" id="baseAmount" value="1000">
         </div>
         <div class="select-wrapper">
-            <label>交易币种 (From)</label>
+            <label>商品结算币种 (From)</label>
             <select id="currencyFrom">
                 <option value="EUR">EUR - 欧元</option>
                 <option value="USD">USD - 美元</option>
@@ -172,7 +172,7 @@
             </select>
         </div>
         <div class="select-wrapper">
-            <label>结算币种 (To)</label>
+            <label>我的信用卡币种 (To)</label>
             <select id="currencyTo">
                 <option value="CNY">CNY - 人民币</option>
                 <option value="USD">USD - 美元</option>
@@ -191,32 +191,54 @@
         
         <div class="rate-card" id="card-google">
             <div class="card-brand">
-                <span class="brand-name google-color">❖ Google 国际大盘</span>
+                <span class="brand-name google-color">
+                    <svg viewBox="0 0 24 24" width="18" height="18">
+                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Google 国际大盘
+                </span>
                 <span class="brand-rate" id="rate-google">等待探测...</span>
             </div>
             <div class="card-result">
+                <div style="font-size: 10px; color: #888; margin-bottom: 4px; letter-spacing: 1px;">无损耗基准价</div>
                 <span class="final-amount google-color" id="amount-google">0.00</span>
             </div>
         </div>
 
         <div class="rate-card" id="card-visa">
-            <div class="best-badge">OPTIMAL</div>
+            <div class="best-badge">最优 (扣款最低)</div>
             <div class="card-brand">
-                <span class="brand-name visa-color">💳 VISA 清算网络</span>
+                <span class="brand-name visa-color">
+                    <svg viewBox="0 0 38 12" width="38" height="12">
+                        <path fill="#ffffff" d="M14.68 0h-3.32L9.2 11.6h3.42L14.68 0zM20.26 11.28c-3.66 0-5.26-1.96-5.28-4.76.02-3.14 2.62-4.84 5.38-4.84 2.08 0 3.28.64 4.14 1.24l-.62 2.92c-.78-.48-1.78-.8-2.8-.8-1.6 0-2.72.86-2.74 2.08-.02 1.1 1.02 1.74 1.8 2.12.8.4 1.06.66 1.06 1.02-.02.56-.68 1.1-1.98 1.1-1.22 0-2.12-.34-2.84-.74l-.64 3.02c.74.46 2.04.84 3.52.84zM28.06 0h-2.62c-.8 0-1.42.22-1.74.98l-4.96 10.62h3.58l.7-1.96h4.38l.4 1.96h3.14L28.06 0zm-2.06 6.94l1.04-2.86c.06-.16.12-.36.16-.54.04.2.08.38.12.52l.54 2.88h-1.86zM8.86 0H6.14c-.62 0-1.14.36-1.38.92L.04 11.6h3.62s.58-1.64.72-2.02h4.42c.1.46.42 2.02.42 2.02h3.2L8.86 0zm-3.4 6.98l1.46-4.02 1.04 4.02H5.46z"/>
+                    </svg>
+                </span>
                 <span class="brand-rate" id="rate-visa">等待探测...</span>
             </div>
             <div class="card-result">
+                <div style="font-size: 10px; color: #888; margin-bottom: 4px; letter-spacing: 1px;">预估信用卡扣款</div>
                 <span class="final-amount visa-color" id="amount-visa">0.00</span>
             </div>
         </div>
 
         <div class="rate-card" id="card-master">
-            <div class="best-badge">OPTIMAL</div>
+            <div class="best-badge">最优 (扣款最低)</div>
             <div class="card-brand">
-                <span class="brand-name master-color">💳 MASTERCARD</span>
+                <span class="brand-name master-color">
+                    <svg viewBox="0 0 24 15" width="28" height="18">
+                        <circle cx="7.5" cy="7.5" r="7.5" fill="#EB001B"/>
+                        <circle cx="16.5" cy="7.5" r="7.5" fill="#F79E1B"/>
+                        <path d="M12 12.98A7.5 7.5 0 0 1 9.46 7.5 7.5 7.5 0 0 1 12 2.02a7.5 7.5 0 0 0 0 10.96z" fill="#FF5F00"/>
+                    </svg>
+                    MASTERCARD
+                </span>
                 <span class="brand-rate" id="rate-master">等待探测...</span>
             </div>
             <div class="card-result">
+                <div style="font-size: 10px; color: #888; margin-bottom: 4px; letter-spacing: 1px;">预估信用卡扣款</div>
                 <span class="final-amount master-color" id="amount-master">0.00</span>
             </div>
         </div>
