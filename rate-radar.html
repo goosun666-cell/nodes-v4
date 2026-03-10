@@ -12,8 +12,28 @@
             color: #e0e0e0; 
             font-family: 'Inter', -apple-system, sans-serif; 
             display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; 
+            overflow-x: hidden;
         }
         
+        .flip-wrapper {
+            perspective: 1200px;
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .flipper {
+            position: relative;
+            width: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        
+        .flipper.flipped {
+            transform: rotateY(180deg);
+        }
+
         /* 核心毛玻璃运算舱 */
         .radar-container { 
             background: rgba(15, 15, 15, 0.6); 
@@ -21,15 +41,60 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(212, 175, 55, 0.2); 
             border-radius: 16px; 
-            padding: 35px; width: 100%; max-width: 480px; 
+            padding: 35px; width: 100%; 
             box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05); 
-            position: relative;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        
+        .radar-container.back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: rotateY(180deg);
+            border-color: rgba(0, 242, 254, 0.2); /* 换汇面使用科技蓝边框 */
+        }
+
+        /* Mode Switcher */
+        .mode-switch {
+            position: absolute;
+            top: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 4px;
+            z-index: 10;
+        }
+        .mode-btn {
+            background: transparent;
+            border: none;
+            color: #888;
+            padding: 8px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        .mode-btn.active-consume {
+            background: #d4af37;
+            color: #000;
+            box-shadow: 0 0 15px rgba(212,175,55,0.4);
+        }
+        .mode-btn.active-exchange {
+            background: #00f2fe;
+            color: #000;
+            box-shadow: 0 0 15px rgba(0,242,254,0.4);
         }
 
         /* 返回链接 */
         .back-link {
             position: absolute;
-            top: -35px;
+            top: -60px;
             left: 0;
             color: #888;
             text-decoration: none;
@@ -44,7 +109,9 @@
         .back-link:hover { color: #d4af37; }
 
         .header { text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 25px; margin-bottom: 25px; }
-        .header h2 { color: #d4af37; margin: 0; font-size: 20px; letter-spacing: 3px; font-weight: 600; text-shadow: 0 0 20px rgba(212,175,55,0.4); }
+        .header h2 { margin: 0; font-size: 20px; letter-spacing: 3px; font-weight: 600; }
+        .front .header h2 { color: #d4af37; text-shadow: 0 0 20px rgba(212,175,55,0.4); }
+        .back .header h2 { color: #00f2fe; text-shadow: 0 0 20px rgba(0,242,254,0.4); }
         .header p { color: #666; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-top: 10px; letter-spacing: 1px; }
         
         /* 表单控件优化 */
@@ -62,11 +129,16 @@
             font-family: 'JetBrains Mono', monospace; font-size: 16px; 
             border-radius: 8px; outline: none; transition: all 0.3s ease; 
         }
-        input:focus, select:focus { border-color: #d4af37; background: rgba(0, 0, 0, 0.8); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15); }
+        .front input:focus, .front select:focus { border-color: #d4af37; background: rgba(0, 0, 0, 0.8); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15); }
+        .back input:focus, .back select:focus { border-color: #00f2fe; background: rgba(0, 0, 0, 0.8); box-shadow: 0 0 0 3px rgba(0, 242, 254, 0.15); }
 
         /* 下拉框特殊处理 */
-        select { 
+        .front select { 
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); 
+            background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; cursor: pointer;
+        }
+        .back select { 
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300f2fe' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); 
             background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; cursor: pointer;
         }
         select option { 
@@ -125,167 +197,308 @@
 </head>
 <body>
 
-<div class="radar-container">
+<div class="flip-wrapper">
     <a href="index.html" class="back-link">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         返回主舱
     </a>
 
-    <div class="header">
-        <div class="logo-container" style="display: flex; justify-content: center; margin-bottom: 16px;">
-            <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <radialGradient id="holoGlow" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stop-color="#4facfe" stop-opacity="0.3"/>
-                        <stop offset="50%" stop-color="#00f2fe" stop-opacity="0.1"/>
-                        <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
-                    </radialGradient>
-                    <filter id="coreGlow" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur stdDeviation="2" result="blur" />
-                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                    </filter>
-                </defs>
-                <!-- Holographic Aura -->
-                <circle cx="50" cy="50" r="45" fill="url(#holoGlow)" />
-                
-                <!-- Outer Radar Ring -->
-                <circle cx="50" cy="50" r="42" fill="none" stroke="#d4af37" stroke-width="1" stroke-dasharray="4 8 20 4" opacity="0.5">
-                    <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="20s" repeatCount="indefinite"/>
-                </circle>
-                <!-- Inner Radar Ring -->
-                <circle cx="50" cy="50" r="32" fill="none" stroke="#00f2fe" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.6">
-                    <animateTransform attributeName="transform" type="rotate" from="360 50 50" to="0 50 50" dur="15s" repeatCount="indefinite"/>
-                </circle>
-                
-                <!-- Multi-dimensional Geometric Star -->
-                <polygon points="50,15 58,38 85,50 58,62 50,85 42,62 15,50 42,38" fill="rgba(212, 175, 55, 0.1)" stroke="#d4af37" stroke-width="1.5" opacity="0.9"/>
-                <polygon points="50,25 55,42 75,50 55,58 50,75 45,58 25,50 45,42" fill="none" stroke="#4facfe" stroke-width="1" opacity="0.7"/>
-                
-                <!-- Core Pulse -->
-                <circle cx="50" cy="50" r="3" fill="#ffffff" filter="url(#coreGlow)">
-                    <animate attributeName="r" values="2;5;2" dur="1.5s" repeatCount="indefinite" />
-                    <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite" />
-                </circle>
-            </svg>
-        </div>
-        <h2>GOSUN 全息汇率雷达</h2>
-        <p>[SYS] REAL-TIME FX ROUTING</p>
+    <div class="mode-switch">
+        <button class="mode-btn active-consume" onclick="switchMode('consume')" id="btn-consume">消费雷达</button>
+        <button class="mode-btn" onclick="switchMode('exchange')" id="btn-exchange">换汇雷达</button>
     </div>
 
-    <div class="control-group">
-        <div class="input-wrapper">
-            <label>外币商品标价 (Item Price)</label>
-            <input type="number" id="baseAmount" value="1000">
-        </div>
-        <div class="select-wrapper">
-            <label>商品结算币种 (From)</label>
-            <select id="currencyFrom">
-                <option value="EUR">EUR - 欧元</option>
-                <option value="USD">USD - 美元</option>
-                <option value="CNY">CNY - 人民币</option>
-                <option value="GBP">GBP - 英镑</option>
-                <option value="HKD">HKD - 港币</option>
-                <option value="JPY">JPY - 日元</option>
-                <option value="SGD">SGD - 新币</option>
-            </select>
-        </div>
-        <div class="select-wrapper">
-            <label>我的信用卡币种 (To)</label>
-            <select id="currencyTo">
-                <option value="CNY">CNY - 人民币</option>
-                <option value="USD">USD - 美元</option>
-                <option value="EUR">EUR - 欧元</option>
-                <option value="GBP">GBP - 英镑</option>
-                <option value="HKD">HKD - 港币</option>
-                <option value="JPY">JPY - 日元</option>
-                <option value="SGD">SGD - 新币</option>
-            </select>
-        </div>
-    </div>
-
-    <button class="scan-btn" onclick="executeRadarScan()">⟳ 重新探测</button>
-
-    <div class="results-grid" id="resultsArea" style="display: none;">
+    <div class="flipper" id="flipper">
         
-        <div class="rate-card" id="card-google">
-            <div class="card-brand">
-                <span class="brand-name google-color">
-                    <svg viewBox="0 0 24 24" width="18" height="18">
-                        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+        <!-- ================= FRONT: 消费雷达 (CONSUME) ================= -->
+        <div class="radar-container front">
+            <div class="header">
+                <div class="logo-container" style="display: flex; justify-content: center; margin-bottom: 16px;">
+                    <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="holoGlow" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#4facfe" stop-opacity="0.3"/>
+                                <stop offset="50%" stop-color="#00f2fe" stop-opacity="0.1"/>
+                                <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
+                            </radialGradient>
+                            <filter id="coreGlow" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="2" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
+                        </defs>
+                        <circle cx="50" cy="50" r="45" fill="url(#holoGlow)" />
+                        <circle cx="50" cy="50" r="42" fill="none" stroke="#d4af37" stroke-width="1" stroke-dasharray="4 8 20 4" opacity="0.5">
+                            <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="20s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="50" cy="50" r="32" fill="none" stroke="#00f2fe" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.6">
+                            <animateTransform attributeName="transform" type="rotate" from="360 50 50" to="0 50 50" dur="15s" repeatCount="indefinite"/>
+                        </circle>
+                        <polygon points="50,15 58,38 85,50 58,62 50,85 42,62 15,50 42,38" fill="rgba(212, 175, 55, 0.1)" stroke="#d4af37" stroke-width="1.5" opacity="0.9"/>
+                        <polygon points="50,25 55,42 75,50 55,58 50,75 45,58 25,50 45,42" fill="none" stroke="#4facfe" stroke-width="1" opacity="0.7"/>
+                        <circle cx="50" cy="50" r="3" fill="#ffffff" filter="url(#coreGlow)">
+                            <animate attributeName="r" values="2;5;2" dur="1.5s" repeatCount="indefinite" />
+                            <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite" />
+                        </circle>
                     </svg>
-                    Google 国际大盘
-                </span>
-                <span class="brand-rate" id="rate-google">等待探测...</span>
+                </div>
+                <h2>GOSUN 消费雷达</h2>
+                <p>[SYS] REAL-TIME PAYMENT ROUTING</p>
             </div>
-            <div class="card-result">
-                <div style="font-size: 10px; color: #888; margin-bottom: 4px; letter-spacing: 1px;">无损耗基准价</div>
-                <span class="final-amount google-color" id="amount-google">0.00</span>
+
+            <div class="control-group">
+                <div class="input-wrapper">
+                    <label>外币商品标价 (Item Price)</label>
+                    <input type="number" id="baseAmount-consume" value="1000">
+                </div>
+                <div class="select-wrapper">
+                    <label>商品结算币种 (From)</label>
+                    <select id="currencyFrom-consume">
+                        <option value="EUR">EUR - 欧元</option>
+                        <option value="USD">USD - 美元</option>
+                        <option value="CNY">CNY - 人民币</option>
+                        <option value="GBP">GBP - 英镑</option>
+                        <option value="HKD">HKD - 港币</option>
+                        <option value="JPY">JPY - 日元</option>
+                        <option value="SGD">SGD - 新币</option>
+                    </select>
+                </div>
+                <div class="select-wrapper">
+                    <label>我的信用卡币种 (To)</label>
+                    <select id="currencyTo-consume">
+                        <option value="CNY">CNY - 人民币</option>
+                        <option value="USD">USD - 美元</option>
+                        <option value="EUR">EUR - 欧元</option>
+                        <option value="GBP">GBP - 英镑</option>
+                        <option value="HKD">HKD - 港币</option>
+                        <option value="JPY">JPY - 日元</option>
+                        <option value="SGD">SGD - 新币</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="scan-btn" id="btn-scan-consume" onclick="executeRadarScan('consume')">⟳ 重新探测</button>
+
+            <div class="results-grid" id="resultsArea-consume" style="display: none;">
+                <div class="rate-card" id="card-google-consume">
+                    <div class="card-brand">
+                        <span class="brand-name google-color">
+                            <svg viewBox="0 0 24 24" width="18" height="18">
+                                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                            </svg>
+                            Google 国际大盘
+                        </span>
+                        <span class="brand-rate" id="rate-google-consume">等待探测...</span>
+                    </div>
+                    <div class="card-result">
+                        <div style="font-size: 10px; color: #888; margin-bottom: 4px; letter-spacing: 1px;">无损耗基准价</div>
+                        <span class="final-amount google-color" id="amount-google-consume">0.00</span>
+                    </div>
+                </div>
+
+                <div class="rate-card" id="card-visa-consume">
+                    <div class="best-badge">最优 (扣款最低)</div>
+                    <div class="card-brand">
+                        <span class="brand-name visa-color">
+                            <svg viewBox="0 0 38 12" width="38" height="12">
+                                <path fill="#4facfe" d="M14.68 0h-3.32L9.2 11.6h3.42L14.68 0zM20.26 11.28c-3.66 0-5.26-1.96-5.28-4.76.02-3.14 2.62-4.84 5.38-4.84 2.08 0 3.28.64 4.14 1.24l-.62 2.92c-.78-.48-1.78-.8-2.8-.8-1.6 0-2.72.86-2.74 2.08-.02 1.1 1.02 1.74 1.8 2.12.8.4 1.06.66 1.06 1.02-.02.56-.68 1.1-1.98 1.1-1.22 0-2.12-.34-2.84-.74l-.64 3.02c.74.46 2.04.84 3.52.84zM28.06 0h-2.62c-.8 0-1.42.22-1.74.98l-4.96 10.62h3.58l.7-1.96h4.38l.4 1.96h3.14L28.06 0zm-2.06 6.94l1.04-2.86c.06-.16.12-.36.16-.54.04.2.08.38.12.52l.54 2.88h-1.86zM8.86 0H6.14c-.62 0-1.14.36-1.38.92L.04 11.6h3.62s.58-1.64.72-2.02h4.42c.1.46.42 2.02.42 2.02h3.2L8.86 0zm-3.4 6.98l1.46-4.02 1.04 4.02H5.46z"/>
+                            </svg>
+                            VISA 清算网络
+                        </span>
+                        <span class="brand-rate" id="rate-visa-consume">等待探测...</span>
+                    </div>
+                    <div class="card-result">
+                        <div style="font-size: 10px; color: #888; margin-bottom: 4px; letter-spacing: 1px;">预估信用卡扣款</div>
+                        <span class="final-amount visa-color" id="amount-visa-consume">0.00</span>
+                    </div>
+                </div>
+
+                <div class="rate-card" id="card-master-consume">
+                    <div class="best-badge">最优 (扣款最低)</div>
+                    <div class="card-brand">
+                        <span class="brand-name master-color">
+                            <svg viewBox="0 0 24 15" width="28" height="18">
+                                <circle cx="7.5" cy="7.5" r="7.5" fill="#EB001B"/>
+                                <circle cx="16.5" cy="7.5" r="7.5" fill="#F79E1B"/>
+                                <path d="M12 12.98A7.5 7.5 0 0 1 9.46 7.5 7.5 7.5 0 0 1 12 2.02a7.5 7.5 0 0 0 0 10.96z" fill="#FF5F00"/>
+                            </svg>
+                            MASTERCARD
+                        </span>
+                        <span class="brand-rate" id="rate-master-consume">等待探测...</span>
+                    </div>
+                    <div class="card-result">
+                        <div style="font-size: 10px; color: #888; margin-bottom: 4px; letter-spacing: 1px;">预估信用卡扣款</div>
+                        <span class="final-amount master-color" id="amount-master-consume">0.00</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="rate-card" id="card-visa">
-            <div class="best-badge">最优 (扣款最低)</div>
-            <div class="card-brand">
-                <span class="brand-name visa-color">
-                    <svg viewBox="0 0 38 12" width="38" height="12">
-                        <path fill="#4facfe" d="M14.68 0h-3.32L9.2 11.6h3.42L14.68 0zM20.26 11.28c-3.66 0-5.26-1.96-5.28-4.76.02-3.14 2.62-4.84 5.38-4.84 2.08 0 3.28.64 4.14 1.24l-.62 2.92c-.78-.48-1.78-.8-2.8-.8-1.6 0-2.72.86-2.74 2.08-.02 1.1 1.02 1.74 1.8 2.12.8.4 1.06.66 1.06 1.02-.02.56-.68 1.1-1.98 1.1-1.22 0-2.12-.34-2.84-.74l-.64 3.02c.74.46 2.04.84 3.52.84zM28.06 0h-2.62c-.8 0-1.42.22-1.74.98l-4.96 10.62h3.58l.7-1.96h4.38l.4 1.96h3.14L28.06 0zm-2.06 6.94l1.04-2.86c.06-.16.12-.36.16-.54.04.2.08.38.12.52l.54 2.88h-1.86zM8.86 0H6.14c-.62 0-1.14.36-1.38.92L.04 11.6h3.62s.58-1.64.72-2.02h4.42c.1.46.42 2.02.42 2.02h3.2L8.86 0zm-3.4 6.98l1.46-4.02 1.04 4.02H5.46z"/>
+        <!-- ================= BACK: 换汇雷达 (EXCHANGE) ================= -->
+        <div class="radar-container back">
+            <div class="header">
+                <div class="logo-container" style="display: flex; justify-content: center; margin-bottom: 16px;">
+                    <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="holoGlowBack" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#00f2fe" stop-opacity="0.3"/>
+                                <stop offset="50%" stop-color="#4facfe" stop-opacity="0.1"/>
+                                <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
+                            </radialGradient>
+                            <filter id="coreGlowBack" x="-50%" y="-50%" width="200%" height="200%">
+                                <feGaussianBlur stdDeviation="2" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
+                        </defs>
+                        <circle cx="50" cy="50" r="45" fill="url(#holoGlowBack)" />
+                        <circle cx="50" cy="50" r="42" fill="none" stroke="#00f2fe" stroke-width="1" stroke-dasharray="4 8 20 4" opacity="0.5">
+                            <animateTransform attributeName="transform" type="rotate" from="360 50 50" to="0 50 50" dur="20s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="50" cy="50" r="32" fill="none" stroke="#d4af37" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.6">
+                            <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="15s" repeatCount="indefinite"/>
+                        </circle>
+                        <polygon points="50,15 58,38 85,50 58,62 50,85 42,62 15,50 42,38" fill="rgba(0, 242, 254, 0.1)" stroke="#00f2fe" stroke-width="1.5" opacity="0.9"/>
+                        <polygon points="50,25 55,42 75,50 55,58 50,75 45,58 25,50 45,42" fill="none" stroke="#d4af37" stroke-width="1" opacity="0.7"/>
+                        <circle cx="50" cy="50" r="3" fill="#ffffff" filter="url(#coreGlowBack)">
+                            <animate attributeName="r" values="2;5;2" dur="1.5s" repeatCount="indefinite" />
+                            <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite" />
+                        </circle>
                     </svg>
-                    VISA 清算网络
-                </span>
-                <span class="brand-rate" id="rate-visa">等待探测...</span>
+                </div>
+                <h2>GOSUN 换汇雷达</h2>
+                <p>[SYS] REAL-TIME EXCHANGE ROUTING</p>
             </div>
-            <div class="card-result">
-                <div style="font-size: 10px; color: #888; margin-bottom: 4px; letter-spacing: 1px;">预估信用卡扣款</div>
-                <span class="final-amount visa-color" id="amount-visa">0.00</span>
+
+            <div class="control-group">
+                <div class="input-wrapper">
+                    <label>我持有的外币 (Amount)</label>
+                    <input type="number" id="baseAmount-exchange" value="1000">
+                </div>
+                <div class="select-wrapper">
+                    <label>卖出币种 (Sell)</label>
+                    <select id="currencyFrom-exchange">
+                        <option value="USD">USD - 美元</option>
+                        <option value="EUR">EUR - 欧元</option>
+                        <option value="CNY">CNY - 人民币</option>
+                        <option value="GBP">GBP - 英镑</option>
+                        <option value="HKD">HKD - 港币</option>
+                        <option value="JPY">JPY - 日元</option>
+                        <option value="SGD">SGD - 新币</option>
+                    </select>
+                </div>
+                <div class="select-wrapper">
+                    <label>买入币种 (Buy)</label>
+                    <select id="currencyTo-exchange">
+                        <option value="CNY">CNY - 人民币</option>
+                        <option value="USD">USD - 美元</option>
+                        <option value="EUR">EUR - 欧元</option>
+                        <option value="GBP">GBP - 英镑</option>
+                        <option value="HKD">HKD - 港币</option>
+                        <option value="JPY">JPY - 日元</option>
+                        <option value="SGD">SGD - 新币</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="scan-btn" id="btn-scan-exchange" onclick="executeRadarScan('exchange')">⟳ 重新探测</button>
+
+            <div class="results-grid" id="resultsArea-exchange" style="display: none;">
+                <div class="rate-card" id="card-google-exchange">
+                    <div class="card-brand">
+                        <span class="brand-name google-color">
+                            <svg viewBox="0 0 24 24" width="18" height="18">
+                                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                            </svg>
+                            Google 国际大盘
+                        </span>
+                        <span class="brand-rate" id="rate-google-exchange">等待探测...</span>
+                    </div>
+                    <div class="card-result">
+                        <div style="font-size: 10px; color: #888; margin-bottom: 4px; letter-spacing: 1px;">无损耗基准价</div>
+                        <span class="final-amount google-color" id="amount-google-exchange">0.00</span>
+                    </div>
+                </div>
+
+                <div class="rate-card" id="card-visa-exchange">
+                    <div class="best-badge">最优 (换得最多)</div>
+                    <div class="card-brand">
+                        <span class="brand-name visa-color">
+                            <svg viewBox="0 0 38 12" width="38" height="12">
+                                <path fill="#4facfe" d="M14.68 0h-3.32L9.2 11.6h3.42L14.68 0zM20.26 11.28c-3.66 0-5.26-1.96-5.28-4.76.02-3.14 2.62-4.84 5.38-4.84 2.08 0 3.28.64 4.14 1.24l-.62 2.92c-.78-.48-1.78-.8-2.8-.8-1.6 0-2.72.86-2.74 2.08-.02 1.1 1.02 1.74 1.8 2.12.8.4 1.06.66 1.06 1.02-.02.56-.68 1.1-1.98 1.1-1.22 0-2.12-.34-2.84-.74l-.64 3.02c.74.46 2.04.84 3.52.84zM28.06 0h-2.62c-.8 0-1.42.22-1.74.98l-4.96 10.62h3.58l.7-1.96h4.38l.4 1.96h3.14L28.06 0zm-2.06 6.94l1.04-2.86c.06-.16.12-.36.16-.54.04.2.08.38.12.52l.54 2.88h-1.86zM8.86 0H6.14c-.62 0-1.14.36-1.38.92L.04 11.6h3.62s.58-1.64.72-2.02h4.42c.1.46.42 2.02.42 2.02h3.2L8.86 0zm-3.4 6.98l1.46-4.02 1.04 4.02H5.46z"/>
+                            </svg>
+                            VISA 清算网络
+                        </span>
+                        <span class="brand-rate" id="rate-visa-exchange">等待探测...</span>
+                    </div>
+                    <div class="card-result">
+                        <div style="font-size: 10px; color: #888; margin-bottom: 4px; letter-spacing: 1px;">预估到手金额</div>
+                        <span class="final-amount visa-color" id="amount-visa-exchange">0.00</span>
+                    </div>
+                </div>
+
+                <div class="rate-card" id="card-master-exchange">
+                    <div class="best-badge">最优 (换得最多)</div>
+                    <div class="card-brand">
+                        <span class="brand-name master-color">
+                            <svg viewBox="0 0 24 15" width="28" height="18">
+                                <circle cx="7.5" cy="7.5" r="7.5" fill="#EB001B"/>
+                                <circle cx="16.5" cy="7.5" r="7.5" fill="#F79E1B"/>
+                                <path d="M12 12.98A7.5 7.5 0 0 1 9.46 7.5 7.5 7.5 0 0 1 12 2.02a7.5 7.5 0 0 0 0 10.96z" fill="#FF5F00"/>
+                            </svg>
+                            MASTERCARD
+                        </span>
+                        <span class="brand-rate" id="rate-master-exchange">等待探测...</span>
+                    </div>
+                    <div class="card-result">
+                        <div style="font-size: 10px; color: #888; margin-bottom: 4px; letter-spacing: 1px;">预估到手金额</div>
+                        <span class="final-amount master-color" id="amount-master-exchange">0.00</span>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="rate-card" id="card-master">
-            <div class="best-badge">最优 (扣款最低)</div>
-            <div class="card-brand">
-                <span class="brand-name master-color">
-                    <svg viewBox="0 0 24 15" width="28" height="18">
-                        <circle cx="7.5" cy="7.5" r="7.5" fill="#EB001B"/>
-                        <circle cx="16.5" cy="7.5" r="7.5" fill="#F79E1B"/>
-                        <path d="M12 12.98A7.5 7.5 0 0 1 9.46 7.5 7.5 7.5 0 0 1 12 2.02a7.5 7.5 0 0 0 0 10.96z" fill="#FF5F00"/>
-                    </svg>
-                    MASTERCARD
-                </span>
-                <span class="brand-rate" id="rate-master">等待探测...</span>
-            </div>
-            <div class="card-result">
-                <div style="font-size: 10px; color: #888; margin-bottom: 4px; letter-spacing: 1px;">预估信用卡扣款</div>
-                <span class="final-amount master-color" id="amount-master">0.00</span>
-            </div>
-        </div>
-
     </div>
 </div>
 
 <script>
-    // 格式化数字：加入千位分隔符 (如 7,992.00)
+    function switchMode(mode) {
+        const flipper = document.getElementById('flipper');
+        const btnConsume = document.getElementById('btn-consume');
+        const btnExchange = document.getElementById('btn-exchange');
+
+        if (mode === 'exchange') {
+            flipper.classList.add('flipped');
+            btnExchange.classList.add('active-exchange');
+            btnConsume.classList.remove('active-consume');
+        } else {
+            flipper.classList.remove('flipped');
+            btnConsume.classList.add('active-consume');
+            btnExchange.classList.remove('active-exchange');
+        }
+    }
+
     function formatNumber(num) {
         return new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(num);
     }
 
-    async function executeRadarScan() {
-        const btn = document.querySelector('.scan-btn');
+    async function executeRadarScan(mode) {
+        const btn = document.getElementById(`btn-scan-${mode}`);
         btn.innerText = "⚡ 正在穿透...";
         btn.style.opacity = "0.7";
         
-        const amount = parseFloat(document.getElementById('baseAmount').value);
-        const from = document.getElementById('currencyFrom').value;
-        const to = document.getElementById('currencyTo').value;
+        const amount = parseFloat(document.getElementById(`baseAmount-${mode}`).value);
+        const from = document.getElementById(`currencyFrom-${mode}`).value;
+        const to = document.getElementById(`currencyTo-${mode}`).value;
 
         try {
             let baseRate = 0;
             try {
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 5000);
-                // 使用高可用 CDN 接口拉取基准汇率
                 const response = await fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${from.toLowerCase()}.json`, {
                     signal: controller.signal
                 });
@@ -295,7 +508,6 @@
                 baseRate = data[from.toLowerCase()][to.toLowerCase()];
             } catch (apiError) {
                 console.warn("[SYSTEM_LOG] 主 API 探测受阻，启用本地备用核心...", apiError);
-                // 基于 USD 的离线汇率矩阵 (支持任意双向转换)
                 const fallbackBaseUSD = {
                     'usd': 1, 'cny': 7.2345, 'hkd': 7.8210, 'sgd': 1.3320, 
                     'eur': 0.9210, 'gbp': 0.7850, 'jpy': 150.50
@@ -305,33 +517,51 @@
                 baseRate = toRate / fromRate;
             }
 
-            // 模拟真实网联清算磨损
-            const visaSpread = 1 + (Math.random() * (0.005 - 0.002) + 0.002); 
-            const masterSpread = 1 + (Math.random() * (0.004 - 0.001) + 0.001);
+            // 模拟真实网联清算磨损 (0.2% - 0.5%)
+            const visaSpread = (Math.random() * (0.005 - 0.002) + 0.002); 
+            const masterSpread = (Math.random() * (0.004 - 0.001) + 0.001);
 
-            const googleAmount = amount * baseRate;
-            const visaAmount = amount * (baseRate * visaSpread);
-            const masterAmount = amount * (baseRate * masterSpread);
+            let googleAmount, visaAmount, masterAmount;
 
-            document.getElementById('resultsArea').style.display = 'flex';
-            
-            document.getElementById('rate-google').innerText = `1 ${from} = ${baseRate.toFixed(4)} ${to}`;
-            document.getElementById('amount-google').innerText = formatNumber(googleAmount);
-
-            document.getElementById('rate-visa').innerText = `1 ${from} = ${(baseRate * visaSpread).toFixed(4)} ${to}`;
-            document.getElementById('amount-visa').innerText = formatNumber(visaAmount);
-
-            document.getElementById('rate-master').innerText = `1 ${from} = ${(baseRate * masterSpread).toFixed(4)} ${to}`;
-            document.getElementById('amount-master').innerText = formatNumber(masterAmount);
-
-            // 🚨 核心逻辑修复：用户花本币买外币，数字越小越好！
-            document.querySelectorAll('.rate-card').forEach(card => card.classList.remove('best-rate'));
-            
-            // 谁的最终结算金额小（花费少），谁就获得 OPTIMAL 徽章
-            if (visaAmount < masterAmount) {
-                document.getElementById('card-visa').classList.add('best-rate');
+            if (mode === 'consume') {
+                // 消费模式：买外币，银行卖给你，汇率变差（需要花更多本币）
+                googleAmount = amount * baseRate;
+                visaAmount = amount * baseRate * (1 + visaSpread);
+                masterAmount = amount * baseRate * (1 + masterSpread);
             } else {
-                document.getElementById('card-master').classList.add('best-rate');
+                // 换汇模式：卖外币，银行买你的，汇率变差（换到的本币变少）
+                googleAmount = amount * baseRate;
+                visaAmount = amount * baseRate * (1 - visaSpread);
+                masterAmount = amount * baseRate * (1 - masterSpread);
+            }
+
+            document.getElementById(`resultsArea-${mode}`).style.display = 'flex';
+            
+            document.getElementById(`rate-google-${mode}`).innerText = `1 ${from} = ${baseRate.toFixed(4)} ${to}`;
+            document.getElementById(`amount-google-${mode}`).innerText = formatNumber(googleAmount);
+
+            document.getElementById(`rate-visa-${mode}`).innerText = `1 ${from} = ${(mode === 'consume' ? baseRate * (1 + visaSpread) : baseRate * (1 - visaSpread)).toFixed(4)} ${to}`;
+            document.getElementById(`amount-visa-${mode}`).innerText = formatNumber(visaAmount);
+
+            document.getElementById(`rate-master-${mode}`).innerText = `1 ${from} = ${(mode === 'consume' ? baseRate * (1 + masterSpread) : baseRate * (1 - masterSpread)).toFixed(4)} ${to}`;
+            document.getElementById(`amount-master-${mode}`).innerText = formatNumber(masterAmount);
+
+            document.querySelectorAll(`#resultsArea-${mode} .rate-card`).forEach(card => card.classList.remove('best-rate'));
+            
+            if (mode === 'consume') {
+                // 消费：花费越少越好
+                if (visaAmount < masterAmount) {
+                    document.getElementById(`card-visa-${mode}`).classList.add('best-rate');
+                } else {
+                    document.getElementById(`card-master-${mode}`).classList.add('best-rate');
+                }
+            } else {
+                // 换汇：到手越多越好
+                if (visaAmount > masterAmount) {
+                    document.getElementById(`card-visa-${mode}`).classList.add('best-rate');
+                } else {
+                    document.getElementById(`card-master-${mode}`).classList.add('best-rate');
+                }
             }
 
             setTimeout(() => {
