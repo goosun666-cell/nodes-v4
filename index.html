@@ -262,7 +262,7 @@ body { background-color: var(--bg-base); color: var(--text-main); font-family: v
 header { position: sticky; top: 30px; z-index: 10; padding: 0 40px; border-bottom: 1px solid var(--glass-border); background: rgba(3,3,3,0.8); backdrop-filter: blur(10px); }
 nav { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.brand-logo { width: 32px; height: 32px; object-fit: contain; margin-right: 12px; filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6)); }
+.brand-logo { width: 120px; height: 32px; object-fit: contain; margin-right: 12px; filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6)); }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
 .logo-text { font-family: var(--font-display); font-size: 18px; font-weight: 900; color: #fff; letter-spacing: 1px; }
 .logo-text span { color: var(--gold-primary); }
@@ -483,120 +483,20 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
 <header>
   <nav>
     <a href="#" class="logo">
-      <svg class="brand-logo" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <!-- Outer Silver Ring Gradient -->
-          <linearGradient id="silver-ring" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#E8E8E8" />
-            <stop offset="30%" stop-color="#FFFFFF" />
-            <stop offset="70%" stop-color="#A0A0A0" />
-            <stop offset="100%" stop-color="#505050" />
-          </linearGradient>
-          
-          <!-- Inner Gold Background Gradient -->
-          <linearGradient id="gold-bg" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#5A4010" />
-            <stop offset="40%" stop-color="#B8860B" />
-            <stop offset="80%" stop-color="#F3E5AB" />
-            <stop offset="100%" stop-color="#FFF8DC" />
-          </linearGradient>
-          
-          <!-- The 'G' Gradient -->
-          <linearGradient id="g-gold" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#FFF8DC" />
-            <stop offset="30%" stop-color="#EAB308" />
-            <stop offset="70%" stop-color="#B8860B" />
-            <stop offset="100%" stop-color="#5A4010" />
-          </linearGradient>
-          
-          <!-- Drop Shadow for 3D effect -->
-          <filter id="drop-shadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0.5" dy="1" stdDeviation="0.5" flood-color="#000000" flood-opacity="0.7"/>
-          </filter>
-          
-          <!-- Pulse Animation -->
-          <style>
-            @keyframes signal-pulse {
-              0% { transform: scale(1); opacity: 1; stroke-width: 1px; }
-              100% { transform: scale(3); opacity: 0; stroke-width: 0.1px; }
-            }
-            .signal-ring {
-              transform-origin: 24px 16px;
-              animation: signal-pulse 1s ease-out infinite;
-            }
-            @keyframes slow-spin {
-              from { transform: rotate(0deg); }
-              to { transform: rotate(360deg); }
-            }
-            .orbit-group {
-              transform-origin: 16px 16px;
-              animation: slow-spin 20s linear infinite;
-            }
-          </style>
-        </defs>
-
-        <!-- Outer Silver Bevel -->
-        <circle cx="16" cy="16" r="15.5" fill="url(#silver-ring)" filter="url(#drop-shadow)" />
-        <circle cx="16" cy="16" r="13.5" fill="#333" /> <!-- Dark rim for depth -->
+      <svg class="brand-logo" width="120" height="32" viewBox="0 0 120 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="120" height="32" rx="4" fill="#001F3F"/>
         
-        <!-- Inner Gold Face -->
-        <circle cx="16" cy="16" r="13" fill="url(#gold-bg)" />
-        
-        <!-- Concentric Etched Rings -->
-        <circle cx="16" cy="16" r="11.5" fill="none" stroke="#8B6508" stroke-width="0.2" opacity="0.6" />
-        <circle cx="16" cy="16" r="8.5" fill="none" stroke="#8B6508" stroke-width="0.2" opacity="0.6" />
-
-        <!-- Text Paths -->
-        <path id="top-text-path" d="M 6 16 A 10 10 0 0 1 26 16" fill="none" />
-        <text font-size="3.5" fill="#4A3000" font-family="sans-serif" font-weight="900" letter-spacing="0.5">
-          <textPath href="#top-text-path" startOffset="50%" text-anchor="middle">GOSUN</textPath>
-        </text>
-        
-        <path id="bottom-text-path" d="M 7 16 A 9 9 0 0 0 25 16" fill="none" />
-        <text font-size="2" fill="#4A3000" font-family="sans-serif" font-weight="bold" letter-spacing="0.5">
-          <textPath href="#bottom-text-path" startOffset="50%" text-anchor="middle">2026</textPath>
-        </text>
-
-        <!-- Rotating Orbital Nodes -->
-        <g class="orbit-group">
-          <circle cx="16" cy="16" r="10" fill="none" stroke="#A67C00" stroke-width="0.3" stroke-dasharray="1 2" />
-          <circle cx="6" cy="16" r="0.8" fill="#FF5252" />
-          <circle cx="21" cy="24.66" r="0.8" fill="#00E5FF" />
-          <circle cx="21" cy="7.34" r="0.8" fill="#4CAF50" />
+        <g transform="translate(4, 4)">
+          <circle cx="12" cy="12" r="12" fill="#00152B"/>
+          <path d="M19.8 7.5C18.3 4.5 15.3 3 12.3 3C7.8 3 4 6.7 4 11.2C4 15.7 7.8 19.5 12.3 19.5C15.3 19.5 18.3 18 19.8 15" 
+                stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/>
+          <path d="M19.8 11.2H12.3" stroke="#E5E5E5" stroke-width="2" stroke-linecap="round"/>
         </g>
 
-        <!-- The 3D 'G' -->
-        <path d="M 21 13 C 21 13 19 9.5 16 9.5 C 12 9.5 9 12.5 9 16 C 9 19.5 12 22.5 16 22.5 C 19.5 22.5 21.5 20 21.5 20 L 19.5 18 C 19.5 18 18 19.5 16 19.5 C 14 19.5 12 18 12 16 C 12 14 14 12.5 16 12.5 C 17.5 12.5 18.5 13.5 18.5 13.5 L 18.5 15.5 L 15 15.5 L 15 18 L 21 18 Z" 
-              fill="url(#g-gold)" filter="url(#drop-shadow)" stroke="#FFF8DC" stroke-width="0.2" />
-
-        <!-- The GMT Pulse Node (Fixed on the right) -->
-        <g class="orbital-node">
-          <circle cx="24" cy="16" r="1" fill="#00E5FF" filter="url(#drop-shadow)" />
-          <circle cx="24" cy="16" r="1" fill="none" stroke="#00E5FF" class="signal-ring" />
-        </g>
-
-        <!-- Compass Notches on Silver Ring -->
-        <path d="M 16 1 L 16 2.5 M 16 29.5 L 16 31 M 1 16 L 2.5 16 M 29.5 16 L 31 16" stroke="#888" stroke-width="0.5" />
-
-        <!-- GMT Script -->
-        <script>
-          if (!window.gosunSignalSynced) {
-            window.gosunSignalSynced = true;
-            const sync = () => {
-              const rings = document.querySelectorAll('.signal-ring');
-              const ms = new Date().getUTCMilliseconds();
-              const delay = -(ms / 1000) + 's';
-              rings.forEach(r => r.style.animationDelay = delay);
-            };
-            sync();
-            document.addEventListener('visibilitychange', () => {
-              if (!document.hidden) sync();
-            });
-            setInterval(sync, 60000);
-          }
-        </script>
+        <text x="36" y="21" fill="#FFFFFF" style="font-family:Arial, sans-serif; font-weight:700; font-size:14px; letter-spacing:0.15em;">GOSUN</text>
+        
+        <text x="95" y="12" fill="#E5E5E5" style="font-family:Arial, sans-serif; font-weight:400; font-size:6px; letter-spacing:0.05em;">TM</text>
       </svg>
-      <span class="logo-text">GOSUN <span>CAPITAL</span> | GAIA Nodes</span>
     </a>
     <ul class="nav-links">
       <li><a href="#">节点目录</a></li>
