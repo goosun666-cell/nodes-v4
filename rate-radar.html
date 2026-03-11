@@ -68,7 +68,7 @@
             border-color: rgba(0, 242, 254, 0.2); /* 换汇面使用科技蓝边框 */
         }
 
-        /* Mode Switcher */
+        /* Mode Switcher - Apple Style */
         .mode-switch {
             position: relative;
             margin: 28px auto 0 auto;
@@ -79,29 +79,55 @@
             border-radius: 30px;
             padding: 4px;
             z-index: 10;
-            width: fit-content;
+            width: 240px;
         }
+        
+        .mode-slider {
+            position: absolute;
+            top: 4px;
+            bottom: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            border-radius: 20px;
+            transition: transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1), background-color 0.4s, box-shadow 0.4s;
+            z-index: 0;
+        }
+
+        .mode-switch[data-mode="consume"] .mode-slider {
+            transform: translateX(0);
+            background: #d4af37;
+            box-shadow: 0 0 15px rgba(212,175,55,0.4);
+        }
+
+        .mode-switch[data-mode="exchange"] .mode-slider {
+            transform: translateX(100%);
+            background: #00f2fe;
+            box-shadow: 0 0 15px rgba(0,242,254,0.4);
+        }
+
         .mode-btn {
-            background: transparent;
+            background: transparent !important;
             border: none;
             color: #888;
-            padding: 8px 24px;
+            padding: 8px 0;
             font-size: 13px;
             font-weight: 600;
             border-radius: 20px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: color 0.4s;
             font-family: 'Inter', sans-serif;
+            position: relative;
+            z-index: 1;
+            box-shadow: none !important;
+            flex: 1;
+            text-align: center;
         }
-        .mode-btn.active-consume {
-            background: #d4af37;
+        
+        .mode-switch[data-mode="consume"] .mode-btn[data-target="consume"] {
             color: #000;
-            box-shadow: 0 0 15px rgba(212,175,55,0.4);
         }
-        .mode-btn.active-exchange {
-            background: #00f2fe;
+        .mode-switch[data-mode="exchange"] .mode-btn[data-target="exchange"] {
             color: #000;
-            box-shadow: 0 0 15px rgba(0,242,254,0.4);
         }
 
         /* 返回链接 */
@@ -248,9 +274,10 @@
                 </svg>
                 <h2 style="color: #d4af37;">GOSUN 消费雷达</h2>
                 <p>[SYS] REAL-TIME PAYMENT ROUTING</p>
-                <div class="mode-switch">
-                    <button class="mode-btn active-consume" onclick="switchMode('consume')">消费雷达</button>
-                    <button class="mode-btn" onclick="switchMode('exchange')">换汇雷达</button>
+                <div class="mode-switch" data-mode="consume">
+                    <div class="mode-slider"></div>
+                    <button class="mode-btn" data-target="consume" onclick="switchMode('consume')">消费雷达</button>
+                    <button class="mode-btn" data-target="exchange" onclick="switchMode('exchange')">换汇雷达</button>
                 </div>
             </div>
 
@@ -360,9 +387,10 @@
                 </svg>
                 <h2 style="color: #e6e6e6;">GOSUN 换汇雷达</h2>
                 <p style="color: #aaa;">[SYS] REAL-TIME EXCHANGE ROUTING</p>
-                <div class="mode-switch">
-                    <button class="mode-btn" onclick="switchMode('consume')">消费雷达</button>
-                    <button class="mode-btn active-exchange" onclick="switchMode('exchange')">换汇雷达</button>
+                <div class="mode-switch" data-mode="exchange">
+                    <div class="mode-slider"></div>
+                    <button class="mode-btn" data-target="consume" onclick="switchMode('consume')">消费雷达</button>
+                    <button class="mode-btn" data-target="exchange" onclick="switchMode('exchange')">换汇雷达</button>
                 </div>
             </div>
 
@@ -460,6 +488,10 @@
 <script>
     function switchMode(mode) {
         const flipper = document.getElementById('flipper');
+        
+        document.querySelectorAll('.mode-switch').forEach(switchEl => {
+            switchEl.setAttribute('data-mode', mode);
+        });
 
         if (mode === 'exchange') {
             flipper.classList.add('flipped');
