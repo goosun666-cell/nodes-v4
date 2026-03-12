@@ -149,6 +149,7 @@
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); 
         }
         
+        /* 合约地址展示框：去掉刺眼的绿色，改为冷峻的暗银色 */
         .address-box {
             color: var(--text-dim);
             font-size: 0.8rem;
@@ -158,12 +159,14 @@
             border-radius: 4px;
             border-left: 2px solid var(--accent-gold);
         }
+        
+        /* 进入矩阵按钮：改为银色边框 + 帝国金悬浮发光 */
         .matrix-enter-btn {
             display: block;
             width: 100%;
             text-align: center;
-            background: var(--accent-blue);
-            color: #FFF;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
             text-decoration: none;
             padding: 18px;
             font-size: 1.1rem;
@@ -171,33 +174,14 @@
             border-radius: 4px;
             margin-top: 30px;
             transition: 0.3s;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            letter-spacing: 2px;
         }
-        .matrix-enter-btn:hover { background: #003ED9; box-shadow: 0 0 20px rgba(0, 82, 255, 0.5); }
-
-        /* PDF 下载专属区域 (页面最下方) */
-        .pdf-download-section {
-            text-align: center;
-            padding: 60px 20px 20px;
-        }
-        .download-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: transparent;
-            color: var(--accent-gold);
-            text-decoration: none;
-            padding: 15px 30px;
-            border: 1px dashed var(--accent-gold);
-            border-radius: 4px;
-            font-family: var(--mono);
-            font-size: 0.9rem;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .download-btn:hover {
-            background: rgba(212, 175, 55, 0.1);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        .matrix-enter-btn:hover { 
+            background: var(--accent-gold); 
+            color: #000;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); 
         }
 
         /* Google Ads 合规 Footer */
@@ -209,9 +193,8 @@
 <body>
 
     <header>
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <img src="/token-logo.svg" alt="GOSUN" width="40" height="40" class="glow-logo">
-            <span style="font-family: var(--mono); font-weight: bold; letter-spacing: 2px;">GOSUN_HQ</span>
+        <div style="display: flex; align-items: center;">
+            <img src="/full-logo.svg" alt="GOSUN" height="40" class="glow-logo">
         </div>
         <div class="nav-links">
             <a href="matrix.html">/GAIA_MATRIX</a>
@@ -238,8 +221,8 @@
             </div>
 
             <div class="address-box">
-                > GOSUN_BASE: <span style="color: var(--accent-green);">0xA0F90aC270d22F42F47A94CA53Bd79d81c385359</span><br>
-                > GOSUN_ARB: <span style="color: var(--accent-green);">0xC9D46d081D8dd4E0F6dcaBB03C56f606eCba6FA4</span>
+                > GOSUN_BASE: <span style="color: #A0AAB5;">0xA0F90aC270d22F42F47A94CA53Bd79d81c385359</span><br>
+                > GOSUN_ARB: <span style="color: #A0AAB5;">0xC9D46d081D8dd4E0F6dcaBB03C56f606eCba6FA4</span>
             </div>
 
             <a href="matrix.html" class="matrix-enter-btn">ENTER GAIA NODE MATRIX ➔</a>
@@ -249,21 +232,13 @@
         </div>
     </div>
 
-    <div class="pdf-download-section">
-        <p style="color: var(--text-dim); font-family: var(--mono); font-size: 0.8rem; margin-bottom: 15px;">
-            > SYSTEM_LOG: To deeply understand the mathematical foundation of the Type I Civilization Mandate, access the classified document below.
-        </p>
-        <a href="/GOSUN_Whitepaper_V1.0.pdf" download class="download-btn">
-            [↓] DOWNLOAD GOSUN WHITEPAPER V1.0 (PDF)
-        </a>
-    </div>
-
     <div class="footer">
         <div style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 20px;">
             &copy; 2026 GOSUN CAPITAL. ALL RIGHTS RESERVED. <br>
             <span style="font-size: 0.7rem; color: #555;">DECENTRALIZED OMNICHAIN INFRASTRUCTURE</span>
         </div>
         <div class="footer-links" style="margin-bottom: 25px;">
+            <a href="/GOSUN_Whitepaper_V1.0.pdf" download>Whitepaper</a>
             <a href="privacy.html">Privacy Policy</a>
             <a href="terms.html">Terms of Service</a>
             <a href="disclaimer.html">Risk Disclaimer</a>
