@@ -467,13 +467,13 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
     <div class="ticker-wrap">
         <div class="ticker-content">
             <span class="ticker-item"><span class="status-indicator"></span>GAIA 网络已连接</span>
-            <span class="ticker-item">BTC/USD: <span class="ticker-value" id="btc-price">64,230.50</span></span>
-            <span class="ticker-item">ETH/USD: <span class="ticker-value" id="eth-price">3,450.20</span></span>
+            <span class="ticker-item">BTC/USD: <span class="ticker-value" id="btc-price">---</span></span>
+            <span class="ticker-item">ETH/USD: <span class="ticker-value" id="eth-price">---</span></span>
             <span class="ticker-item">实时觉醒节点数: <span class="ticker-value" id="node-count">14,203</span></span>
             <span class="ticker-item">SYSTEM: OPTIMAL</span>
             <span class="ticker-item"><span class="status-indicator"></span>GAIA 网络已连接</span>
-            <span class="ticker-item">BTC/USD: <span class="ticker-value" id="btc-price-2">64,230.50</span></span>
-            <span class="ticker-item">ETH/USD: <span class="ticker-value" id="eth-price-2">3,450.20</span></span>
+            <span class="ticker-item">BTC/USD: <span class="ticker-value" id="btc-price-2">---</span></span>
+            <span class="ticker-item">ETH/USD: <span class="ticker-value" id="eth-price-2">---</span></span>
             <span class="ticker-item">实时觉醒节点数: <span class="ticker-value" id="node-count-2">14,203</span></span>
             <span class="ticker-item">SYSTEM: OPTIMAL</span>
         </div>
@@ -1507,7 +1507,7 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
       </div>
     </div>
     <div class="footer-links">
-      <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a> | <a href="mailto:hwaway666@outlook.com">Contact Us</a>
+      <a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a> | <a href="mailto:support@7861618.xyz">Contact Us</a>
     </div>
     <div class="footer-disclaimer">
       Risk Warning & Affiliate Disclosure: Cryptocurrency investment is subject to high market risk. This platform contains affiliate links; we may receive compensation if you activate nodes through our gateway. This does not constitute financial advice.
@@ -1582,10 +1582,10 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
   
   async function fetchPrices() {
       try {
-          // Using Binance API which has higher rate limits and better CORS support
+          // Using Coinbase API which is universally accessible
           const [btcRes, ethRes] = await Promise.all([
-              fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT'),
-              fetch('https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT')
+              fetch('https://api.coinbase.com/v2/prices/BTC-USD/spot'),
+              fetch('https://api.coinbase.com/v2/prices/ETH-USD/spot')
           ]);
           
           if (!btcRes.ok || !ethRes.ok) {
@@ -1595,8 +1595,8 @@ footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: c
           const btcData = await btcRes.json();
           const ethData = await ethRes.json();
           
-          const btcPrice = parseFloat(btcData.price);
-          const ethPrice = parseFloat(ethData.price);
+          const btcPrice = parseFloat(btcData.data.amount);
+          const ethPrice = parseFloat(ethData.data.amount);
           
           document.getElementById('btc-price').innerText = formatNumber(btcPrice);
           document.getElementById('btc-price-2').innerText = formatNumber(btcPrice);
