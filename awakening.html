@@ -9,6 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
+            --font-sans: 'Inter', 'PingFang SC', 'Noto Sans SC', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            --font-display: 'Space Grotesk', 'PingFang SC', 'Noto Sans SC', sans-serif;
+
     --gold-primary: #D4AF37;
     --gold-bright: #FFDF00;
     --gold-glow: rgba(212, 175, 55, 0.5);
@@ -19,15 +23,13 @@
     --glass-border: rgba(212, 175, 55, 0.15);
     --text-main: #EAEAEA;
     --text-muted: #888888;
-    --font-tech: 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
-    --font-display: 'Space Grotesk', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', sans-serif;
-  }
+          }
 
   /* 基础视觉规范 */
   body { 
     background-color: var(--bg-base); 
     color: var(--text-main); 
-    font-family: var(--font-tech); 
+    font-family: var(--font-sans); 
     line-height: 1.6;
     margin: 0; 
     padding: 0; 
@@ -76,7 +78,7 @@
     letter-spacing: 2px;
   }
   .logo-sub {
-    font-family: var(--font-tech);
+    font-family: var(--font-sans);
     font-size: 10px;
     color: var(--gold-primary);
     letter-spacing: 3px;
@@ -89,7 +91,7 @@
   .nav-link {
     color: var(--text-main);
     text-decoration: none;
-    font-family: var(--font-tech);
+    font-family: var(--font-sans);
     font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
@@ -120,7 +122,7 @@
     border: 1px solid var(--gold-primary);
     color: var(--gold-primary);
     padding: 8px 16px;
-    font-family: var(--font-tech);
+    font-family: var(--font-sans);
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 1px;
@@ -150,7 +152,7 @@
   .container { max-width: 900px; margin: 100px auto 40px; padding: 0 20px; position: relative; }
   .header { text-align: center; border-bottom: 1px dashed #d4af37; padding-bottom: 20px; margin-bottom: 30px; }
   .header h1 { color: var(--gold-primary); font-size: 28px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; font-family: var(--font-display); font-weight: 700; }
-  .system-log { color: var(--text-muted); font-size: 14px; line-height: 1.6; font-family: 'Courier New', Courier, monospace; }
+  .system-log { color: var(--text-muted); font-size: 14px; line-height: 1.6; font-family: var(--font-mono); }
 
   /* Awakening Roadmap */
   .roadmap-container {
@@ -289,7 +291,7 @@
     bottom: -20px;
   }
   .tier-req {
-    font-family: var(--font-tech);
+    font-family: var(--font-sans);
     font-size: 14px;
     font-weight: 700;
     color: #555;
@@ -405,7 +407,7 @@
   <div class="nav-container">
     <a href="/" class="nav-logo" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
       <img src="/full-logo.svg" alt="GOSUN" height="40" style="filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));">
-      <span style="font-family: 'Courier New', monospace; font-weight: bold; letter-spacing: 2px; color: #fff;">GOSUN_AWAKEN</span>
+      <span style="font-family: var(--font-mono); font-weight: bold; letter-spacing: 2px; color: #fff;">GOSUN_AWAKEN</span>
     </a>
     <div class="nav-links">
       <a href="/" class="nav-link">帝国主舱</a>

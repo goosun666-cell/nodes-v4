@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GOSUN | Omnichain Protocol</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #00050A;
@@ -13,10 +16,12 @@
             --accent-green: #00FF41;
             --text-main: #E1E1E1;
             --text-dim: #707A8A;
-            --mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            --font-sans: 'Inter', 'PingFang SC', 'Noto Sans SC', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            --font-display: 'Space Grotesk', 'PingFang SC', 'Noto Sans SC', sans-serif;
         }
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: var(--font-sans);
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
@@ -57,7 +62,7 @@
             color: var(--text-dim); 
             text-decoration: none; 
             margin-left: 30px; 
-            font-family: var(--mono); 
+            font-family: var(--font-mono); 
             font-size: 0.8rem; 
             text-transform: uppercase; 
             letter-spacing: 2px; 
@@ -78,6 +83,7 @@
             padding: 80px 20px;
         }
         .hero-title {
+            font-family: var(--font-display);
             font-size: 4rem;
             font-weight: 900;
             margin: 0;
@@ -104,7 +110,7 @@
             max-width: 800px;
             width: 100%;
             text-align: left;
-            font-family: var(--mono);
+            font-family: var(--font-mono);
             box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.05);
             margin-bottom: 40px;
         }
@@ -185,7 +191,7 @@
         }
 
         /* Google Ads 合规 Footer */
-        .footer { margin-top: auto; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: var(--mono); }
+        .footer { margin-top: auto; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: var(--font-mono); }
         .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase; margin: 0 12px; }
         .footer-links a:hover { color: var(--accent-gold); }
     </style>
@@ -195,7 +201,7 @@
     <header>
         <div style="display: flex; align-items: center; gap: 15px;">
             <img src="/full-logo.svg" alt="GOSUN" height="40" class="glow-logo">
-            <span style="font-family: var(--mono); font-weight: bold; letter-spacing: 2px;">GOSUN_HQ</span>
+            <span style="font-family: var(--font-mono); font-weight: bold; letter-spacing: 2px;">GOSUN_HQ</span>
         </div>
         <div class="nav-links">
             <a href="index.html">/HQ_TERMINAL</a>
@@ -257,7 +263,7 @@
             <a href="disclaimer.html">Risk Disclaimer</a>
             <a href="mailto:support@7861618.xyz">Contact Us</a>
         </div>
-        <div style="max-width: 800px; margin: 0 auto; color: #444; font-size: 0.65rem; line-height: 1.6; text-align: justify; font-family: 'Inter', sans-serif;">
+        <div style="max-width: 800px; margin: 0 auto; color: #444; font-size: 0.65rem; line-height: 1.6; text-align: justify; font-family: var(--font-sans);">
             <strong>DISCLAIMER:</strong> The information provided on this website does not constitute investment advice, financial advice, trading advice, or any other sort of advice. GOSUN is a decentralized protocol interface. Cryptocurrency trading and node operation involve a high degree of risk, and there is always the potential of loss when you invest in digital assets. Past performance is not indicative of future results. Please conduct your own due diligence and consult your financial advisor before making any investment decisions.
         </div>
     </div>

@@ -4,10 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GOSUN | The Sovereign Omnichain Protocol</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         :root {
+            --font-sans: 'Inter', 'PingFang SC', 'Noto Sans SC', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            --font-display: 'Space Grotesk', 'PingFang SC', 'Noto Sans SC', sans-serif;
+
             --bg-color: #00050A;
             --panel-bg: #010A14;
             --accent-gold: #D4AF37;
@@ -18,7 +26,7 @@
             --mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
         }
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: var(--font-sans);
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.8;
@@ -38,7 +46,7 @@
             top: 0;
             z-index: 1000;
         }
-        .nav-links a { color: var(--text-dim); text-decoration: none; margin-left: 35px; font-family: var(--mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; margin-left: 35px; font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
         .nav-links a:hover { color: var(--accent-gold); }
 
         /* 将发光特效直接应用到您的原版 Logo 图片上 */
@@ -58,22 +66,22 @@
         .doc-wrapper { max-width: 1000px; margin: 80px auto; padding: 0 50px; }
         .title-block { border-left: 4px solid var(--accent-gold); padding-left: 30px; margin-bottom: 80px; }
         h1 { font-size: 3.5rem; margin: 0; font-weight: 800; line-height: 1.1; letter-spacing: -1px; }
-        .version-tag { font-family: var(--mono); color: var(--accent-green); background: rgba(0, 255, 65, 0.1); padding: 4px 12px; font-size: 0.75rem; border-radius: 4px; margin-top: 15px; display: inline-block; }
-        h2 { font-family: var(--mono); color: var(--accent-gold); font-size: 1.2rem; margin-top: 100px; text-transform: uppercase; letter-spacing: 3px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); padding-bottom: 10px; }
+        .version-tag { font-family: var(--font-mono); color: var(--accent-green); background: rgba(0, 255, 65, 0.1); padding: 4px 12px; font-size: 0.75rem; border-radius: 4px; margin-top: 15px; display: inline-block; }
+        h2 { font-family: var(--font-mono); color: var(--accent-gold); font-size: 1.2rem; margin-top: 100px; text-transform: uppercase; letter-spacing: 3px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); padding-bottom: 10px; }
         
         /* 双公式对偶展示区 */
         .math-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 50px 0; }
         .math-card { background: #000; border: 1px solid rgba(212, 175, 55, 0.2); padding: 50px 20px; border-radius: 12px; text-align: center; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .math-card:hover { border-color: var(--accent-gold); box-shadow: 0 0 40px rgba(212, 175, 55, 0.15); transform: translateY(-5px); }
-        .math-label { font-family: var(--mono); color: var(--text-dim); font-size: 0.75rem; margin-top: 25px; text-transform: uppercase; letter-spacing: 1px; }
+        .math-label { font-family: var(--font-mono); color: var(--text-dim); font-size: 0.75rem; margin-top: 25px; text-transform: uppercase; letter-spacing: 1px; }
 
-        .code-console { background: #000; border: 1px solid rgba(255,255,255,0.05); padding: 30px; border-radius: 8px; font-family: var(--mono); font-size: 0.85rem; margin: 40px 0; line-height: 1.6; color: #E5E5E5; }
-        .distribution-table { width: 100%; border-collapse: collapse; margin: 40px 0; font-family: var(--mono); }
+        .code-console { background: #000; border: 1px solid rgba(255,255,255,0.05); padding: 30px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.85rem; margin: 40px 0; line-height: 1.6; color: #E5E5E5; }
+        .distribution-table { width: 100%; border-collapse: collapse; margin: 40px 0; font-family: var(--font-mono); }
         .distribution-table th { text-align: left; color: var(--accent-gold); padding: 15px; font-size: 0.7rem; text-transform: uppercase; }
         .distribution-table td { padding: 22px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
         .status-open { color: var(--accent-green); border: 1px solid var(--accent-green); padding: 3px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; animation: pulse-border 2s infinite; }
         @keyframes pulse-border { 0% { box-shadow: 0 0 0px var(--accent-green); } 50% { box-shadow: 0 0 15px var(--accent-green); } 100% { box-shadow: 0 0 0px var(--accent-green); } }
-        .footer { margin-top: 150px; padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: var(--mono); color: var(--text-dim); font-size: 0.75rem; }
+        .footer { margin-top: 150px; padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: var(--font-mono); color: var(--text-dim); font-size: 0.75rem; }
     </style>
 </head>
 <body>
@@ -81,7 +89,7 @@
     <header>
         <div style="display: flex; align-items: center; gap: 15px;">
             <img src="/full-logo.svg" alt="GOSUN" height="40" class="glow-logo" onclick="window.location.href='/'">
-            <span style="font-family: var(--mono); font-weight: bold; letter-spacing: 2px;">GOSUN_LITEPAPER</span>
+            <span style="font-family: var(--font-mono); font-weight: bold; letter-spacing: 2px;">GOSUN_LITEPAPER</span>
         </div>
         <div class="nav-links">
             <a href="index.html">/HQ_TERMINAL</a>
@@ -122,7 +130,7 @@
             </div>
 
             <p><strong>Mechanistic Proof of Infinite Dimensionality:</strong></p>
-            <ul style="font-family: var(--mono); font-size: 0.9rem; color: var(--text-dim);">
+            <ul style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-dim);">
                 <li><strong style="color: var(--accent-gold);">The Infinite Integral \(\int_{4}^{\infty} ... d\delta\):</strong> Represents the continuous integration of all dimensional power from 4D (Blockchain Consensus) upwards to infinity. It proves the protocol has no computational ceiling.</li>
                 <li><strong style="color: var(--accent-gold);">The Entropic Drag \(\mathcal{E}_{3D}\):</strong> Represents the gravitational pull of 3D inefficiency (legacy finance, hardware degradation, human friction).</li>
                 <li><strong style="color: var(--accent-green);">The Effective Power Source \(\Psi_{(GOSUN)}\):</strong> Equation I proves $GOSUN is the required multiplier to overcome 3D drag. Equation II mathematically dictates that as the protocol ascends across infinite dimensions, the token's structural value must grow to sustain the thermodynamic balance.</li>
@@ -177,7 +185,7 @@
             </table>
         </section>
 
-        <div class="footer" style="margin-top: 100px; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: var(--mono, 'Courier New', monospace);">
+        <div class="footer" style="margin-top: 100px; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: var(--font-mono);">
             
             <div style="color: var(--text-dim, #707A8A); font-size: 0.85rem; margin-bottom: 20px;">
                 &copy; 2026 GOSUN CAPITAL. ALL RIGHTS RESERVED. <br>
@@ -205,7 +213,7 @@
                 <a href="mailto:support@7861618.xyz" style="color: var(--text-dim, #707A8A); text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase;">Contact Us</a>
             </div>
 
-            <div style="max-width: 800px; margin: 0 auto; color: #444; font-size: 0.65rem; line-height: 1.6; text-align: justify; font-family: 'Inter', sans-serif;">
+            <div style="max-width: 800px; margin: 0 auto; color: #444; font-size: 0.65rem; line-height: 1.6; text-align: justify; font-family: var(--font-sans);">
                 <strong>DISCLAIMER:</strong> The information provided on this website does not constitute investment advice, financial advice, trading advice, or any other sort of advice. GOSUN is a decentralized protocol interface. Cryptocurrency trading and node operation involve a high degree of risk, and there is always the potential of loss when you invest in digital assets. Past performance is not indicative of future results. Please conduct your own due diligence and consult your financial advisor before making any investment decisions.
             </div>
         </div>

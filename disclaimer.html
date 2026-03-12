@@ -4,8 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GOSUN | Risk Disclaimer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+
     <style>
         :root {
+            --font-sans: 'Inter', 'PingFang SC', 'Noto Sans SC', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            --font-display: 'Space Grotesk', 'PingFang SC', 'Noto Sans SC', sans-serif;
+
             --bg-color: #00050A;
             --panel-bg: #010A14;
             --accent-gold: #D4AF37;
@@ -16,7 +24,7 @@
             --mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
         }
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: var(--font-sans);
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
@@ -56,7 +64,7 @@
             color: var(--text-dim); 
             text-decoration: none; 
             margin-left: 30px; 
-            font-family: var(--mono); 
+            font-family: var(--font-mono); 
             font-size: 0.8rem; 
             text-transform: uppercase; 
             letter-spacing: 2px; 
@@ -86,7 +94,7 @@
         }
         .legal-header p {
             color: var(--accent-gold);
-            font-family: var(--mono);
+            font-family: var(--font-mono);
             font-size: 0.85rem;
             margin: 0;
         }
@@ -95,7 +103,7 @@
             color: #FFF;
             margin-top: 40px;
             margin-bottom: 15px;
-            font-family: var(--mono);
+            font-family: var(--font-mono);
         }
         .legal-content p {
             color: var(--text-dim);
@@ -115,7 +123,7 @@
         }
 
         /* 统一的底部 Footer 样式 */
-        .footer { margin-top: auto; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: var(--mono); background: var(--panel-bg);}
+        .footer { margin-top: auto; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: var(--font-mono); background: var(--panel-bg);}
         .social-links { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
         .social-links a { color: var(--text-dim); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center; padding: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); }
         .social-links a:hover { color: #000; background: var(--accent-gold); border-color: var(--accent-gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); transform: translateY(-3px); }
@@ -128,7 +136,7 @@
     <header>
         <div style="display: flex; align-items: center; gap: 15px;">
             <img src="/full-logo.svg" alt="GOSUN" height="40" class="glow-logo">
-            <span style="font-family: var(--mono); font-weight: bold; letter-spacing: 2px;">GOSUN_HQ</span>
+            <span style="font-family: var(--font-mono); font-weight: bold; letter-spacing: 2px;">GOSUN_HQ</span>
         </div>
         <div class="nav-links">
             <a href="index.html">/HQ_TERMINAL</a>
