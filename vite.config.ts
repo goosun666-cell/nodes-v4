@@ -19,6 +19,7 @@ export default defineConfig(({mode}) => {
       rollupOptions: {
         input: {
           main: resolve(__dirname, 'index.html'),
+          matrix: resolve(__dirname, 'matrix.html'),
           thinkTank: resolve(__dirname, 'experts.html'),
           awakening: resolve(__dirname, 'awakening.html'),
           privacy: resolve(__dirname, 'privacy.html'),

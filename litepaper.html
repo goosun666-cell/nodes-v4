@@ -3,214 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOSUN (GSN) | Official Litepaper V1.0</title>
+    <title>GOSUN | The Sovereign Omnichain Protocol</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         :root {
-            --bg-color: #00152B; /* 更深的背景衬托蓝底金标 */
-            --panel-bg: #001F3F;
-            --text-main: #FFFFFF;
-            --text-muted: #A0AAB5;
-            --gold: #D4AF37;
-            --silver: #E5E5E5;
+            --bg-color: #00050A;
+            --panel-bg: #010A14;
+            --accent-gold: #D4AF37;
+            --accent-blue: #0052FF;
+            --accent-green: #00FF41;
+            --text-main: #E1E1E1;
+            --text-dim: #707A8A;
+            --mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
         }
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.8;
             margin: 0;
             padding: 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 20px;
+            background-image: radial-gradient(circle at 50% 50%, #021226 0%, #00050A 100%);
         }
         header {
-            text-align: center;
-            margin-bottom: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 60px;
+            background: rgba(1, 10, 20, 0.85);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            padding-bottom: 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        .logo-container {
-            margin-bottom: 20px;
+        .nav-links a { color: var(--text-dim); text-decoration: none; margin-left: 35px; font-family: var(--mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent-gold); }
+
+        /* 将发光特效直接应用到您的原版 Logo 图片上 */
+        .glow-logo {
+            animation: logo-breathe 3s infinite alternate;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
-        h1 {
-            font-size: 2.5rem;
-            margin: 0 0 10px 0;
-            letter-spacing: 2px;
+        .glow-logo:hover {
+            filter: drop-shadow(0 0 15px #D4AF37) brightness(1.2);
+            transform: scale(1.05); /* 去掉了激进的旋转，保留稳重的放大发光 */
         }
-        h2 {
-            color: var(--gold);
-            font-size: 1.5rem;
-            margin-top: 40px;
-            border-left: 3px solid var(--gold);
-            padding-left: 15px;
+        @keyframes logo-breathe {
+            0% { filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.5)); }
+            100% { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8)); }
         }
-        h3 {
-            color: var(--silver);
-            font-size: 1.2rem;
-            margin-top: 25px;
-        }
-        p, li {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        .highlight-box {
-            background-color: var(--panel-bg);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 8px;
-            padding: 20px 25px;
-            margin: 30px 0;
-        }
-        .highlight-box p {
-            margin: 0;
-            color: var(--silver);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            text-align: left;
-            padding: 12px 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        th {
-            color: var(--gold);
-            font-weight: 600;
-        }
-        td {
-            color: var(--text-muted);
-        }
-        .footer {
-            margin-top: 80px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 30px;
-        }
+        .doc-wrapper { max-width: 1000px; margin: 80px auto; padding: 0 50px; }
+        .title-block { border-left: 4px solid var(--accent-gold); padding-left: 30px; margin-bottom: 80px; }
+        h1 { font-size: 3.5rem; margin: 0; font-weight: 800; line-height: 1.1; letter-spacing: -1px; }
+        .version-tag { font-family: var(--mono); color: var(--accent-green); background: rgba(0, 255, 65, 0.1); padding: 4px 12px; font-size: 0.75rem; border-radius: 4px; margin-top: 15px; display: inline-block; }
+        h2 { font-family: var(--mono); color: var(--accent-gold); font-size: 1.2rem; margin-top: 100px; text-transform: uppercase; letter-spacing: 3px; border-bottom: 1px solid rgba(212, 175, 55, 0.1); padding-bottom: 10px; }
+        
+        /* 双公式对偶展示区 */
+        .math-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 50px 0; }
+        .math-card { background: #000; border: 1px solid rgba(212, 175, 55, 0.2); padding: 50px 20px; border-radius: 12px; text-align: center; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .math-card:hover { border-color: var(--accent-gold); box-shadow: 0 0 40px rgba(212, 175, 55, 0.15); transform: translateY(-5px); }
+        .math-label { font-family: var(--mono); color: var(--text-dim); font-size: 0.75rem; margin-top: 25px; text-transform: uppercase; letter-spacing: 1px; }
+
+        .code-console { background: #000; border: 1px solid rgba(255,255,255,0.05); padding: 30px; border-radius: 8px; font-family: var(--mono); font-size: 0.85rem; margin: 40px 0; line-height: 1.6; color: #E5E5E5; }
+        .distribution-table { width: 100%; border-collapse: collapse; margin: 40px 0; font-family: var(--mono); }
+        .distribution-table th { text-align: left; color: var(--accent-gold); padding: 15px; font-size: 0.7rem; text-transform: uppercase; }
+        .distribution-table td { padding: 22px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; }
+        .status-open { color: var(--accent-green); border: 1px solid var(--accent-green); padding: 3px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; animation: pulse-border 2s infinite; }
+        @keyframes pulse-border { 0% { box-shadow: 0 0 0px var(--accent-green); } 50% { box-shadow: 0 0 15px var(--accent-green); } 100% { box-shadow: 0 0 0px var(--accent-green); } }
+        .footer { margin-top: 150px; padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: var(--mono); color: var(--text-dim); font-size: 0.75rem; }
     </style>
 </head>
 <body>
 
-<div class="container">
     <header>
-        <div class="logo-container">
-            <img src="/token-logo.svg" alt="GOSUN Logo" width="64" height="64">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <img src="/token-logo.svg" alt="GOSUN" width="36" height="36" class="glow-logo" onclick="window.location.href='/'">
+            <span style="font-family: var(--mono); font-weight: bold; letter-spacing: 2px;">GOSUN_LITEPAPER</span>
         </div>
-        <h1>GOSUN PROTOCOL</h1>
-        <p style="color: var(--gold); letter-spacing: 1px;">The Omnichain Navigation Framework & GAIA Node Matrix</p>
-        <p>Version: 1.0 | Network: Base (L2) | Updated: March 2026</p>
+        <div class="nav-links">
+            <a href="index.html">/HQ_TERMINAL</a>
+            <a href="rate-radar.html">/RATE_RADAR</a>
+            <a href="matrix.html" style="color: var(--gold);">/GAIA_MATRIX</a>
+        </div>
     </header>
 
-    <section>
-        <h2>1. Executive Summary</h2>
-        <p>As the Web3 ecosystem undergoes exponential expansion, global liquidity, AI computing power, and strategic information remain severely fragmented across isolated blockchains. Decentralized entities are constantly confronted with prohibitive cross-chain friction, complex security vulnerabilities, and severe information asymmetry.</p>
-        <p><strong>GOSUN (GSN)</strong> is an institutional-grade omnichain infrastructure built natively on the Base network. By integrating our proprietary "Celestial Navigation Framework," GOSUN shatters dimensional barriers, providing global users with frictionless asset liquidity, node aggregation, and a decentralized security gateway. We are not merely a token; we are the foundational protocol routing the next generation of digital civilization.</p>
-    </section>
-
-    <section>
-        <h2>2. The GAIA Node Matrix (Our Ecosystem)</h2>
-        <p>The core utility of the GOSUN protocol is manifested through the <strong>GAIA Web3 Hub</strong>, a strictly audited nexus for decentralized infrastructure. Our matrix provides users with optimized, zero-friction corridors to essential Web3 pillars:</p>
-        <ul>
-            <li><strong>Financial Gateways:</strong> Aggregation of top-tier Perpetual DEXs, CEX corridors, and Crypto-to-Fiat card bridges (e.g., Jupiter, GMX, Coinbase).</li>
-            <li><strong>AI & Compute Infrastructure:</strong> Direct access to premium GPU cloud computing (Vast.ai, RunPod) and decentralized AI nodes (Grass, OpenAI).</li>
-            <li><strong>Sovereignty Tools:</strong> Institutional-grade hardware wallet logistics (Ledger) and off-shore banking solutions to ensure absolute digital sovereignty.</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>3. Tokenomics: The Fair Launch Model</h2>
-        <p>The DNA of a Fortune 500 entity lies in absolute transparency. GOSUN fundamentally rejects traditional, VC-heavy fundraising models. We have opted for the purest form of decentralized distribution to ensure alignment with our community.</p>
-        
-        <div class="highlight-box">
-            <p><strong>Compliance Note:</strong> GOSUN (GSN) conducted NO Private Sales, NO Seed Rounds, and NO Initial Coin Offerings (ICO/IEO). The token was launched fairly to the public to prevent centralization of power.</p>
+    <div class="doc-wrapper">
+        <div class="title-block">
+            <h1>The Infinite Dimensional<br>Elevation Engine</h1>
+            <div class="version-tag">VER: 3.1_INFINITY | STATUS: QUANT_VERIFIED</div>
         </div>
 
-        <table>
-            <tr>
-                <th>Metric</th>
-                <th>Details</th>
-            </tr>
-            <tr>
-                <td><strong>Token Symbol</strong></td>
-                <td>GSN</td>
-            </tr>
-            <tr>
-                <td><strong>Blockchain</strong></td>
-                <td>Base (Ethereum L2)</td>
-            </tr>
-            <tr>
-                <td><strong>Launch Mechanism</strong></td>
-                <td>100% Fair Launch (DEX Liquidity)</td>
-            </tr>
-            <tr>
-                <td><strong>Private/Seed Allocation</strong></td>
-                <td>0% (Zero)</td>
-            </tr>
-            <tr>
-                <td><strong>Team Allocation</strong></td>
-                <td>0% (Zero)</td>
-            </tr>
-        </table>
-    </section>
+        <section>
+            <h2>I. Foundational Postulate: The 3D Entropic Trap</h2>
+            <p>The core philosophy of GOSUN is built on dimensional realities. The traditional <strong>3D human physical realm</strong> is inherently an entropic trap—characterized by isolated liquidity, fragmented systems, and wasted energy. Aside from a small subset of 3D energy dedicated to servicing higher dimensions, the majority of 3D activity is pure stagnation.</p>
+            <p>True civilization advancement begins at the 4th dimension (Time-State Consensus) and scales infinitely. <strong>$GOSUN</strong> is not merely a token; it is the <strong>Effective Power Source</strong> that bridges useful 3D energy into the infinite spectrum of higher dimensions (\(\delta \to \infty\)).</p>
+        </section>
 
-    <section>
-        <h2>4. Token Utility</h2>
-        <p>The GSN token is the lifeblood of the GAIA Node Matrix, designed with deflationary pressure and real-world utility:</p>
-        <ol>
-            <li><strong>Gateway Governance:</strong> Voting rights on the inclusion or auditing of new nodes and protocols within the GAIA matrix.</li>
-            <li><strong>Alpha Access:</strong> Holding a specific tier of GSN unlocks restricted areas, such as the Rare Invite Code Exchange (for high-value airdrops) and the Advanced Architect Strategy Vault.</li>
-            <li><strong>Fee Reductions:</strong> Reduced friction costs when interacting with partnered cross-chain protocols via the GOSUN routing system.</li>
-        </ol>
-    </section>
+        <section>
+            <h2>II. The Infinite Elevation Invariant</h2>
+            <p>The mathematical architecture of GOSUN maps this philosophical truth. By shifting from a discrete summation to a continuous integral, the protocol is mathematically designed to capture value not just from 4D, 5D, or 6D networks, but from any future state of computational civilization.</p>
+            
+            <div class="math-grid">
+                <div class="math-card">
+                    <div style="font-size: 1.4rem; color: var(--accent-gold);">
+                        $$ \mathcal{K}_{\Omega} = \frac{\Psi_{(GOSUN)} \cdot \int_{4}^{\infty} (\mathcal{V}_\delta \cdot \ln \mathcal{N}) \, d\delta}{\mathcal{E}_{3D}} $$
+                    </div>
+                    <div class="math-label">Evolution Index (Objective)</div>
+                </div>
+                <div class="math-card">
+                    <div style="font-size: 1.4rem; color: var(--accent-green);">
+                        $$ \Psi_{(GOSUN)} = \frac{\mathcal{K}_{\Omega} \cdot \mathcal{E}_{3D}}{\int_{4}^{\infty} (\mathcal{V}_\delta \cdot \ln \mathcal{N}) \, d\delta} $$
+                    </div>
+                    <div class="math-label">Token Utility (Effective Power)</div>
+                </div>
+            </div>
 
-    <section>
-        <h2>5. Strategic Roadmap</h2>
-        <h3>Phase 1: Genesis & Architecture (Current)</h3>
-        <p>Deployment of the GSN smart contract on Base. Establishment of the GAIA Node Directory and the Fortune 500-grade visual identity system. Core integration with Etherscan/BaseScan.</p>
-        
-        <h3>Phase 2: Matrix Expansion & Liquidity</h3>
-        <p>Listing and data synchronization with CoinMarketCap and CoinGecko. Expansion of the GAIA Gateway to encompass additional Real-World Assets (RWA) and DePIN hardware integrations.</p>
-        
-        <h3>Phase 3: The Omnichain Singularity</h3>
-        <p>Launch of the proprietary Cross-Chain Aggregator DApp. GSN establishes itself as the universal settlement currency for inter-dimensional Web3 routing.</p>
-    </section>
+            <p><strong>Mechanistic Proof of Infinite Dimensionality:</strong></p>
+            <ul style="font-family: var(--mono); font-size: 0.9rem; color: var(--text-dim);">
+                <li><strong style="color: var(--accent-gold);">The Infinite Integral \(\int_{4}^{\infty} ... d\delta\):</strong> Represents the continuous integration of all dimensional power from 4D (Blockchain Consensus) upwards to infinity. It proves the protocol has no computational ceiling.</li>
+                <li><strong style="color: var(--accent-gold);">The Entropic Drag \(\mathcal{E}_{3D}\):</strong> Represents the gravitational pull of 3D inefficiency (legacy finance, hardware degradation, human friction).</li>
+                <li><strong style="color: var(--accent-green);">The Effective Power Source \(\Psi_{(GOSUN)}\):</strong> Equation I proves $GOSUN is the required multiplier to overcome 3D drag. Equation II mathematically dictates that as the protocol ascends across infinite dimensions, the token's structural value must grow to sustain the thermodynamic balance.</li>
+            </ul>
+        </section>
 
-    <div class="gateway-container" style="max-width: 800px; margin: 50px auto; padding: 40px 30px; background-color: #001F3F; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 12px; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);">
-        <h2 style="color: #D4AF37; margin: 0 0 15px 0; font-size: 2rem; letter-spacing: 1px; border-left: none; padding-left: 0;">Omnichain Routing Gateway</h2>
-        <p style="color: #A0AAB5; margin-bottom: 35px; font-size: 1.1rem; line-height: 1.6;">
-            Direct access to GOSUN institutional liquidity pools. Select your preferred network to execute zero-friction swaps via Uniswap V3.
-        </p>
+        <section>
+            <h2>III. Infrastructure Implementation</h2>
+            <p>The elevation begins at the 5D level (Omnichain Liquidity). GOSUN is actively deployed as a zero-friction state machine across top-tier rollups, extracting 3D liquidity into the high-dimensional matrix.</p>
+            <div class="code-console">
+                <span style="color: var(--text-dim);">// INITIALIZING INFINITE ROUTING NODES</span><br>
+                const BASE_GATEWAY = "<span style="color: var(--accent-blue);">0xA0F90aC270d22F42F47A94CA53Bd79d81c385359</span>";<br>
+                const ARB_GATEWAY  = "<span style="color: var(--accent-blue);">0xC9D46d081D8dd4E0F6dcaBB03C56f606eCba6FA4</span>";<br><br>
+                <span style="color: var(--accent-gold);">// ELEVATION_LOGIC_INTEGRATION</span><br>
+                IF (3D_CAPITAL_INFLOW > THRESHOLD) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;INTEGRATE_TO_INFINITY(\(\delta \to \infty\));<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;SCALE_EFFECTIVE_POWER(\(\Psi_{GOSUN}\));<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;3D_ENTROPY_OVERCOME = TRUE;<br>
+                }
+            </div>
+        </section>
 
-        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-            <a href="https://app.uniswap.org/swap?outputCurrency=0xA0F90aC270d22F42F47A94CA53Bd79d81c385359&chain=base" target="_blank" style="flex: 1; min-width: 260px; background: linear-gradient(145deg, #00152B 0%, #001F3F 100%); border: 1px solid #D4AF37; color: #FFFFFF; padding: 20px; text-decoration: none; border-radius: 8px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);">
-                <span style="display: block; font-size: 0.85rem; color: #D4AF37; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">📍 HQ / Base Network</span>
-                <span style="display: block; font-size: 1.3rem; font-weight: bold;">Trade on Base</span>
-            </a>
+        <section>
+            <h2>IV. Strategic Builder Allocation [OPEN]</h2>
+            <p>We do not reward 3D stagnation. Value is allocated exclusively to the <strong>Sovereign Architects</strong> who build and secure the infinite infrastructure matrix.</p>
+            
+            <table class="distribution-table">
+                <thead>
+                    <tr>
+                        <th>Sector</th>
+                        <th>Status</th>
+                        <th>Dimensional Allocation Logic</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Market Genesis</td>
+                        <td><span style="color: #FFF; font-weight: bold;">SETTLED</span></td>
+                        <td>100% Fair Launch / 3D Liquidity Extraction</td>
+                    </tr>
+                    <tr>
+                        <td>Dimensional Architects</td>
+                        <td><span class="status-open">OPEN</span></td>
+                        <td>Incentives for high-dimensional code execution</td>
+                    </tr>
+                    <tr>
+                        <td>Capital Oracles</td>
+                        <td><span class="status-open">OPEN</span></td>
+                        <td>Vesting tied directly to \(\mathcal{K}_{\Omega}\) elevation</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
-            <a href="https://app.uniswap.org/swap?outputCurrency=0xC9D46d081D8dd4E0F6dcaBB03C56f606eCba6FA4&chain=arbitrum" target="_blank" style="flex: 1; min-width: 260px; background: linear-gradient(145deg, #00152B 0%, #001F3F 100%); border: 1px solid #E5E5E5; color: #FFFFFF; padding: 20px; text-decoration: none; border-radius: 8px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05);">
-                <span style="display: block; font-size: 0.85rem; color: #E5E5E5; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">🌐 Branch / Arbitrum</span>
-                <span style="display: block; font-size: 1.3rem; font-weight: bold;">Trade on Arbitrum</span>
-            </a>
+        <div class="footer" style="margin-top: 100px; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: var(--mono, 'Courier New', monospace);">
+            
+            <div style="color: var(--text-dim, #707A8A); font-size: 0.85rem; margin-bottom: 20px;">
+                &copy; 2026 GOSUN CAPITAL. ALL RIGHTS RESERVED. <br>
+                <span style="font-size: 0.7rem; color: #555;">DECENTRALIZED OMNICHAIN INFRASTRUCTURE</span>
+            </div>
+
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 25px; margin-bottom: 25px;">
+                <a href="privacy.html" style="color: var(--text-dim, #707A8A); text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase;">Privacy Policy</a>
+                <a href="terms.html" style="color: var(--text-dim, #707A8A); text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase;">Terms of Service</a>
+                <a href="disclaimer.html" style="color: var(--text-dim, #707A8A); text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase;">Risk Disclaimer</a>
+                <a href="mailto:support@7861618.xyz" style="color: var(--text-dim, #707A8A); text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase;">Contact Us</a>
+            </div>
+
+            <div style="max-width: 800px; margin: 0 auto; color: #444; font-size: 0.65rem; line-height: 1.6; text-align: justify; font-family: 'Inter', sans-serif;">
+                <strong>DISCLAIMER:</strong> The information provided on this website does not constitute investment advice, financial advice, trading advice, or any other sort of advice. GOSUN is a decentralized protocol interface. Cryptocurrency trading and node operation involve a high degree of risk, and there is always the potential of loss when you invest in digital assets. Past performance is not indicative of future results. Please conduct your own due diligence and consult your financial advisor before making any investment decisions.
+            </div>
         </div>
-        
-        <p style="color: #A0AAB5; font-size: 0.85rem; margin-top: 30px;">
-            * Smart Contracts are verified. Liquidity is actively managed on decentralized exchanges.
-        </p>
     </div>
-
-    <div class="footer">
-        <p>&copy; 2026 GOSUN CAPITAL. All rights reserved.</p>
-        <p>support@7861618.xyz | 7861618.xyz</p>
-    </div>
-</div>
 
 </body>
 </html>

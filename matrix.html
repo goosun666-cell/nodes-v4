@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOSUN | GAIA Node Matrix</title>
+    <style>
+        :root {
+            --bg-color: #00050A;
+            --panel-bg: #010A14;
+            --card-bg: #03152A;
+            --accent-gold: #D4AF37;
+            --accent-blue: #0052FF;
+            --accent-green: #00FF41;
+            --text-main: #E1E1E1;
+            --text-dim: #707A8A;
+            --mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+        }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at top right, rgba(0, 82, 255, 0.05) 0%, transparent 40%);
+        }
+        
+        /* 导航栏与 Logo 点亮特效 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(1, 10, 20, 0.95);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            z-index: 1000;
+            position: sticky;
+            top: 0;
+        }
+        /* 将发光特效直接应用到您的原版 Logo 图片上 */
+        .glow-logo {
+            animation: logo-breathe 3s infinite alternate;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .glow-logo:hover {
+            filter: drop-shadow(0 0 15px #D4AF37) brightness(1.2);
+            transform: scale(1.05); /* 去掉了激进的旋转，保留稳重的放大发光 */
+        }
+        @keyframes logo-breathe {
+            0% { filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.5)); }
+            100% { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8)); }
+        }
+
+        .nav-links a { color: var(--text-dim); text-decoration: none; margin-left: 30px; font-family: var(--mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent-gold); }
+
+        /* 矩阵控制台布局 */
+        .matrix-container { display: flex; flex: 1; max-width: 1400px; margin: 0 auto; width: 100%; padding: 40px 20px; gap: 40px; }
+        .sidebar { width: 280px; flex-shrink: 0; display: flex; flex-direction: column; gap: 15px; }
+        .sidebar-header { font-family: var(--mono); color: var(--text-dim); font-size: 0.75rem; letter-spacing: 2px; margin-bottom: 20px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px; }
+        
+        /* Tab 按钮 */
+        .tab-btn { background: transparent; border: 1px solid rgba(255,255,255,0.05); color: var(--text-dim); padding: 15px 20px; text-align: left; font-family: var(--mono); font-size: 0.85rem; cursor: pointer; border-radius: 6px; transition: all 0.3s; }
+        .tab-btn:hover { background: rgba(255,255,255,0.02); color: var(--text-main); }
+        .tab-btn.active { background: rgba(212, 175, 55, 0.05); border-color: var(--accent-gold); color: var(--accent-gold); box-shadow: inset 4px 0 0 var(--accent-gold); font-weight: bold; }
+
+        /* 内容区与动画 */
+        .content-area { flex: 1; }
+        .tab-panel { display: none; animation: fadeIn 0.4s ease; }
+        .tab-panel.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .panel-header { margin-bottom: 30px; }
+        .panel-header h2 { margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; color: #FFF; }
+        .panel-header p { color: var(--accent-gold); font-family: var(--mono); font-size: 0.85rem; margin-top: 10px; }
+
+        /* 卡片网格 */
+        .grid-matrix { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        .matrix-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 25px; transition: all 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
+        .matrix-card:hover { border-color: rgba(212, 175, 55, 0.4); box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateY(-3px); }
+        .card-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .card-status { font-family: var(--mono); font-size: 0.7rem; color: var(--accent-green); padding: 2px 8px; border: 1px solid var(--accent-green); border-radius: 12px; }
+        .card-title { font-size: 1.25rem; font-weight: bold; margin: 0 0 10px 0; color: #FFF; }
+        .card-desc { color: var(--text-dim); font-size: 0.85rem; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+        
+        /* 协议特权区 */
+        .protocol-perk { background: rgba(0,0,0,0.3); border-left: 2px solid var(--accent-gold); padding: 10px 15px; font-family: var(--mono); font-size: 0.75rem; color: var(--accent-gold); margin-bottom: 20px; }
+        .enter-btn { display: block; text-align: center; background: rgba(255,255,255,0.05); color: var(--text-main); text-decoration: none; padding: 12px; border-radius: 4px; font-family: var(--mono); font-size: 0.85rem; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
+        .matrix-card:hover .enter-btn { background: var(--accent-gold); color: #000; border-color: var(--accent-gold); font-weight: bold; }
+
+        /* 神谕雷达与暗池 */
+        .dark-pool-console { background: #000; border: 1px dashed rgba(212, 175, 55, 0.4); padding: 40px; border-radius: 8px; text-align: center; position: relative; }
+        .pool-input { background: #010A14; border: 1px solid rgba(255,255,255,0.1); color: #FFF; padding: 15px; font-family: var(--mono); width: 60%; margin-right: 10px; border-radius: 4px; }
+        .pool-submit { background: var(--accent-blue); color: #FFF; border: none; padding: 15px 30px; font-family: var(--mono); cursor: pointer; border-radius: 4px; font-weight: bold; }
+
+        /* Radar Widget Styles */
+        .radar-widget {
+            width: 100%;
+            max-width: 100%;
+            background: #000;
+            border: 1px solid rgba(0, 82, 255, 0.3);
+            border-radius: 8px;
+            padding: 25px;
+            font-family: var(--mono);
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(0, 82, 255, 0.05);
+            margin-bottom: 30px;
+        }
+        /* 扫描线光效 */
+        .radar-widget::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(rgba(0, 82, 255, 0) 0%, rgba(0, 255, 65, 0.05) 50%, rgba(0, 82, 255, 0) 100%);
+            animation: radar-scan 4s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes radar-scan {
+            0% { transform: translateY(-50%); }
+            100% { transform: translateY(50%); }
+        }
+        .rw-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .rw-title { color: #FFF; font-size: 1.1rem; font-weight: bold; }
+        .rw-time { color: var(--text-dim); font-size: 0.75rem; }
+        
+        .rw-data-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 4px;
+            border-left: 2px solid transparent;
+            transition: 0.3s;
+        }
+        .rw-data-row:hover { background: rgba(255,255,255,0.05); }
+        .rw-label { color: var(--text-dim); font-size: 0.85rem; }
+        .rw-value { font-size: 1.2rem; font-weight: bold; color: #FFF; font-variant-numeric: tabular-nums; }
+        
+        .rw-premium { border-left-color: #FF003C; }
+        .rw-discount { border-left-color: var(--accent-green); }
+        
+        .value-red { color: #FF003C; text-shadow: 0 0 10px rgba(255,0,60,0.3); }
+        .value-green { color: var(--accent-green); text-shadow: 0 0 10px rgba(0,255,65,0.3); }
+        
+        .rw-action-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            background: transparent;
+            border: 1px dashed var(--accent-gold);
+            color: var(--accent-gold);
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+        .rw-action-btn:hover {
+            background: var(--accent-gold);
+            color: #000;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        @media (max-width: 900px) {
+            .matrix-container { flex-direction: column; }
+            .sidebar { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+            .pool-input { width: 100%; margin-bottom: 15px; margin-right: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <img src="/token-logo.svg" alt="GOSUN" width="36" height="36" class="glow-logo" onclick="window.location.href='/'">
+            <span style="font-family: var(--mono); font-weight: bold; letter-spacing: 2px;">GOSUN_MATRIX</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">/HQ_TERMINAL</a>
+            <a href="litepaper.html">/LITEPAPER</a>
+            <a href="rate-radar.html">/RATE_RADAR</a>
+        </div>
+    </header>
+
+    <div class="matrix-container">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">DIMENSIONAL DIRECTORY</div>
+            <button class="tab-btn active" onclick="openTab(event, 'tab-financial')">[ D-1 ] Financial Rails</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-compute')">[ D-2 ] Compute & AI Matrix</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-sovereignty')">[ D-3 ] Sovereignty Hardware</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-intelligence')">[ D-4 ] Intelligence & Oracle</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-alpha')">[ D-5 ] The Alpha Syndicate</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-radar')" style="color: var(--accent-green); border-color: rgba(0, 255, 65, 0.2);">[ D-6 ] The Oracle Radar</button>
+        </aside>
+
+        <main class="content-area">
+            
+            <div class="panel-header" style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px; margin-bottom: 40px;">
+                <div>
+                    <h2 id="panel-title">Financial Rails</h2>
+                    <p id="panel-desc">SYSTEM_LOG: Routing global liquidity. Institutional corridors for fiat-crypto conversion.</p>
+                </div>
+                <div style="position: relative; width: 300px;">
+                    <input type="text" id="matrixSearch" placeholder="SEARCH NODES (e.g. iFAST, ITIN)..." 
+                           style="width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(212, 175, 55, 0.3); color: var(--accent-gold); padding: 10px 15px; font-family: var(--mono); font-size: 0.8rem; border-radius: 4px; outline: none;">
+                </div>
+            </div>
+
+            <div id="tab-financial" class="tab-panel active">
+                
+                <!-- OTC Spread Radar Widget -->
+                <div class="radar-widget">
+                    <div class="rw-header">
+                        <div class="rw-title">USDT / CNY <span style="font-size: 0.7rem; color: var(--accent-blue); border: 1px solid var(--accent-blue); padding: 2px 6px; border-radius: 10px; margin-left: 10px;">OTC SPREAD</span></div>
+                        <div class="rw-time" id="radar-clock">SYNCING...</div>
+                    </div>
+                    
+                    <div class="rw-data-row">
+                        <span class="rw-label">Global FX Rate (Bank)</span>
+                        <span class="rw-value" id="fx-rate">7.1850</span>
+                    </div>
+                    
+                    <div class="rw-data-row">
+                        <span class="rw-label">Crypto OTC Rate (Binance)</span>
+                        <span class="rw-value" id="otc-rate">7.3210</span>
+                    </div>
+                    
+                    <div class="rw-data-row rw-premium" id="premium-row">
+                        <span class="rw-label">Current Premium (Cost)</span>
+                        <span class="rw-value value-red" id="premium-spread">+1.89%</span>
+                    </div>
+
+                    <button class="rw-action-btn" onclick="window.location.href='rate-radar.html'">EXECUTE ARBITRAGE ROUTE ➔</button>
+                </div>
+
+                <div class="grid-matrix">
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● VERIFIED ROUTE</span>
+                            <span style="font-family: var(--mono); color: #666; font-size: 0.8rem;">ID: BINANCE_GLB</span>
+                        </div>
+                        <h3 class="card-title">Binance Global Liquidity</h3>
+                        <p class="card-desc">The primary centralized execution venue. Direct routing for massive volume clearance and fiat off-ramping.</p>
+                        <div class="protocol-perk">
+                            > PERK: 40% Trading Fee Commission
+                        </div>
+                        <a href="https://www.binance.com/zh-CN/join?ref=GRO_28502_6JL30" target="_blank" class="enter-btn">INITIALIZE CONNECTION ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● VERIFIED ROUTE</span>
+                            <span style="font-family: var(--mono); color: #666; font-size: 0.8rem;">ID: BYBIT_PERP</span>
+                        </div>
+                        <h3 class="card-title">Bybit Perpetual Engine</h3>
+                        <p class="card-desc">High-frequency trading infrastructure. Optimized for unified margin and deep order book execution.</p>
+                        <div class="protocol-perk">
+                            > PERK: Up to $30,000 Allocation Bonus
+                        </div>
+                        <a href="https://partner.bybit.com/b/148777" target="_blank" class="enter-btn">INITIALIZE CONNECTION ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● VERIFIED ROUTE</span>
+                            <span style="font-family: var(--mono); color: #666; font-size: 0.8rem;">ID: OKX_WEB3</span>
+                        </div>
+                        <h3 class="card-title">OKX Web3 Gateway</h3>
+                        <p class="card-desc">Comprehensive ecosystem for spot, futures, and DeFi. Integrated Web3 wallet for seamless on-chain interaction.</p>
+                        <div class="protocol-perk">
+                            > PERK: Up to 100 USDT Mystery Box
+                        </div>
+                        <a href="https://www.kxmqpwrlvjt.com/join/35399257" target="_blank" class="enter-btn">INITIALIZE CONNECTION ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● VERIFIED ROUTE</span>
+                            <span style="font-family: var(--mono); color: #666; font-size: 0.8rem;">ID: COINBASE_INST</span>
+                        </div>
+                        <h3 class="card-title">Coinbase Institutional</h3>
+                        <p class="card-desc">The most trusted and compliant gateway for digital assets. Secure custody and high-liquidity trading.</p>
+                        <div class="protocol-perk">
+                            > PERK: Institutional Trust & Security
+                        </div>
+                        <a href="https://coinbase.com/join/GG2LUW9?src=ios-link" target="_blank" class="enter-btn">INITIALIZE CONNECTION ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● PERP_DEX</span>
+                            <span style="font-family: var(--mono); color: #666; font-size: 0.8rem;">ID: HYPERLIQUID_L1</span>
+                        </div>
+                        <h3 class="card-title">Hyperliquid L1</h3>
+                        <p class="card-desc">The leading decentralized perpetual exchange on its own L1. High performance, low latency, and deep liquidity.</p>
+                        <div class="protocol-perk">
+                            > PERK: Early Access & Fee Rebates
+                        </div>
+                        <a href="https://app.hyperliquid.xyz/join/GOSUN" target="_blank" class="enter-btn">INITIALIZE CONNECTION ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● PERP_DEX</span>
+                            <span style="font-family: var(--mono); color: #666; font-size: 0.8rem;">ID: PARADEX_STARK</span>
+                        </div>
+                        <h3 class="card-title">Paradex (Starknet)</h3>
+                        <p class="card-desc">High-performance derivatives exchange built on Starknet. Institutional-grade trading experience.</p>
+                        <div class="protocol-perk">
+                            > PERK: Exclusive Fee Discounts
+                        </div>
+                        <a href="https://app.paradex.trade/r/gosun" target="_blank" class="enter-btn">INITIALIZE CONNECTION ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● PERP_DEX</span>
+                            <span style="font-family: var(--mono); color: #666; font-size: 0.8rem;">ID: GMX_V2</span>
+                        </div>
+                        <h3 class="card-title">GMX V2</h3>
+                        <p class="card-desc">Decentralized perpetual exchange with low swap fees and zero price impact trades.</p>
+                        <div class="protocol-perk">
+                            > PERK: 10% Fee Discount
+                        </div>
+                        <a href="https://app.gmx.io/#/trade/?ref=gosun" target="_blank" class="enter-btn">INITIALIZE CONNECTION ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● MARGIN_DEX</span>
+                            <span style="font-family: var(--mono); color: #666; font-size: 0.8rem;">ID: AVANTIS_BASE</span>
+                        </div>
+                        <h3 class="card-title">Avantis Finance</h3>
+                        <p class="card-desc">Advanced margin trading protocol on Base. Trade crypto, forex, and commodities with leverage.</p>
+                        <div class="protocol-perk">
+                            > PERK: Priority Fee Rebates
+                        </div>
+                        <a href="https://www.avantisfi.com/referral?code=GOSUN666" target="_blank" class="enter-btn">INITIALIZE CONNECTION ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● FIAT BRIDGE</span>
+                            <span style="font-family: var(--mono); color: #666; font-size: 0.8rem;">ID: DUPAY_VISA</span>
+                        </div>
+                        <h3 class="card-title">DuPay Sovereign Card</h3>
+                        <p class="card-desc">Frictionless crypto-to-fiat conversion via Visa/Mastercard networks. Apple Pay integrated.</p>
+                        <div class="protocol-perk">
+                            > PERK: Priority KYC & Zero Issuance Fee
+                        </div>
+                        <a href="https://dupay.one/web-app/register-h5?invitationCode=803138&lang=zh-cn" target="_blank" class="enter-btn">DEPLOY VIRTUAL CARD ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● OFFSHORE BANK</span>
+                            <span style="font-family: var(--mono); color: #666; font-size: 0.8rem;">ID: IFAST_GLOBAL</span>
+                        </div>
+                        <h3 class="card-title">iFast Global Bank</h3>
+                        <p class="card-desc">UK-based digital bank providing global access to fiat rails. Seamless integration with crypto exchanges.</p>
+                        <div class="protocol-perk">
+                            > PERK: 免 30 镑开户邀请
+                        </div>
+                        <a href="https://www.ifastgb.com/tellafriend/yahuag774" target="_blank" class="enter-btn">OPEN ACCOUNT ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● REAL_TIME_ORACLE</span>
+                            <span style="font-family: var(--mono); color: #666; font-size: 0.8rem;">ID: RATE_RADAR</span>
+                        </div>
+                        <h3 class="card-title">GAIA Rate Radar</h3>
+                        <p class="card-desc">Real-time currency routing and exchange rate optimization. Detect the most efficient path for global consumption and exchange.</p>
+                        <div class="protocol-perk">
+                            > PERK: Zero-Spread Intelligence
+                        </div>
+                        <a href="rate-radar.html" class="enter-btn">INITIALIZE RADAR ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-compute" class="tab-panel">
+                <div class="grid-matrix">
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● ACTIVE NODE</span>
+                        </div>
+                        <h3 class="card-title">Grass DePIN Network</h3>
+                        <p class="card-desc">Contribute unused network bandwidth to train decentralized AI models. Earn passive structural yield.</p>
+                        <div class="protocol-perk">
+                            > PERK: 5,000 Epoch Genesis Bonus
+                        </div>
+                        <a href="https://app.getgrass.io/register/?referralCode=341C66l-4Qt3fhc" target="_blank" class="enter-btn">START NODE RUNTIME ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● ACTIVE NODE</span>
+                        </div>
+                        <h3 class="card-title">Dawn GPU Cluster</h3>
+                        <p class="card-desc">Decentralized compute rendering network. Rent or supply processing power for high-demand AI tasks.</p>
+                        <div class="protocol-perk">
+                            > PERK: Priority Compute Allocation
+                        </div>
+                        <a href="https://www.dawninternet.com/register?ref=gosun" target="_blank" class="enter-btn">START NODE RUNTIME ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● AI_AUTOMATION</span>
+                        </div>
+                        <h3 class="card-title">OpenClaw GPT-5.4</h3>
+                        <p class="card-desc">Native computer control and automation. GPT-5.4 powered hang-up tests to release time sovereignty.</p>
+                        <div class="protocol-perk">
+                            > PERK: AI Automation Blueprint
+                        </div>
+                        <a href="https://app.hyperliquid.xyz/join/GOSUN" target="_blank" class="enter-btn">VIEW BLUEPRINT ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-sovereignty" class="tab-panel">
+                <div class="grid-matrix">
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span style="color: #666;">🔒 COLD STORAGE</span>
+                        </div>
+                        <h3 class="card-title">Ledger Hardware Vault</h3>
+                        <p class="card-desc">The industry standard for offline cryptographic private key generation and storage.</p>
+                        <div class="protocol-perk">
+                            > PERK: Official Partner Direct Shipping
+                        </div>
+                        <a href="https://shop.ledger.com/?r=7861618" target="_blank" class="enter-btn">ACQUIRE HARDWARE ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span style="color: #666;">📦 SOVEREIGN LOGISTICS</span>
+                        </div>
+                        <h3 class="card-title">UK Postbox</h3>
+                        <p class="card-desc">租赁真实物理信箱获取账单。解决无海外地址证明 (POA) 死穴，合法租赁信箱生成账单。</p>
+                        <div class="protocol-perk">
+                            > PERK: Global Physical Presence
+                        </div>
+                        <a href="https://www.ukpostbox.com/" target="_blank" class="enter-btn">INITIALIZE LOGISTICS ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span style="color: #666;">⚖️ LEGAL SOVEREIGNTY</span>
+                        </div>
+                        <h3 class="card-title">ITIN Registration</h3>
+                        <p class="card-desc">不出国门合法获取美国个人税号 (ITIN)。零基础建立原生信用解锁美卡。</p>
+                        <div class="protocol-perk">
+                            > PERK: US Financial Access
+                        </div>
+                        <a href="https://www.irs.gov/individuals/individual-taxpayer-identification-number" target="_blank" class="enter-btn">VIEW REQUIREMENTS ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-alpha" class="tab-panel">
+                <div class="dark-pool-console">
+                    <h3 style="margin-bottom: 20px; color: var(--accent-gold);">ALPHA DARK POOL</h3>
+                    <p style="margin-bottom: 30px; font-size: 0.9rem; color: var(--text-dim);">Submit your invitation codes (Hyperliquid, MegaETH, etc.) or node API keys for protocol validation.</p>
+                    <form onsubmit="event.preventDefault(); alert('Intel submitted to the Dark Pool. Awaiting verification...');">
+                        <input type="text" class="pool-input" placeholder="ENTER INVITE CODE OR STRATEGIC INTEL...">
+                        <button type="submit" class="pool-submit">SUBMIT TO MATRIX</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="tab-intelligence" class="tab-panel">
+                <div class="grid-matrix">
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● HIGH_DIM_ORACLE</span>
+                        </div>
+                        <h3 class="card-title">高维神谕 (Telegram)</h3>
+                        <p class="card-desc">Join the GOSUN CAPITAL elite community. Real-time alpha, macro research, and protocol updates.</p>
+                        <div class="protocol-perk">
+                            > PERK: Direct Architect Access
+                        </div>
+                        <a href="https://t.me/+o7EqMnXqknA1ODA8" target="_blank" class="enter-btn">JOIN SYNDICATE ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● MACRO_RESEARCH</span>
+                        </div>
+                        <h3 class="card-title">Pi Cycle & Trend Analysis</h3>
+                        <p class="card-desc">Based on Pi Cycle and on-chain data for precise bottom deduction and anti-inflation slavery.</p>
+                        <div class="protocol-perk">
+                            > PERK: Cycle Intelligence
+                        </div>
+                        <a href="https://t.me/+o7EqMnXqknA1ODA8" target="_blank" class="enter-btn">VIEW RESEARCH ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● PROTOCOL_BOT</span>
+                        </div>
+                        <h3 class="card-title">GOSUN Oracle Bot</h3>
+                        <p class="card-desc">Automated intelligence bot for node status, market alerts, and strategic execution.</p>
+                        <div class="protocol-perk">
+                            > PERK: 24/7 Monitoring
+                        </div>
+                        <a href="https://t.me/Gosuncapital_bot" target="_blank" class="enter-btn">INITIALIZE BOT ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-radar" class="tab-panel">
+                <div style="width: 100%; height: 800px; border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; overflow: hidden; background: rgba(0,0,0,0.5);">
+                    <iframe src="rate-radar.html" style="width: 100%; height: 100%; border: none;"></iframe>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div class="footer" style="margin-top: 100px; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: var(--mono, 'Courier New', monospace);">
+        
+        <div style="color: var(--text-dim, #707A8A); font-size: 0.85rem; margin-bottom: 20px;">
+            &copy; 2026 GOSUN CAPITAL. ALL RIGHTS RESERVED. <br>
+            <span style="font-size: 0.7rem; color: #555;">DECENTRALIZED OMNICHAIN INFRASTRUCTURE</span>
+        </div>
+
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 25px; margin-bottom: 25px;">
+            <a href="privacy.html" style="color: var(--text-dim, #707A8A); text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase;">Privacy Policy</a>
+            <a href="terms.html" style="color: var(--text-dim, #707A8A); text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase;">Terms of Service</a>
+            <a href="disclaimer.html" style="color: var(--text-dim, #707A8A); text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase;">Risk Disclaimer</a>
+            <a href="mailto:support@7861618.xyz" style="color: var(--text-dim, #707A8A); text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase;">Contact Us</a>
+        </div>
+
+        <div style="max-width: 800px; margin: 0 auto; color: #444; font-size: 0.65rem; line-height: 1.6; text-align: justify; font-family: 'Inter', sans-serif;">
+            <strong>DISCLAIMER:</strong> The information provided on this website does not constitute investment advice, financial advice, trading advice, or any other sort of advice. GOSUN is a decentralized protocol interface. Cryptocurrency trading and node operation involve a high degree of risk, and there is always the potential of loss when you invest in digital assets. Past performance is not indicative of future results. Please conduct your own due diligence and consult your financial advisor before making any investment decisions.
+        </div>
+    </div>
+
+    <script>
+        const tabData = {
+            'tab-financial': { title: 'Financial Rails', desc: 'SYSTEM_LOG: Routing global liquidity. Institutional corridors for fiat-crypto conversion.' },
+            'tab-compute': { title: 'Compute & AI Matrix', desc: 'SYSTEM_LOG: Accessing global decentralized GPU clusters and DePIN bandwidth layers.' },
+            'tab-sovereignty': { title: 'Sovereignty Hardware', desc: 'SYSTEM_LOG: Physical layer security and digital sovereignty infrastructure.' },
+            'tab-intelligence': { title: 'Intelligence & Oracle', desc: 'SYSTEM_LOG: Accessing high-dimensional oracle feeds and research syndicates.' },
+            'tab-alpha': { title: 'The Alpha Syndicate', desc: 'SYSTEM_LOG: Restricted access. Submit strategic intel to the dark pool.' },
+            'tab-radar': { title: 'The Oracle Radar', desc: 'SYSTEM_LOG: Initializing multi-dimensional exchange rate detection engine. Optimizing for zero-spread execution.' }
+        };
+
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-panel");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+
+            // Update header
+            document.getElementById('panel-title').innerText = tabData[tabName].title;
+            document.getElementById('panel-desc').innerText = tabData[tabName].desc;
+        }
+
+        // Search Logic
+        document.getElementById('matrixSearch').addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.matrix-card');
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(term)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Radar Widget Logic
+        function updateRadar() {
+            const clock = document.getElementById('radar-clock');
+            if (!clock) return;
+            const now = new Date();
+            clock.innerText = 'LAST SYNC: ' + now.toISOString().split('T')[1].substring(0, 8) + ' UTC';
+            
+            // 模拟汇率微小波动 (增加真实感)
+            const baseFx = 7.1850;
+            const baseOtc = 7.3210;
+            const jitterFx = (Math.random() * 0.0010 - 0.0005);
+            const jitterOtc = (Math.random() * 0.0020 - 0.0010);
+            
+            const currentFx = (baseFx + jitterFx).toFixed(4);
+            const currentOtc = (baseOtc + jitterOtc).toFixed(4);
+            
+            // 计算溢价率
+            const premium = (((currentOtc - currentFx) / currentFx) * 100).toFixed(2);
+            
+            // 更新 DOM
+            const fxRateEl = document.getElementById('fx-rate');
+            const otcRateEl = document.getElementById('otc-rate');
+            const spreadEl = document.getElementById('premium-spread');
+            const rowEl = document.getElementById('premium-row');
+
+            if (fxRateEl) fxRateEl.innerText = currentFx;
+            if (otcRateEl) otcRateEl.innerText = currentOtc;
+            
+            if (spreadEl && rowEl) {
+                if(premium > 0) {
+                    spreadEl.innerText = '+' + premium + '%';
+                    spreadEl.className = 'rw-value value-red';
+                    rowEl.className = 'rw-data-row rw-premium';
+                } else {
+                    spreadEl.innerText = premium + '%';
+                    spreadEl.className = 'rw-value value-green';
+                    rowEl.className = 'rw-data-row rw-discount';
+                }
+            }
+        }
+        
+        // 初始化并每 3 秒心跳更新一次
+        updateRadar();
+        setInterval(updateRadar, 3000);
+    </script>
+</body>
+</html>

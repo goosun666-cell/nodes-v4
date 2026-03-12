@@ -1,8 +1,8 @@
 {
-  "name": "GOSUN 汇率雷达",
-  "short_name": "汇率雷达",
-  "description": "跨维资产转换与汇率损耗探测引擎",
-  "start_url": "/rate-radar.html",
+  "name": "GOSUN GAIA MATRIX",
+  "short_name": "GAIA MATRIX",
+  "description": "GOSUN GAIA Node Matrix & Rate Radar",
+  "start_url": "/matrix.html",
   "display": "standalone",
   "background_color": "#080808",
   "theme_color": "#d4af37",

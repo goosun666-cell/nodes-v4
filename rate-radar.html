@@ -12,8 +12,24 @@
             background: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #050505 100%); 
             color: #e0e0e0; 
             font-family: 'Inter', -apple-system, sans-serif; 
-            display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; margin: 0; 
             overflow-x: hidden;
+        }
+
+        /* 将发光特效直接应用到您的原版 Logo 图片上 */
+        .glow-logo {
+            animation: logo-breathe 3s infinite alternate;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .glow-logo:hover {
+            filter: drop-shadow(0 0 15px #D4AF37) brightness(1.2);
+            transform: scale(1.05); /* 去掉了激进的旋转，保留稳重的放大发光 */
+        }
+        @keyframes logo-breathe {
+            0% { filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.5)); }
+            100% { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8)); }
         }
         
         .flip-wrapper {
@@ -248,6 +264,7 @@
 </head>
 <body>
 
+<img src="/token-logo.svg" alt="GOSUN" width="48" height="48" class="glow-logo" onclick="window.location.href='/'">
 
 <div class="flip-wrapper">
     <a href="/" class="back-link">
