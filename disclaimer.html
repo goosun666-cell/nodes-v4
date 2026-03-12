@@ -1,131 +1,195 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Risk Disclaimer | GOSUN CAPITAL</title>
-<meta name="description" content="Risk Disclaimer for GOSUN CAPITAL Node Matrix.">
-<link rel="canonical" href="https://7861618.xyz/disclaimer">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
-:root {
-  --gold-primary: #D4AF37; --gold-bright: #FFDF00; --gold-glow: rgba(212, 175, 55, 0.5);
-  --cyan-primary: #00f2fe; --cyan-glow: rgba(0, 242, 254, 0.5);
-  --bg-base: #030303; --glass-bg: rgba(10, 10, 10, 0.65); --glass-border: rgba(212, 175, 55, 0.15);
-  --text-main: #EAEAEA; --text-muted: #888888;
-  --font-tech: 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
-  --font-display: 'Space Grotesk', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', sans-serif;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background-color: var(--bg-base); color: var(--text-main); font-family: var(--font-tech); overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
-#gaia-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
-header { position: sticky; top: 0; z-index: 10; padding: 0 40px; border-bottom: 1px solid var(--glass-border); background: rgba(3,3,3,0.8); backdrop-filter: blur(10px); }
-nav { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
-.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.brand-logo { width: 120px; height: 32px; object-fit: contain; margin-right: 12px; filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6)); }
-.logo-text { font-family: var(--font-display); font-size: 18px; font-weight: 900; color: #fff; letter-spacing: 1px; }
-.logo-text span { color: var(--gold-primary); }
-.nav-link-official { color: var(--gold-primary); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 1px; transition: all 0.3s; text-shadow: 0 0 8px var(--gold-glow); display: flex; align-items: center; gap: 6px; }
-.nav-link-official:hover { color: var(--gold-bright); text-shadow: 0 0 15px var(--gold-bright); }
-.nav-actions { display: flex; align-items: center; gap: 24px; }
-main { flex: 1; display: flex; flex-direction: column; max-width: 800px; margin: 0 auto; padding: 60px 40px; width: 100%; position: relative; z-index: 1; }
-h1 { font-family: var(--font-display); font-size: 32px; font-weight: 900; letter-spacing: 1px; color: var(--gold-bright); margin-bottom: 10px; }
-.last-updated { font-size: 12px; color: var(--text-muted); margin-bottom: 40px; letter-spacing: 1px; text-transform: uppercase; }
-.policy-content { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 40px; border-radius: 4px; backdrop-filter: blur(10px); }
-.policy-content h2 { font-family: var(--font-display); font-size: 18px; color: #fff; margin: 30px 0 15px; letter-spacing: 0.5px; }
-.policy-content h2:first-child { margin-top: 0; }
-.policy-content p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 15px; }
-.policy-content a { color: var(--gold-primary); text-decoration: none; }
-.policy-content a:hover { text-decoration: underline; }
-footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: center; background: rgba(0,0,0,0.8); position: relative; z-index: 1; margin-top: auto; }
-@media (max-width: 768px) { .nav-link-official { font-size: 11px; } h1 { font-size: 24px; } .policy-content { padding: 20px; } }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOSUN | Risk Disclaimer</title>
+    <style>
+        :root {
+            --bg-color: #00050A;
+            --panel-bg: #010A14;
+            --accent-gold: #D4AF37;
+            --accent-blue: #0052FF;
+            --accent-green: #00FF41;
+            --text-main: #E1E1E1;
+            --text-dim: #707A8A;
+            --mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+        }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* 统一头部导航 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(1, 10, 20, 0.85);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .glow-logo {
+            animation: logo-breathe 3s infinite alternate;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .glow-logo:hover {
+            filter: drop-shadow(0 0 15px #D4AF37) brightness(1.2);
+            transform: scale(1.05);
+        }
+        @keyframes logo-breathe {
+            0% { filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.5)); }
+            100% { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8)); }
+        }
+        .nav-links a { 
+            color: var(--text-dim); 
+            text-decoration: none; 
+            margin-left: 30px; 
+            font-family: var(--mono); 
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            transition: 0.3s; 
+        }
+        .nav-links a:hover { color: var(--accent-gold); }
+        .nav-links a.external-link { color: var(--accent-blue); font-weight: bold; }
+        .nav-links a.external-link:hover { color: #FFF; text-shadow: 0 0 10px var(--accent-blue); }
+
+        /* 法律文档内容区 */
+        .legal-container {
+            flex: 1;
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        .legal-header {
+            margin-bottom: 50px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 20px;
+        }
+        .legal-header h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            color: #FFF;
+            letter-spacing: -1px;
+        }
+        .legal-header p {
+            color: var(--accent-gold);
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+        .legal-content h2 {
+            font-size: 1.2rem;
+            color: #FFF;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            font-family: var(--mono);
+        }
+        .legal-content p {
+            color: var(--text-dim);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+        .legal-content ul {
+            color: var(--text-dim);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        .legal-content li {
+            margin-bottom: 10px;
+        }
+
+        /* 统一的底部 Footer 样式 */
+        .footer { margin-top: auto; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: var(--mono); background: var(--panel-bg);}
+        .social-links { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
+        .social-links a { color: var(--text-dim); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center; padding: 10px; border-radius: 50%; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .social-links a:hover { color: #000; background: var(--accent-gold); border-color: var(--accent-gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); transform: translateY(-3px); }
+        .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase; margin: 0 12px; }
+        .footer-links a:hover { color: var(--accent-gold); }
+    </style>
 </head>
 <body>
-<canvas id="gaia-canvas"></canvas>
 
-<header>
-  <nav>
-    <a href="/" class="logo">
-      <img src="/token-logo.svg" alt="GOSUN" width="32" height="32" style="filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));">
-      <span class="logo-text">GOSUN <span>CAPITAL</span></span>
-    </a>
-    <div class="nav-actions">
-      <a href="https://gosun.qzz.io" target="_blank" class="nav-link-official">⌂ 理想国母舰 (Official Site)</a>
+    <header>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <img src="/full-logo.svg" alt="GOSUN" width="40" height="40" class="glow-logo">
+            <span style="font-family: var(--mono); font-weight: bold; letter-spacing: 2px;">GOSUN_HQ</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">/HQ_TERMINAL</a>
+            <a href="matrix.html">/GAIA_MATRIX</a>
+            <a href="litepaper.html">/LITEPAPER</a>
+        </div>
+    </header>
+
+    <div class="legal-container">
+        <div class="legal-header">
+            <h1>Risk Disclaimer</h1>
+            <p>LAST UPDATED: MARCH 2026 | STATUS: CLASSIFIED</p>
+        </div>
+        
+        <div class="legal-content">
+            <p><strong>PLEASE READ THIS DISCLAIMER CAREFULLY BEFORE ACCESSING OR USING THE GOSUN PROTOCOL.</strong></p>
+            
+            <h2>1. No Financial Advice</h2>
+            <p>The information provided on the GOSUN website, whitepaper, lightpaper, social media channels, and within the GAIA Matrix interface is for informational and educational purposes only. It does not constitute investment advice, financial advice, trading advice, or any other sort of advice. You should not treat any of the protocol's content as such. GOSUN Capital does not recommend that any digital asset should be bought, earned, sold, or held by you.</p>
+            
+            <h2>2. High Volatility and Market Risk</h2>
+            <p>Trading and investing in cryptocurrencies, digital assets, and participating in decentralized finance (DeFi) protocols involve a substantial degree of risk. The prices of digital assets are highly volatile and can fluctuate wildly. You could experience significant and rapid losses, up to the total loss of your initial capital. Past performance is not indicative of future results.</p>
+            
+            <h2>3. Smart Contract and Technical Risks</h2>
+            <p>The GOSUN protocol operates on experimental decentralized networks (including but not limited to Base and Arbitrum). While the Alpha Syndicate strives for absolute precision, smart contracts are inherently prone to undiscovered bugs, vulnerabilities, and exploits. By interacting with GOSUN smart contracts, you acknowledge and assume the risk of software failures, hacks, and logic errors.</p>
+            
+            <h2>4. Regulatory Uncertainty</h2>
+            <p>The regulatory environment concerning cryptocurrencies and decentralized infrastructure is constantly evolving and varies significantly by jurisdiction. GOSUN assumes no responsibility for your compliance with local laws. It is solely your responsibility to determine what laws apply to your interactions with the protocol and to comply with them fully.</p>
+
+            <h2>5. No Liability</h2>
+            <p>Under no circumstances shall GOSUN Capital, the Alpha Syndicate, its developers, affiliates, or contributors be held liable for any direct, indirect, special, incidental, consequential, or other losses of any kind, in tort, contract or otherwise (including but not limited to loss of revenue, income or profits, and loss of data), arising out of or in connection with your use of the GOSUN protocol.</p>
+        </div>
     </div>
-  </nav>
-</header>
 
-<main>
-  <h1>Risk Disclaimer</h1>
-  <div class="last-updated">Last Updated: February 2026</div>
-  
-  <div class="policy-content">
-    <h2>1. High Risk Investment</h2>
-    <p>Trading cryptocurrencies and participating in decentralized protocols involve significant risk. The value of digital assets can fluctuate widely, and you may lose all of your invested capital. You should only invest money that you can afford to lose.</p>
+    <div class="footer">
+        <div style="color: var(--text-dim); font-size: 0.85rem; margin-bottom: 20px;">
+            &copy; 2026 GOSUN CAPITAL. ALL RIGHTS RESERVED. <br>
+            <span style="font-size: 0.7rem; color: #555;">DECENTRALIZED OMNICHAIN INFRASTRUCTURE</span>
+        </div>
+        
+        <div class="social-links">
+            <a href="https://x.com/goosun666" target="_blank" aria-label="X (Twitter)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+            </a>
+            <a href="https://t.me/+o7EqMnXqknA1ODA8" target="_blank" aria-label="Telegram">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.08-.19-.09-.05-.21-.02-.3.01-.13.04-2.21 1.42-6.25 4.15-.59.4-1.12.59-1.6.58-.53-.01-1.55-.3-2.31-.55-.93-.31-1.67-.47-1.6-.99.04-.26.39-.53 1.05-.8 4.11-1.79 6.85-2.93 8.22-3.5 3.92-1.64 4.73-1.92 5.26-1.92.12 0 .37.03.54.17.14.12.21.28.23.44.01.07.01.16 0 .22z"/>
+                </svg>
+            </a>
+        </div>
 
-    <h2>2. No Financial Advice</h2>
-    <p>The content on this website is for informational purposes only and does not constitute financial, investment, or legal advice. GOSUN CAPITAL is not a financial advisor. You should consult with a qualified professional before making any financial decisions.</p>
+        <div class="footer-links" style="margin-bottom: 25px;">
+            <a href="/GOSUN_Whitepaper_V1.0.pdf" download>Whitepaper</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+            <a href="disclaimer.html">Risk Disclaimer</a>
+            <a href="mailto:support@7861618.xyz">Contact Us</a>
+        </div>
+    </div>
 
-    <h2>3. Third-Party Risks</h2>
-    <p>GOSUN CAPITAL provides links to third-party platforms and protocols. We do not control these platforms and are not responsible for their security, performance, or compliance. Use them at your own risk.</p>
-
-    <h2>4. Accuracy of Information</h2>
-    <p>While we strive to provide accurate and up-to-date information, we cannot guarantee the completeness or accuracy of the data presented on this site. Market conditions change rapidly, and information may become outdated.</p>
-
-    <h2>5. Affiliate Disclosure</h2>
-    <p>This website contains affiliate links. We may receive compensation if you sign up or trade through these links. This compensation helps support the operation of the GOSUN GAIA Node Matrix.</p>
-  </div>
-</main>
-
-<footer>
-  <div class="footer" style="padding: 40px 20px; text-align: center; font-family: 'Courier New', monospace;">
-      
-      <div style="color: #707A8A; font-size: 0.85rem; margin-bottom: 20px;">
-          &copy; 2026 GOSUN CAPITAL. ALL RIGHTS RESERVED. <br>
-          <span style="font-size: 0.7rem; color: #555;">DECENTRALIZED OMNICHAIN INFRASTRUCTURE</span>
-      </div>
-
-      <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 25px; margin-bottom: 25px;">
-          <a href="/GOSUN_Whitepaper_V1.0.pdf" download style="color: #707A8A; text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase;">Whitepaper</a>
-          <a href="privacy.html" style="color: #707A8A; text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase;">Privacy Policy</a>
-          <a href="terms.html" style="color: #707A8A; text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase;">Terms of Service</a>
-          <a href="disclaimer.html" style="color: #707A8A; text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase;">Risk Disclaimer</a>
-          <a href="mailto:support@7861618.xyz" style="color: #707A8A; text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase;">Contact Us</a>
-      </div>
-
-      <div style="max-width: 800px; margin: 0 auto; color: #444; font-size: 0.65rem; line-height: 1.6; text-align: justify; font-family: 'Inter', sans-serif;">
-          <strong>DISCLAIMER:</strong> The information provided on this website does not constitute investment advice, financial advice, trading advice, or any other sort of advice. GOSUN is a decentralized protocol interface. Cryptocurrency trading and node operation involve a high degree of risk, and there is always the potential of loss when you invest in digital assets. Past performance is not indicative of future results. Please conduct your own due diligence and consult your financial advisor before making any investment decisions.
-      </div>
-  </div>
-</footer>
-
-<script>
-  // Canvas Particles
-  const canvas = document.getElementById('gaia-canvas');
-  const ctx = canvas.getContext('2d');
-  let width, height;
-  let particles = [];
-  function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
-  window.addEventListener('resize', resize); resize();
-  class Particle {
-      constructor() { this.x = Math.random() * width; this.y = Math.random() * height; this.vx = (Math.random() - 0.5) * 0.5; this.vy = (Math.random() - 0.5) * 0.5; this.radius = Math.random() * 1.5 + 0.5; }
-      update() { this.x += this.vx; this.y += this.vy; if (this.x < 0 || this.x > width) this.vx *= -1; if (this.y < 0 || this.y > height) this.vy *= -1; }
-      draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fillStyle = 'rgba(212, 175, 55, 0.8)'; ctx.fill(); }
-  }
-  for (let i = 0; i < 100; i++) particles.push(new Particle());
-  function animate() {
-      ctx.clearRect(0, 0, width, height);
-      for (let i = 0; i < particles.length; i++) {
-          particles[i].update(); particles[i].draw();
-          for (let j = i + 1; j < particles.length; j++) {
-              const dx = particles[i].x - particles[j].x; const dy = particles[i].y - particles[j].y; const dist = Math.sqrt(dx * dx + dy * dy);
-              if (dist < 120) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.strokeStyle = `rgba(212, 175, 55, ${1 - dist/120})`; ctx.lineWidth = 0.5; ctx.stroke(); }
-          }
-      }
-      requestAnimationFrame(animate);
-  }
-  animate();
-</script>
 </body>
 </html>
