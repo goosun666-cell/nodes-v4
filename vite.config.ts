@@ -26,6 +26,7 @@ export default defineConfig(({mode}) => {
           terms: resolve(__dirname, 'terms.html'),
           rateRadar: resolve(__dirname, 'rate-radar.html'),
           litepaper: resolve(__dirname, 'litepaper.html'),
+          disclaimer: resolve(__dirname, 'disclaimer.html'),
         },
       },
     },
