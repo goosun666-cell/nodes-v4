@@ -242,27 +242,31 @@
             <div class="sidebar-header">DIMENSIONAL DIRECTORY</div>
             <button class="tab-btn active" onclick="openTab(event, 'tab-ai')">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
-                AI智慧中心
+                AI Intelligence Center
             </button>
             <button class="tab-btn" onclick="openTab(event, 'tab-poe')">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                POE中心
+                POE Center
             </button>
             <button class="tab-btn" onclick="openTab(event, 'tab-token')">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/><polyline points="2 15.5 12 8.5 22 15.5"/><line x1="12" y1="2" x2="12" y2="8.5"/></svg>
-                代币中心
+                Token Center
             </button>
             <button class="tab-btn" onclick="openTab(event, 'tab-consensus')">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-                共识中心
+                Consensus Center
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-rwa')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="22"/><line x1="10" y1="18" x2="10" y2="22"/><line x1="14" y1="18" x2="14" y2="22"/><line x1="18" y1="18" x2="18" y2="22"/><polygon points="12 2 20 7 4 7"/></svg>
+                RWA Center
             </button>
             <button class="tab-btn" onclick="openTab(event, 'tab-policy')">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                政策中心
+                Policy Center
             </button>
             <button class="tab-btn" onclick="openTab(event, 'tab-share')" style="color: var(--accent-gold);">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                分享中心
+                Share Center
                 <span style="margin-left: auto; background: var(--accent-gold); color: #000; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; display: flex; align-items: center; gap: 4px;">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 10px; height: 10px; opacity: 1;"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
                     New
@@ -274,8 +278,8 @@
             
             <div class="panel-header" style="display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px; margin-bottom: 40px;">
                 <div>
-                    <h2 id="panel-title">AI智慧中心</h2>
-                    <p id="panel-desc">SYSTEM_LOG: 人工智能与算力矩阵，去中心化算力与神谕网络。</p>
+                    <h2 id="panel-title">AI Intelligence Center</h2>
+                    <p id="panel-desc">SYSTEM_LOG: AI & Compute Matrix, Decentralized Computing & Oracle Networks.</p>
                 </div>
                 <div style="position: relative; width: 300px;">
                     <input type="text" id="matrixSearch" placeholder="SEARCH NODES (e.g. iFAST, ITIN)..." 
@@ -706,6 +710,18 @@
                     </div>
                 </div>
             </div>
+            <div id="tab-rwa" class="tab-panel ">
+                <div class="grid-matrix">
+                    <!-- RWA Center Cards Can Be Added Here -->
+                    <div class="matrix-card" style="border-style: dashed; border-color: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; min-height: 200px;">
+                        <div style="text-align: center; color: var(--text-dim);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width: 48px; height: 48px; margin-bottom: 15px; opacity: 0.5;"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="22"/><line x1="10" y1="18" x2="10" y2="22"/><line x1="14" y1="18" x2="14" y2="22"/><line x1="18" y1="18" x2="18" y2="22"/><polygon points="12 2 20 7 4 7"/></svg>
+                            <h3 style="margin: 0; font-size: 1.2rem; color: #fff;">RWA Nodes</h3>
+                            <p style="margin-top: 5px; font-size: 0.85rem;">Awaiting deployment...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="tab-policy" class="tab-panel ">
                 <div class="grid-matrix">
                     <div class="matrix-card">
@@ -809,12 +825,13 @@
 
     <script>
                 const tabData = {
-            'tab-ai': { title: 'AI智慧中心', desc: 'SYSTEM_LOG: 人工智能与算力矩阵，去中心化算力与神谕网络。' },
-            'tab-poe': { title: 'POE中心', desc: 'SYSTEM_LOG: 物理层安全与数字主权基础设施，法币出入金通道。' },
-            'tab-token': { title: '代币中心', desc: 'SYSTEM_LOG: 全球流动性路由，去中心化与中心化交易枢纽。' },
-            'tab-consensus': { title: '共识中心', desc: 'SYSTEM_LOG: 协议核心蓝图、全球广播与高维共识网络。' },
-            'tab-policy': { title: '政策中心', desc: 'SYSTEM_LOG: 监管框架、风险披露与服务条款。' },
-            'tab-share': { title: '分享中心', desc: 'SYSTEM_LOG: 汇率雷达与多维度数据分享引擎。' },
+            'tab-ai': { title: 'AI Intelligence Center', desc: 'SYSTEM_LOG: AI & Compute Matrix, Decentralized Computing & Oracle Networks.' },
+            'tab-poe': { title: 'POE Center', desc: 'SYSTEM_LOG: Physical Layer Security & Digital Sovereignty Infrastructure, Fiat On/Off Ramps.' },
+            'tab-token': { title: 'Token Center', desc: 'SYSTEM_LOG: Global Liquidity Routing, Decentralized & Centralized Trading Hubs.' },
+            'tab-consensus': { title: 'Consensus Center', desc: 'SYSTEM_LOG: Protocol Core Blueprints, Global Broadcasting & High-Dimensional Consensus Networks.' },
+            'tab-rwa': { title: 'RWA Center', desc: 'SYSTEM_LOG: Real World Assets Tokenization & On-Chain Yield.' },
+            'tab-policy': { title: 'Policy Center', desc: 'SYSTEM_LOG: Regulatory Frameworks, Risk Disclosures & Terms of Service.' },
+            'tab-share': { title: 'Share Center', desc: 'SYSTEM_LOG: Rate Radar & Multi-Dimensional Data Sharing Engine.' },
         };
 
         function openTab(evt, tabName) {
