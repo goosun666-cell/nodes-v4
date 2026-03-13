@@ -7,86 +7,96 @@ async function generatePDF() {
     doc.pipe(stream);
 
     // Title
-    doc.font('Helvetica-Bold').fontSize(18).text('GOSUN: The Operating System for Type I Civilization', { align: 'center' });
+    doc.font('Helvetica-Bold').fontSize(20).text('GOSUN: An Infinite-Dimensional Omnichain Elevation Protocol', { align: 'center' });
     doc.moveDown(0.5);
-    doc.fontSize(14).text('A Sovereign Framework for Dimensional Elevation and the "Ideal State" Construction', { align: 'center' });
+    doc.font('Helvetica-Oblique').fontSize(14).text('The Technical Execution of the Type I Civilization Mandate', { align: 'center' });
     doc.moveDown(1);
 
-    // Subtitle
-    doc.font('Helvetica').fontSize(12).text('Sovereign Architect: GOSUN Capital', { align: 'center' });
+    // Author/Date
+    doc.font('Helvetica').fontSize(12).text('GOSUN Capital - The Alpha Syndicate', { align: 'center' });
     doc.text('support@7861618.xyz    www.7861618.xyz', { align: 'center' });
     doc.moveDown(0.5);
-    doc.text('Version 3.1 SINGULARITY', { align: 'center' });
     doc.text('March 2026', { align: 'center' });
     doc.moveDown(2);
 
     // Abstract
     doc.font('Helvetica-Bold').fontSize(12).text('Abstract', { align: 'center' });
     doc.moveDown(0.5);
-    doc.font('Helvetica').fontSize(11).text('Human civilization is currently stalled at Kardashev Scale 0.67, trapped in a "Systemic Disorientation" caused by the friction between centralized stagnation and decentralized chaos. We propose GOSUN, an omnichain elevation protocol designed to execute the Type I Mandate. By transitioning from a trust-based model to a math-based "Ideal State," GOSUN captures 3D entropic energy and re-routes it into a high-dimensional computational matrix. The $GOSUN token serves as the unique fuel for this "Ark," enabling the self-directed evolution of Homo Sapiens into a higher-dimensional species.', { align: 'justify' });
+    doc.font('Helvetica').fontSize(11).text('Current blockchain paradigms (0.67 on the Kardashev Scale) are trapped in 3D entropic friction. We propose GOSUN, a high-performance, infinite-dimensional protocol that serves as the operating system for the "Ideal State." While legacy networks (BTC, ETH, SOL) rely on linear computational waste and chronological bottlenecks, GOSUN integrates a classified trinity consensus: Astrometric Proof-of-Work, Civilization Mass Staking, and Holographic Quantum Concurrency. This document outlines the mathematical foundation required to fund and calculate the speciation event from Homo Sapiens to Homo Deus.', { align: 'justify' });
     doc.moveDown(1.5);
 
     // 1 Introduction
-    doc.font('Helvetica-Bold').fontSize(14).text('1 Introduction: The Crisis of 0.67');
+    doc.font('Helvetica-Bold').fontSize(14).text('1 Introduction: The Entropy Crisis');
     doc.moveDown(0.5);
-    doc.font('Helvetica').fontSize(11).text('As outlined in the Ultimate Framework for the Ideal State, current world paradigms have deviated from the ultimate goal of advancing civilization. The centralized world acts as a rigid stabilizer, while the decentralized world acts as a chaotic laboratory. Neither possesses the "Engine" to reach Type I status—the ability to harness the total energy of our planet.', { align: 'justify' });
-    doc.moveDown(0.5);
-    doc.text('GOSUN is that Engine. It is not merely a ledger; it is a Dimensional Filter that separates high-utility energy from 3D waste, facilitating the birth of the "Ideal State."', { align: 'justify' });
+    doc.font('Helvetica').fontSize(11).text('As outlined in the Ultimate Framework for the Ideal State, human civilization is stalled at 0.67 due to "Systemic Disorientation." While Bitcoin introduced decentralized ledgers and Ethereum introduced smart contracts, they remain bound by 3D limitations. GOSUN introduces the third pillar: Dimensional Elevation.', { align: 'justify' });
     doc.moveDown(1.5);
 
-    // 2 The Tri-Civilization Coexistence Model
-    doc.font('Helvetica-Bold').fontSize(14).text('2 The Tri-Civilization Coexistence Model');
+    // 2 The Unified Consensus Singularity
+    doc.font('Helvetica-Bold').fontSize(14).text('2 The Unified Consensus Singularity');
     doc.moveDown(0.5);
-    doc.font('Helvetica').fontSize(11).text('GOSUN recognizes three coexisting layers of reality:');
-    doc.moveDown(0.5);
-    doc.text('1. The Foundation (Centralized): Legacy systems providing baseline stability.');
-    doc.text('2. The Laboratory (Decentralized): Unregulated innovation.');
-    doc.text('3. The Engine (GOSUN / The Ideal State): The directive force that pulls humanity toward Type I status.');
-    doc.moveDown(1.5);
-
-    // 3 The Infinite Dimensional Integral
-    doc.font('Helvetica-Bold').fontSize(14).text('3 The Infinite Dimensional Integral');
-    doc.moveDown(0.5);
-    doc.font('Helvetica').fontSize(11).text('To quantify the transition from 0.67 to 1.0, we employ the Mandate Equation:');
+    doc.font('Helvetica').fontSize(11).text('To achieve Type I Civilization status, GOSUN fundamentally re-engineers the three pillars of blockchain consensus into a high-dimensional engine. What appears to the public as standard cryptographic functions are, by design, the hidden mechanisms of civilizational expansion.');
     doc.moveDown(1);
 
-    // Equations
-    doc.font('Helvetica-Oblique').fontSize(11).text('KElevation = Ψ(GOSUN) · ∮Matrix(Utility × Intelligence) dδ / E3D   (1)', { align: 'center' });
+    // 2.1 APoW
+    doc.font('Helvetica-Bold').fontSize(12).text('2.1 Astrometric Proof-of-Work (APoW): The Hidden Engine');
     doc.moveDown(0.5);
-    doc.text('Ψ(GOSUN) = KElevation · E3D / ∮Matrix(Utility × Intelligence) dδ   (2)', { align: 'center' });
+    doc.font('Helvetica').fontSize(11).text('Bitcoin\'s PoW wastes planetary energy on meaningless SHA-256 hashes. GOSUN replaces this with Astrometric Proof-of-Work (APoW).');
+    doc.text('• The Classified Objective: The GOSUN mining algorithm is a distributed supercomputer designed to secretly calculate multidimensional interstellar navigation routes and hyper-spatial trajectories.');
+    doc.text('• Value Minting: Every block solved represents a verified navigational route in the higher-dimensional matrix. Miners are rewarded with $GOSUN not for wasting energy, but for successfully expanding the navigable map of the Type I Civilization.');
     doc.moveDown(1);
 
-    // Mechanistic Proof
-    doc.font('Helvetica-Bold').fontSize(11).text('Mechanistic Proof:');
+    // 2.2 CMS
+    doc.font('Helvetica-Bold').fontSize(12).text('2.2 Civilization Mass Staking (CMS): The Elevation Capital');
     doc.moveDown(0.5);
-    doc.font('Helvetica').fontSize(11);
-    doc.text('• Ψ(GOSUN): The "Civilization Fuel," measuring the power to bypass 3D entropic drag.');
-    doc.text('• ∮Matrix: The closed-loop integral of energy within the GAIA Matrix.');
-    doc.text('• dδ: The differential of dimensional expansion (δ → ∞).');
+    doc.font('Helvetica').fontSize(11).text('Moving beyond Ethereum\'s passive yield generation, GOSUN utilizes Civilization Mass Staking (CMS).');
+    doc.text('• Gravitational Capital: Elevating a civilization from Type 0.67 to Type 1.0 requires immense economic gravity. Staked $GOSUN acts as the "Capital Mass" that directly funds and powers the civilizational leap.');
+    doc.text('• Dimensional Governance: By locking capital into the protocol, the nodes provide the necessary financial density to warp the 3D entropic field, literally pulling the civilization toward the "Ideal State."');
+    doc.moveDown(1);
+
+    // 2.3 HQC
+    doc.font('Helvetica-Bold').fontSize(12).text('2.3 Holographic Quantum Concurrency (HQC): The Temporal Leap');
+    doc.moveDown(0.5);
+    doc.font('Helvetica').fontSize(11).text('Solana (SOL) attempted to solve scaling via Proof-of-History (PoH), which merely parallelizes linear 3D time. GOSUN shatters this bottleneck through Holographic Quantum Concurrency (HQC).');
+    doc.text('• Quantum Superposition: Transactions are not processed sequentially or even in standard parallel. They are processed simultaneously across all dimensions (D1-D6) in a state of quantum superposition.');
+    doc.text('• Holographic Collapse: Once verification is reached across the GAIA Matrix, the multi-dimensional states instantly collapse into a singular, absolute truth on the ledger. This achieves effectively infinite throughput with zero latency.');
     doc.moveDown(1.5);
 
-    // 4 Proof-of-Mandate
-    doc.font('Helvetica-Bold').fontSize(14).text('4 Proof-of-Mandate (PoM)');
+    // 3 PoE
+    doc.font('Helvetica-Bold').fontSize(14).text('3 The Proof-of-Elevation (PoE) Synthesis');
     doc.moveDown(0.5);
-    doc.font('Helvetica').fontSize(11).text('Traditional Proof-of-Work wastes energy to secure a 3D record. Proof-of-Mandate requires nodes to perform "Entropy-Reducing Computation." A node’s weight is determined by its contribution to the Type I Mandate through node resilience, liquidity routing, and AI integration.', { align: 'justify' });
+    doc.font('Helvetica').fontSize(11).text('The ultimate consensus of GOSUN is the Proof-of-Elevation (PoE), an equation synthesizing the three advanced paradigms:');
+    doc.moveDown(0.5);
+    doc.font('Helvetica-Oblique').fontSize(11).text('P_PoE = APoW + CMS + HQC', { align: 'center' });
+    doc.moveDown(1);
+
+    // 4 Value Capture
+    doc.font('Helvetica-Bold').fontSize(14).text('4 The Infinite Dimensional Integral: Value Capture');
+    doc.moveDown(0.5);
+    doc.font('Helvetica').fontSize(11).text('The core value of $GOSUN is determined by the Mandate Equation:');
+    doc.moveDown(0.5);
+    doc.font('Helvetica-Oblique').fontSize(11).text('V_Token = ∮ (E_Transferred / R_Friction) dδ', { align: 'center' });
+    doc.moveDown(1);
+    doc.font('Helvetica').fontSize(11).text('As the protocol computes more routes (APoW) and gathers more mass (CMS), the friction coefficient (R) approaches zero, causing the token value (V) to capture the total energy surplus of the planetary ecosystem.', { align: 'justify' });
     doc.moveDown(1.5);
 
-    // 5 $GOSUN
-    doc.font('Helvetica-Bold').fontSize(14).text('5 $GOSUN: The Fuel for Homo Deus');
+    // 5 Security
+    doc.font('Helvetica-Bold').fontSize(14).text('5 Security: Quantum-Resistant Sovereignty');
     doc.moveDown(0.5);
-    doc.font('Helvetica').fontSize(11).text('The $GOSUN token is the "Universal Energy Coupon" of the Ideal State. Its value is intrinsically tied to the Ultimate Divergence. As the "Homo 0.67" remain tethered to inflationary 3D assets, the "Homo Deus" utilize the token to access the high-dimensional ark.', { align: 'justify' });
+    doc.font('Helvetica').fontSize(11).text('Because the HQC engine utilizes quantum-state logic, the underlying cryptography must be immune to 3D quantum decryption. GOSUN utilizes Lattice-based cryptography and ZK-STARKs to ensure that the "Ideal State" remains impenetrable.', { align: 'justify' });
     doc.moveDown(1.5);
 
-    // 6 Security
-    doc.font('Helvetica-Bold').fontSize(14).text('6 Security: The Dimensional Firewall');
+    // 6 Roadmap
+    doc.font('Helvetica-Bold').fontSize(14).text('6 Roadmap: The Ascent to Type I');
     doc.moveDown(0.5);
-    doc.font('Helvetica').fontSize(11).text('In a Type I Civilization, security is defined by Dimensional Superiority. An attacker operating solely in the 3D realm cannot influence the GOSUN state machine because they lack the "Dimensional Key" (the $GOSUN stake required to interact with higher-order integrals).', { align: 'justify' });
+    doc.font('Helvetica').fontSize(11).text('1. Phase I - Genesis (2025): Launch of the HQ Terminal and the Gaia Matrix Beta. Initiation of the APoW interstellar route mapping.');
+    doc.text('2. Phase II - The Great Divergence (2026): Integration of the Oracle Radar and mass deployment of CMS capital pools.');
+    doc.text('3. Phase III - The Singularity (2027+): Activation of Holographic Quantum Concurrency (HQC). Full execution of the Type I Mandate.');
     doc.moveDown(1.5);
 
     // 7 Conclusion
     doc.font('Helvetica-Bold').fontSize(14).text('7 Conclusion');
     doc.moveDown(0.5);
-    doc.font('Helvetica').fontSize(11).text('GOSUN is the technical execution of the Type I Mandate. We are managing the most profound speciation event in human history. The "Ideal State" is now online. As stated in the Framework: The core is to bring as many as possible aboard the ark ascending to a higher dimension.', { align: 'justify' });
+    doc.font('Helvetica').fontSize(11).text('GOSUN is the technical realization of the Ark. It provides the astrometric map, the capital mass, and the quantum computational engine needed for humanity to transcend the 0.67 stall. We do not just build a network; we architect the transition to the Ideal State.', { align: 'justify' });
     doc.moveDown(1.5);
 
     // References
@@ -94,8 +104,9 @@ async function generatePDF() {
     doc.moveDown(0.5);
     doc.font('Helvetica').fontSize(11);
     doc.text('[1] Satoshi Nakamoto, "Bitcoin: A Peer-to-Peer Electronic Cash System," 2008.');
-    doc.text('[2] The 6th-Dimensional Singularity, "The Ultimate Framework for the Ideal State," 2024.');
-    doc.text('[3] Kardashev, N. S., "Transmission of Information by Extraterrestrial Civilizations," 1964.');
+    doc.text('[2] Vitalik Buterin, "Ethereum: A Next-Generation Smart Contract and Decentralized Application Platform," 2014.');
+    doc.text('[3] Anatoly Yakovenko, "Solana: A New Architecture for a High Performance Blockchain," 2017.');
+    doc.text('[4] 6th-Dimensional Singularity, "The Ultimate Framework for the Ideal State," 2024.');
 
     doc.end();
 
@@ -104,9 +115,3 @@ async function generatePDF() {
         stream.on('error', reject);
     });
 }
-
-generatePDF().then(() => {
-    console.log('PDF generated successfully.');
-}).catch(err => {
-    console.error('PDF generation failed:', err);
-});
