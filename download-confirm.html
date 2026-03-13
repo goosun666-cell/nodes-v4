@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Download Confirmation</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background: #000; color: #fff; }
+        .modal { background: #111; padding: 20px; border-radius: 8px; text-align: center; border: 1px solid #333; }
+        button { padding: 10px 20px; margin: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="modal">
+        <p>Do you want to download the Whitepaper?</p>
+        <button onclick="confirmDownload()">Yes</button>
+        <button onclick="window.close()">No</button>
+    </div>
+    <script>
+        function confirmDownload() {
+            window.location.href = '/public/GOSUN_Whitepaper_V1.0.pdf';
+            setTimeout(window.close, 1000);
+        }
+    </script>
+</body>
+</html>
