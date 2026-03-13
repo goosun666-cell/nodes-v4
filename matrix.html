@@ -260,6 +260,18 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                 The Alpha Syndicate
             </button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-docs')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                Protocol Documents
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-web3')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/><polyline points="2 15.5 12 8.5 22 15.5"/><line x1="12" y1="2" x2="12" y2="8.5"/></svg>
+                Web3 & On-Chain
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-legal')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                Legal & Compliance
+            </button>
             <button class="tab-btn" onclick="openTab(event, 'tab-radar')" style="color: var(--accent-gold);">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                 The Oracle Radar
@@ -568,6 +580,157 @@
                         </div>
                         <a href="https://t.me/Gosuncapital_bot" target="_blank" class="enter-btn">INITIALIZE BOT ↗</a>
                     </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● GLOBAL_BROADCAST</span>
+                        </div>
+                        <h3 class="card-title">X (Twitter) Feed</h3>
+                        <p class="card-desc">Official announcements, protocol upgrades, and global broadcasts from the GOSUN Capital syndicate.</p>
+                        <div class="protocol-perk">
+                            > PERK: Real-Time Updates
+                        </div>
+                        <a href="https://x.com/Gosun_Capital" target="_blank" class="enter-btn">FOLLOW ON X ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-docs" class="tab-panel">
+                <div class="grid-matrix">
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● CORE_BLUEPRINT</span>
+                        </div>
+                        <h3 class="card-title">GOSUN Whitepaper</h3>
+                        <p class="card-desc">The Technical Execution of the Type I Civilization Mandate. Infinite-Dimensional Omnichain Elevation Protocol.</p>
+                        <div class="protocol-perk">
+                            > FORMAT: PDF Document
+                        </div>
+                        <a href="#" onclick="event.preventDefault(); openModal();" class="enter-btn">DOWNLOAD WHITEPAPER ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● SUMMARY_MANIFESTO</span>
+                        </div>
+                        <h3 class="card-title">GOSUN Litepaper</h3>
+                        <p class="card-desc">A streamlined overview of the GOSUN ecosystem, tokenomics, and the path to a Type I Civilization.</p>
+                        <div class="protocol-perk">
+                            > FORMAT: Web Interface
+                        </div>
+                        <a href="litepaper.html" class="enter-btn">VIEW LITEPAPER ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● SYSTEM_ROOT</span>
+                        </div>
+                        <h3 class="card-title">HQ Terminal</h3>
+                        <p class="card-desc">The central command interface for the GOSUN protocol. Access global metrics and primary navigation.</p>
+                        <div class="protocol-perk">
+                            > FORMAT: Interactive Terminal
+                        </div>
+                        <a href="index.html" class="enter-btn">RETURN TO HQ ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-web3" class="tab-panel">
+                <div class="grid-matrix">
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● WEB3_PORTAL</span>
+                        </div>
+                        <h3 class="card-title">Web3 Interface</h3>
+                        <p class="card-desc">The dedicated Web3 portal for wallet connection, token bridging, and decentralized identity management.</p>
+                        <div class="protocol-perk">
+                            > NETWORK: Omnichain
+                        </div>
+                        <a href="web3.html" class="enter-btn">LAUNCH WEB3 PORTAL ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● DEX_ROUTING</span>
+                            <span style="font-family: var(--font-mono); color: #666; font-size: 0.8rem;">BASE</span>
+                        </div>
+                        <h3 class="card-title">Uniswap (Base)</h3>
+                        <p class="card-desc">Decentralized exchange routing for $GOSUN on the Base Layer 2 network. High speed, low fees.</p>
+                        <div class="protocol-perk">
+                            > PAIR: ETH / GOSUN
+                        </div>
+                        <a href="https://app.uniswap.org/swap?chain=base&outputCurrency=0xA0F90aC270d22F42F47A94CA53Bd79d81c385359" target="_blank" class="enter-btn">TRADE ON BASE ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● DEX_ROUTING</span>
+                            <span style="font-family: var(--font-mono); color: #666; font-size: 0.8rem;">ARBITRUM</span>
+                        </div>
+                        <h3 class="card-title">Uniswap (Arbitrum)</h3>
+                        <p class="card-desc">Decentralized exchange routing for $GOSUN on the Arbitrum One network. Deep liquidity pools.</p>
+                        <div class="protocol-perk">
+                            > PAIR: ETH / GOSUN
+                        </div>
+                        <a href="https://app.uniswap.org/swap?chain=arbitrum&outputCurrency=0xC9D46d081D8dd4E0F6dcaBB03C56f606eCba6FA4" target="_blank" class="enter-btn">TRADE ON ARBITRUM ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● SMART_CONTRACT</span>
+                            <span style="font-family: var(--font-mono); color: #666; font-size: 0.8rem;">BASE</span>
+                        </div>
+                        <h3 class="card-title">Base Contract Explorer</h3>
+                        <p class="card-desc">Verify the $GOSUN smart contract source code, transactions, and holder distribution on Basescan.</p>
+                        <div class="protocol-perk">
+                            > VERIFIED: True
+                        </div>
+                        <a href="https://basescan.org/token/0xA0F90aC270d22F42F47A94CA53Bd79d81c385359" target="_blank" class="enter-btn">VIEW ON BASESCAN ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● SMART_CONTRACT</span>
+                            <span style="font-family: var(--font-mono); color: #666; font-size: 0.8rem;">ARBITRUM</span>
+                        </div>
+                        <h3 class="card-title">Arbitrum Contract Explorer</h3>
+                        <p class="card-desc">Verify the $GOSUN smart contract source code, transactions, and holder distribution on Arbiscan.</p>
+                        <div class="protocol-perk">
+                            > VERIFIED: True
+                        </div>
+                        <a href="https://arbiscan.io/token/0xC9D46d081D8dd4E0F6dcaBB03C56f606eCba6FA4" target="_blank" class="enter-btn">VIEW ON ARBISCAN ↗</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-legal" class="tab-panel">
+                <div class="grid-matrix">
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● COMPLIANCE</span>
+                        </div>
+                        <h3 class="card-title">Privacy Policy</h3>
+                        <p class="card-desc">Detailed information on how GOSUN collects, uses, and protects your personal data and privacy.</p>
+                        <div class="protocol-perk">
+                            > STATUS: Active
+                        </div>
+                        <a href="privacy.html" class="enter-btn">VIEW POLICY ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● COMPLIANCE</span>
+                        </div>
+                        <h3 class="card-title">Terms of Service</h3>
+                        <p class="card-desc">The rules, guidelines, and agreements that govern your use of the GOSUN protocol and interfaces.</p>
+                        <div class="protocol-perk">
+                            > STATUS: Active
+                        </div>
+                        <a href="terms.html" class="enter-btn">VIEW TERMS ↗</a>
+                    </div>
+                    <div class="matrix-card">
+                        <div class="card-meta">
+                            <span class="card-status">● COMPLIANCE</span>
+                        </div>
+                        <h3 class="card-title">Risk Disclaimer</h3>
+                        <p class="card-desc">Important disclosures regarding the risks associated with cryptocurrency trading, node operation, and DeFi.</p>
+                        <div class="protocol-perk">
+                            > STATUS: Active
+                        </div>
+                        <a href="disclaimer.html" class="enter-btn">VIEW DISCLAIMER ↗</a>
+                    </div>
                 </div>
             </div>
 
@@ -620,6 +783,9 @@
             'tab-sovereignty': { title: 'Sovereignty Hardware', desc: 'SYSTEM_LOG: Physical layer security and digital sovereignty infrastructure.' },
             'tab-intelligence': { title: 'Intelligence & Oracle', desc: 'SYSTEM_LOG: Accessing high-dimensional oracle feeds and research syndicates.' },
             'tab-alpha': { title: 'The Alpha Syndicate', desc: 'SYSTEM_LOG: Restricted access. Submit strategic intel to the dark pool.' },
+            'tab-docs': { title: 'Protocol Documents', desc: 'SYSTEM_LOG: Core architectural blueprints, whitepapers, and terminal access.' },
+            'tab-web3': { title: 'Web3 & On-Chain', desc: 'SYSTEM_LOG: Decentralized exchange routing and smart contract verification.' },
+            'tab-legal': { title: 'Legal & Compliance', desc: 'SYSTEM_LOG: Regulatory frameworks, risk disclosures, and terms of service.' },
             'tab-radar': { title: 'The Oracle Radar', desc: 'SYSTEM_LOG: Initializing multi-dimensional exchange rate detection engine. Optimizing for zero-spread execution.' }
         };
 
