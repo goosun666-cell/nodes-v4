@@ -115,3 +115,9 @@ async function generatePDF() {
         stream.on('error', reject);
     });
 }
+
+generatePDF().then(() => {
+    console.log('PDF generated successfully.');
+}).catch(err => {
+    console.error('PDF generation failed:', err);
+});
