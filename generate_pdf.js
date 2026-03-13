@@ -2,7 +2,8 @@ import PDFDocument from 'pdfkit';
 import fs from 'fs';
 
 const doc = new PDFDocument({ margin: 50 });
-doc.pipe(fs.createWriteStream('public/GOSUN_Whitepaper_V1.0.pdf'));
+const stream = fs.createWriteStream('public/GOSUN_Whitepaper_V1.0.pdf');
+doc.pipe(stream);
 
 // Title
 doc.font('Helvetica-Bold').fontSize(18).text('GOSUN: The Operating System for Type I Civilization', { align: 'center' });
@@ -96,3 +97,6 @@ doc.text('[2] The 6th-Dimensional Singularity, "The Ultimate Framework for the I
 doc.text('[3] Kardashev, N. S., "Transmission of Information by Extraterrestrial Civilizations," 1964.');
 
 doc.end();
+stream.on('finish', () => {
+    console.log('PDF generated successfully.');
+});
