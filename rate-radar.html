@@ -242,6 +242,30 @@
         .result-item.best .best-label {
             display: block;
         }
+
+        .share-x-btn {
+            width: 100%;
+            background: #000;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 14px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-mono);
+            letter-spacing: 1px;
+        }
+        .share-x-btn:hover {
+            background: #111;
+            border-color: #fff;
+            box-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
         
         .brand-info { display: flex; flex-direction: column; gap: 4px; }
         .brand-name { font-weight: 700; font-size: 1rem; display: flex; align-items: center; gap: 10px; }
@@ -381,6 +405,13 @@
                             </div>
                         </div>
                     </div>
+
+                    <button class="share-x-btn" id="share-x-consume" style="display: none;" onclick="shareToX('consume')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                        SHARE TO X
+                    </button>
                 </div>
 
                 <!-- BACK: EXCHANGE -->
@@ -469,6 +500,13 @@
                             </div>
                         </div>
                     </div>
+
+                    <button class="share-x-btn" id="share-x-exchange" style="display: none;" onclick="shareToX('exchange')">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                        SHARE TO X
+                    </button>
                 </div>
             </div>
         </div>
@@ -516,6 +554,37 @@
             document.querySelector('.radar-main').style.marginTop = '0';
             document.querySelector('.radar-main').style.paddingTop = '20px';
             document.querySelector('.radar-title-block').style.display = 'none';
+        }
+
+        function shareToX(mode) {
+            const amount = document.getElementById(`baseAmount-${mode}`).value;
+            const from = document.getElementById(`currencyFrom-${mode}`).value;
+            const to = document.getElementById(`currencyTo-${mode}`).value;
+            
+            const visaAmount = document.getElementById(`amount-visa-${mode}`).innerText;
+            const masterAmount = document.getElementById(`amount-master-${mode}`).innerText;
+            
+            let bestNetwork = "";
+            let bestAmount = "";
+            
+            if (document.getElementById(`card-visa-${mode}`).classList.contains('best')) {
+                bestNetwork = "VISA";
+                bestAmount = visaAmount;
+            } else {
+                bestNetwork = "Mastercard";
+                bestAmount = masterAmount;
+            }
+
+            let text = "";
+            if (mode === 'consume') {
+                text = `🔍 GOSUN Oracle Radar detected optimal payment path!\n\n💳 Paying ${amount} ${from}\n🏆 Best Network: ${bestNetwork}\n💰 Est. Charge: ${bestAmount} ${to}\n\nAvoid hidden FX fees with @Gosun_Capital ⚡️\n#GOSUN #Web3 #FX`;
+            } else {
+                text = `🔍 GOSUN Oracle Radar detected optimal exchange path!\n\n💱 Selling ${amount} ${from}\n🏆 Best Network: ${bestNetwork}\n💰 Est. Receive: ${bestAmount} ${to}\n\nMaximize your conversion with @Gosun_Capital ⚡️\n#GOSUN #Web3 #FX`;
+            }
+
+            const url = "https://7861618.xyz/rate-radar.html";
+            const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+            window.open(shareUrl, '_blank', 'width=600,height=400');
         }
 
         function switchMode(mode) {
@@ -583,6 +652,7 @@
                 }
 
                 document.getElementById(`resultsArea-${mode}`).style.display = 'flex';
+                document.getElementById(`share-x-${mode}`).style.display = 'flex';
                 
                 document.getElementById(`rate-google-${mode}`).innerText = `1 ${from} = ${baseRate.toFixed(4)} ${to}`;
                 document.getElementById(`amount-google-${mode}`).innerText = formatNumber(googleAmount);
