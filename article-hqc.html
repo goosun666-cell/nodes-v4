@@ -156,9 +156,10 @@
             function shareOnDiscord(e) {
                 e.preventDefault();
                 const url = window.location.href;
-                navigator.clipboard.writeText(url).then(() => {
-                    const btn = e.currentTarget;
-                    const originalHTML = btn.innerHTML;
+                const btn = e.currentTarget;
+                const originalHTML = btn.innerHTML;
+                
+                const showCopied = () => {
                     btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> COPIED!`;
                     btn.style.borderColor = '#5865F2';
                     btn.style.color = '#5865F2';
@@ -167,9 +168,34 @@
                         btn.style.borderColor = 'rgba(255,255,255,0.2)';
                         btn.style.color = 'var(--text-main)';
                     }, 2000);
-                }).catch(err => {
-                    console.error('Failed to copy: ', err);
-                });
+                };
+
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(url).then(showCopied).catch(err => {
+                        console.error('Failed to copy: ', err);
+                        fallbackCopyTextToClipboard(url, showCopied);
+                    });
+                } else {
+                    fallbackCopyTextToClipboard(url, showCopied);
+                }
+            }
+
+            function fallbackCopyTextToClipboard(text, onSuccess) {
+                var textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.top = "0";
+                textArea.style.left = "0";
+                textArea.style.position = "fixed";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    var successful = document.execCommand('copy');
+                    if (successful && onSuccess) onSuccess();
+                } catch (err) {
+                    console.error('Fallback: Oops, unable to copy', err);
+                }
+                document.body.removeChild(textArea);
             }
         </script>
     </div>
