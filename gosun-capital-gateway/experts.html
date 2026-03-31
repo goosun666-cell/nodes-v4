@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="GOSUN is an institutional-grade decentralized protocol providing Omnichain routing, secure liquidity (V3) on Base & Arbitrum, and advanced GAIA Node Matrix access.">
+<meta name="keywords" content="GOSUN, Omnichain, Web3 Infrastructure, Base Network Contract, Arbitrum Routing, GAIA Node, DeFi Liquidity">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+<title>GOSUN CAPITAL | Omnichain Liquidity & Web3 Node Infrastructure</title>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7636996991870177" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+            --font-sans: 'Inter', 'PingFang SC', 'Noto Sans SC', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            --font-display: 'Space Grotesk', 'PingFang SC', 'Noto Sans SC', sans-serif;
+
+    --gold-primary: #D4AF37;
+    --gold-bright: #FFDF00;
+    --gold-glow: rgba(212, 175, 55, 0.5);
+    --cyan-primary: #00f2fe;
+    --cyan-glow: rgba(0, 242, 254, 0.5);
+    --bg-base: #030303;
+    --glass-bg: rgba(10, 10, 10, 0.65);
+    --glass-border: rgba(212, 175, 55, 0.15);
+    --text-main: #EAEAEA;
+    --text-muted: #888888;
+          }
+
+  /* GAIA 底层暗黑与金边视觉规范 */
+  body { 
+    background-color: var(--bg-base); 
+    color: var(--text-main); 
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    margin: 0; 
+    padding: 0; 
+    background-image: 
+      linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+  
+  /* Navigation */
+  .top-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(5, 5, 5, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 1000;
+    padding: 15px 0;
+    transition: all 0.3s ease;
+  }
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-icon {
+    font-size: 24px;
+    color: var(--gold-primary);
+    text-shadow: 0 0 15px var(--gold-glow);
+  }
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .logo-main {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 2px;
+  }
+  .logo-sub {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    color: var(--gold-primary);
+    letter-spacing: 3px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+  }
+  .nav-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .nav-link:hover {
+    color: var(--gold-primary);
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gold-primary);
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* 核心容器 */
+  .container { max-width: 1200px; margin: 0 auto; padding: 100px 20px 40px; }
+
+  /* 架构师真言模块 (底部折叠) */
+  .architect-confession-wrapper {
+    margin-top: 80px;
+    margin-bottom: 40px;
+    border-top: 1px solid #222;
+    padding-top: 40px;
+  }
+  .confession-toggle {
+    background: transparent;
+    border: 1px solid var(--gold-primary);
+    color: var(--gold-primary);
+    padding: 12px 24px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+  }
+  .confession-toggle:hover {
+    background: rgba(212, 175, 55, 0.1);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+  }
+  .confession-toggle .icon {
+    font-family: var(--font-mono);
+    transition: transform 0.3s ease;
+  }
+  .confession-toggle.open .icon {
+    transform: rotate(180deg);
+  }
+  
+  .architect-confession { 
+    background: linear-gradient(145deg, #111, #050505); 
+    border: 1px solid #222;
+    border-left: 4px solid #d4af37; 
+    padding: 40px; 
+    border-radius: 8px; 
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(212, 175, 55, 0.02); 
+    position: relative; 
+    overflow: hidden; 
+    margin-top: 30px;
+    display: none; /* Hidden by default */
+    animation: slideDown 0.4s ease-out forwards;
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .architect-confession::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+  }
+  .architect-confession::after { content: 'GOSUN'; position: absolute; bottom: -20px; right: -10px; font-size: 120px; font-weight: 900; color: rgba(212, 175, 55, 0.02); pointer-events: none; letter-spacing: -5px; }
+  .architect-confession h2 { color: var(--gold-primary); margin-top: 0; font-size: 26px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; }
+  .architect-confession h2::before { content: '>'; color: #00ff00; font-family: var(--font-mono); animation: blink 1s infinite; }
+  .architect-confession p { color: var(--text-main); line-height: 1.8; font-size: 16px; margin-bottom: 20px; letter-spacing: 0.5px; font-weight: 400; }
+  .architect-confession strong { color: var(--gold-primary); font-weight: 700; border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 2px; }
+  .architect-signature { text-align: right; color: var(--text-muted); font-family: var(--font-sans); margin-top: 30px; font-size: 14px; letter-spacing: 2px; font-weight: 600; text-transform: uppercase; }
+
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* 情报检索控制台 */
+  .control-panel { 
+    background: var(--glass-bg); 
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border); 
+    padding: 25px; 
+    border-radius: 8px; 
+    margin-bottom: 40px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5); 
+    position: sticky;
+    top: 80px;
+    z-index: 90;
+  }
+  .search-box { display: flex; position: relative; }
+  .search-box::before { content: '>'; position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #00ff00; font-family: var(--font-mono); font-size: 18px; font-weight: bold; }
+  .search-box input { flex: 1; padding: 18px 20px 18px 45px; background: #050505; border: 1px solid #444; color: #00ff00; font-family: var(--font-sans); font-size: 15px; border-radius: 4px; outline: none; transition: all 0.3s; letter-spacing: 1px; }
+  .search-box input::placeholder { color: #555; }
+  .search-box input:focus { border-color: var(--gold-primary); box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); color: var(--gold-primary); }
+  
+  /* 维度过滤器 */
+  .filter-tabs { display: flex; gap: 10px; flex-wrap: wrap; }
+  .filter-btn { background: #111; color: var(--text-muted); border: 1px solid #222; padding: 10px 18px; cursor: pointer; border-radius: 4px; font-family: var(--font-sans); font-size: 13px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+  .filter-btn:hover { border-color: #555; color: var(--text-main); }
+  .filter-btn.active { background: rgba(212, 175, 55, 0.1); color: var(--gold-primary); border-color: var(--gold-primary); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); font-weight: 700; }
+
+  /* 专家矩阵网格 */
+  .expert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 25px; }
+  .expert-card { 
+    background: #0a0a0a; 
+    border: 1px solid #222; 
+    border-radius: 8px; 
+    overflow: hidden; 
+    display: flex; 
+    flex-direction: column; 
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    position: relative;
+  }
+  .expert-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: transparent; transition: background 0.4s; z-index: 10;
+  }
+  .expert-card:hover { border-color: #444; transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.8); }
+  .expert-card:hover::before { background: linear-gradient(90deg, transparent, #d4af37, transparent); }
+  
+  /* 卡片信息区 */
+  .expert-info { padding: 25px 20px; position: relative; border-bottom: 1px solid #1a1a1a; flex-grow: 1; display: flex; flex-direction: column; }
+  .expert-info h3 { margin: 0 0 15px 0; color: #fff; font-size: 18px; letter-spacing: 1px; display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; }
+  .expert-info span.tag { font-size: 11px; background: rgba(212, 175, 55, 0.1); padding: 4px 8px; border-radius: 2px; color: var(--gold-primary); border: 1px solid rgba(212, 175, 55, 0.2); text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-sans); font-weight: 600; }
+  .expert-info p { font-size: 14px; color: var(--text-muted); margin: 0; line-height: 1.6; flex-grow: 1; }
+  .view-count { position: absolute; top: 25px; right: 20px; color: #00ff00; font-size: 12px; font-weight: bold; font-family: var(--font-mono); display: flex; align-items: center; gap: 5px; }
+  .view-count::before { content: ''; display: inline-block; width: 6px; height: 6px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 8px #00ff00; animation: pulse 2s infinite; }
+
+  @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+  
+  /* YouTube 内嵌容器 */
+  .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #050505; border-bottom: 1px solid #1a1a1a; }
+  .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; opacity: 0.9; transition: opacity 0.3s; }
+  .expert-card:hover .video-container iframe { opacity: 1; }
+  
+  /* 降维收割按钮 (CTA) */
+  .gosun-cta { background: #050505; padding: 15px; text-align: center; }
+  .gosun-cta a { 
+    color: var(--gold-primary); 
+    text-decoration: none; 
+    font-weight: 700; 
+    font-size: 13px; 
+    display: block; 
+    padding: 12px 10px; 
+    border: 1px dashed #333; 
+    border-radius: 4px; 
+    transition: all 0.3s; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    font-family: var(--font-sans);
+    background: #0a0a0a;
+  }
+  .gosun-cta a:hover { background: rgba(212, 175, 55, 0.1); border-color: var(--gold-primary); color: #fff; box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+
+  .hidden { display: none !important; }
+
+  /* Cyber Auth Terminal Styles */
+  .cyber-connect-btn {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--gold-primary);
+    color: var(--gold-primary);
+    padding: 8px 16px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+  }
+  .cyber-connect-btn:hover {
+    background: var(--gold-primary);
+    color: #000;
+    box-shadow: 0 0 20px var(--gold-glow);
+  }
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: #00FF00;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00FF00;
+    animation: blink 1s infinite alternate;
+  }
+  .auth-modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 9999; display: none; justify-content: center; align-items: center; }
+  .auth-modal { background: #0a0a0a; border: 1px solid #d4af37; padding: 40px; border-radius: 8px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.9), 0 0 15px rgba(212, 175, 55, 0.2); position: relative; }
+  .auth-modal h2 { color: #d4af37; margin-top: 0; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .auth-modal p { color: #888; font-size: 13px; line-height: 1.6; margin-bottom: 30px; }
+  .auth-option-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 15px; margin-bottom: 15px; background: #111; border: 1px solid #333; color: #fff; font-weight: bold; cursor: pointer; border-radius: 4px; transition: all 0.3s; }
+  .auth-option-btn:hover { border-color: #d4af37; background: rgba(212, 175, 55, 0.1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+  .auth-close { position: absolute; top: 15px; right: 20px; color: #666; cursor: pointer; font-size: 20px; transition: color 0.3s; }
+  .auth-close:hover { color: #fff; }
+
+  @media (max-width: 768px) {
+    .container { padding: 100px 15px 20px; }
+    .architect-confession { padding: 25px; }
+    .expert-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; } /* Mobile menu simplified for now */
+  }
+</style>
+
+    <meta property="og:image" content="https://www.7861618.xyz/assets/images/og-cover.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://www.7861618.xyz/assets/images/twitter-cover.jpg">
+    <meta property="og:title" content="GOSUN CAPITAL | Omnichain Liquidity & Web3 Node Infrastructure">
+    <meta property="og:description" content="GOSUN is an institutional-grade decentralized protocol providing Omnichain routing, secure liquidity (V3) on Base & Arbitrum, and advanced GAIA Node Matrix access.">
+    <meta name="twitter:title" content="GOSUN CAPITAL | Omnichain Liquidity & Web3 Node Infrastructure">
+    <meta name="twitter:description" content="GOSUN is an institutional-grade decentralized protocol providing Omnichain routing, secure liquidity (V3) on Base & Arbitrum, and advanced GAIA Node Matrix access.">
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-container">
+    <a href="/" class="nav-logo" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
+      <img src="/gosun-logo-official.svg" alt="GOSUN Omnichain Logo" height="40" style="filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));">
+      <span style="font-family: var(--font-mono); font-weight: bold; letter-spacing: 2px; color: #fff;">GOSUN_EXPERTS</span>
+    </a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">帝国主舱</a>
+      <a href="/awakening" class="nav-link" style="color: #00ff00;">觉醒打卡</a>
+      <a href="https://t.me/+o7EqMnXqknA1ODA8" target="_blank" class="nav-link" style="color: var(--gold-primary);">高维神谕</a>
+      <button class="cyber-connect-btn" onclick="openAuthModal()">
+        <span class="pulse-dot"></span>
+        接入节点
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  
+  <div class="seo-intro-block" style="margin-bottom: 40px; padding: 25px; background: rgba(212, 175, 55, 0.05); border-left: 3px solid var(--gold-primary); border-radius: 4px;">
+    <h1 style="color: var(--gold-primary); font-size: 1.5rem; margin-top: 0; margin-bottom: 15px; font-family: var(--font-display);">GOSUN CAPITAL Experts Directory</h1>
+    <p style="color: var(--text-main); font-size: 14px; line-height: 1.8; margin: 0;">Welcome to the GOSUN CAPITAL Experts Directory. As a premier institutional-grade decentralized protocol, GOSUN relies on a globally distributed network of elite Web3 operators and DeFi strategists. Our GAIA Node Matrix is powered by industry-leading infrastructure specialists who ensure the absolute precision and security of our Omnichain routing across Base and Arbitrum networks. Here, you can connect with verified node validators, liquidity providers, and smart contract auditors who form the backbone of the GOSUN ecosystem. Whether you are an institution seeking enterprise-grade yield strategies or a developer looking to integrate our Sovereign Web3 Infrastructure, our network of experts provides the technical depth and strategic insight required to navigate the dark forest of Web3 safely.</p>
+  </div>
+
+  <div class="control-panel">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="▶ 检索协议 / 痛点 (例: OpenClaw, iFAST, ITIN, 地址证明)...">
+    </div>
+    <div class="filter-tabs" id="filterTabs">
+      <button class="filter-btn active" data-expert="all">全量智库 (All)</button>
+      <button class="filter-btn" data-expert="ai">AI 与算力防御 (AI/DePIN)</button>
+      <button class="filter-btn" data-expert="fiat">离岸与法币洗礼 (Fiat/Bank)</button>
+      <button class="filter-btn" data-expert="identity">高维身份破壁 (POA/ITIN)</button>
+      <button class="filter-btn" data-expert="cycle">周期投研 (Macro)</button>
+    </div>
+  </div>
+
+  <div class="expert-grid" id="videoGrid">
+
+    <div class="expert-card" data-expert="ai" data-project="openclaw gpt5.4 grass ai 自动化 节点" data-views="854000">
+      <div class="expert-info">
+        <h3>零度解说 <span class="tag">AI实战专家</span></h3>
+        <span class="view-count">🔥 85.4W 热度</span>
+        <p>GPT-5.4 与 OpenClaw 原生操控电脑落地测试，挂机释放时间主权。</p>
+      </div>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/2WbwRwmDHlA" allowfullscreen></iframe>
+      </div>
+      <div class="gosun-cta">
+        <a href="https://app.grass.io/register/?referralCode=341C66l-4Qt3fhc" target="_blank">⚡ 挂载节点：使用 GOSUN 通道 [341C66l] 提取装备</a>
+      </div>
+    </div>
+
+    <div class="expert-card" data-expert="fiat" data-project="ifast ocbc 离岸账户 银行 出金 法币" data-views="620000">
+      <div class="expert-info">
+        <h3>黑皮小妹 <span class="tag">离岸架构专家</span></h3>
+        <span class="view-count">🔥 62.0W 热度</span>
+        <p>深度破解 2026 全球数字银行 KYC 规则与大额无损出金链路。</p>
+      </div>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/djwW-n52Q0g" allowfullscreen></iframe>
+      </div>
+      <div class="gosun-cta">
+        <a href="https://www.ifastgb.com/tellafriend/yahuag774" target="_blank">⚡ 专属授权：获取 iFAST 免 30 镑开户邀请</a>
+      </div>
+    </div>
+
+    <div class="expert-card" data-expert="identity" data-project="poa 地址证明 账单 虚拟信箱 uk postbox 认证" data-views="580000">
+      <div class="expert-info">
+        <h3>高维防线破解 <span class="tag">POA破壁</span></h3>
+        <span class="view-count">🔥 58.0W 热度</span>
+        <p>终结痛点：解决无海外地址证明(POA)死穴，合法租赁信箱生成账单。</p>
+      </div>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/u_p8wW_XvO8" allowfullscreen title="POA Guide"></iframe>
+      </div>
+      <div class="gosun-cta">
+        <a href="https://www.ukpostbox.com/" target="_blank">⚡ 提取通关文牒：租赁真实物理信箱获取账单</a>
+      </div>
+    </div>
+
+    <div class="expert-card" data-expert="identity" data-project="itin ein 美国税号 信用卡 离岸账户 信用分" data-views="710000">
+      <div class="expert-info">
+        <h3>涂山晏 <span class="tag">跨维信用实战</span></h3>
+        <span class="view-count">🔥 71.0W 热度</span>
+        <p>不出国门合法获取美国个人税号(ITIN)，零基础建立原生信用解锁美卡。</p>
+      </div>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/R_I8m7XfGfM" allowfullscreen></iframe>
+      </div>
+      <div class="gosun-cta">
+        <a href="https://www.irs.gov/individuals/individual-taxpayer-identification-number" target="_blank">⚡ 获取底层特权：通过 GOSUN 认证通道申请 ITIN</a>
+      </div>
+    </div>
+
+    <div class="expert-card" data-expert="cycle" data-project="宏观 周期 逃顶 抄底 趋势 hyperliquid dex" data-views="450000">
+      <div class="expert-info">
+        <h3>加密招财猫 <span class="tag">周期投研专家</span></h3>
+        <span class="view-count">🔥 45.0W 热度</span>
+        <p>基于 Pi Cycle 与链上数据的精确大底推演，抗击通胀奴役。</p>
+      </div>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/W12yJ9Wzje0" allowfullscreen></iframe>
+      </div>
+      <div class="gosun-cta">
+        <a href="https://app.hyperliquid.xyz/join/GOSUN" target="_blank">⚡ 阵地部署：前往 Hyperliquid (邀请码 GOSUN) 建仓</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="architect-confession-wrapper">
+    <button class="confession-toggle" onclick="toggleConfession()" id="confessionBtn">
+      <span class="icon">▼</span> 架构师真言：只留给有心人 <span class="icon">▼</span>
+    </button>
+    
+    <div class="architect-confession" id="confessionContent">
+      <h2>👁️ 架构师真言：从 10 分钟的倒计时，到 GOSUN 节点矩阵</h2>
+      <p>“这一切，是从一个每天只能免费连 10 分钟的 VPN 开始的。</p>
+      <p>当初我没有任何资金，极度渴望翻越那堵墙去看看真正的世界。<strong>我下载过无数个宣称能翻墙的软件，绝大多数都是假的——要么根本连不上，要么就是无底洞的付费陷阱。</strong>在经历了无数次欺骗后，我只能用那个每天 10 分钟的免费额度，掐着秒表去疯狂检索、去试错。时间一到，世界再次陷入黑暗。</p>
+      <p>过去一年，我从那 10 分钟起步，在旧世界与 Web3 的交界处踩遍了所有的坑：交过高昂的跨链摩擦税、因为不懂风控被冻结过离岸账户。在黑暗森林里，<strong>最贵的从来不是本金，而是试错的时间。</strong></p>
+      <p>建立 GOSUN CAPITAL，是用我几千个小时的血泪，硬生生砸出来的一条<strong>『绝对生路』</strong>。在这里，您看到的每一个实战录像、每一条出金链路，都是我亲自过滤掉无数骗局后，跑通了闭环的。</p>
+      <p>您在 GOSUN 节约下的每一分钟生命、少交的每一分冤枉钱，都是我们为您赎回的真正自由。欢迎登舰，踩着我的伤疤，去追求更高的文明。”</p>
+      <div class="architect-signature">—— GOSUN 首席架构师 (Chief Architect)</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const videoGrid = document.getElementById('videoGrid');
+  const expertCards = Array.from(document.querySelectorAll('.expert-card'));
+
+  // 1. 系统初始化：按热度（播放量）自动降序排列
+  function sortCards() {
+    expertCards.sort((a, b) => parseInt(b.getAttribute('data-views')) - parseInt(a.getAttribute('data-views')));
+    expertCards.forEach(card => videoGrid.appendChild(card));
+  }
+
+  // 2. 核心过滤引擎（搜索词 + 分类标签）
+  function filterMatrix() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const activeTab = document.querySelector('.filter-btn.active').getAttribute('data-expert');
+
+    expertCards.forEach(card => {
+      const cardExpert = card.getAttribute('data-expert');
+      const cardProject = card.getAttribute('data-project').toLowerCase();
+      
+      const matchesExpert = (activeTab === 'all' || activeTab === cardExpert);
+      const matchesSearch = cardProject.includes(searchTerm);
+
+      if (matchesExpert && matchesSearch) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  // 绑定事件
+  searchInput.addEventListener('input', filterMatrix);
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      filterMatrix();
+    });
+  });
+
+  // 执行启动序列
+  sortCards();
+  updateAuthBtnState();
+
+  // Confession Toggle Logic
+  function toggleConfession() {
+    const content = document.getElementById('confessionContent');
+    const btn = document.getElementById('confessionBtn');
+    
+    if (content.style.display === 'block') {
+      content.style.display = 'none';
+      btn.classList.remove('open');
+      btn.innerHTML = '<span class="icon">▼</span> 架构师真言：只留给有心人 <span class="icon">▼</span>';
+    } else {
+      content.style.display = 'block';
+      btn.classList.add('open');
+      btn.innerHTML = '<span class="icon">▲</span> 收起真言 <span class="icon">▲</span>';
+      // Scroll to it smoothly
+      setTimeout(() => {
+        content.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
+    }
+  }
+
+  // Auth Modal Logic
+  function openAuthModal() {
+    const savedAddress = localStorage.getItem('gaia_user_address');
+    const savedTgUser = localStorage.getItem('gaia_tg_user');
+    
+    if (savedAddress || savedTgUser) {
+      if (confirm('⚠️ 您已连接 GAIA 矩阵身份。\n\n是否确认断开连接并退出？')) {
+        localStorage.removeItem('gaia_user_address');
+        localStorage.removeItem('gaia_tg_user');
+        alert('✅ 已成功断开连接。');
+        window.location.reload();
+      }
+      return;
+    }
+    
+    document.getElementById('authModal').style.display = 'flex';
+  }
+  function closeAuthModal() {
+    document.getElementById('authModal').style.display = 'none';
+  }
+  
+  async function web3Login() {
+    if (typeof window.ethereum !== 'undefined') {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const address = accounts[0];
+        localStorage.setItem('gaia_user_address', address);
+        alert('✅ Web3 钱包连接成功！\n地址: ' + address);
+        closeAuthModal();
+        window.location.reload();
+      } catch (error) {
+        console.error(error);
+        alert('❌ 连接钱包失败或被拒绝');
+      }
+    } else {
+      const confirmMock = confirm('❌ 未检测到 Web3 钱包环境 (如 MetaMask 或 OKX Wallet)。\n\n是否使用【模拟地址】进行体验？');
+      if (confirmMock) {
+        const mockAddress = "0x" + Math.random().toString(16).slice(2, 10) + "..." + Math.random().toString(16).slice(2, 6);
+        localStorage.setItem('gaia_user_address', mockAddress);
+        alert('✅ 模拟 Web3 钱包连接成功！\n地址: ' + mockAddress);
+        closeAuthModal();
+        window.location.reload();
+      }
+    }
+  }
+
+  function onTelegramAuth(user) {
+    localStorage.setItem('gaia_tg_user', JSON.stringify(user));
+    alert('✅ Telegram 授权成功！\n欢迎, @' + user.username);
+    closeAuthModal();
+    window.location.reload();
+  }
+
+  function updateAuthBtnState() {
+    const btn = document.querySelector('.cyber-connect-btn');
+    if (!btn) return;
+    const savedAddress = localStorage.getItem('gaia_user_address');
+    const savedTgUser = localStorage.getItem('gaia_tg_user');
+    
+    if (savedAddress) {
+      btn.innerHTML = '<span class="pulse-dot"></span>已连接: ' + savedAddress.substring(0,6) + '...';
+      btn.style.color = '#00ff00';
+      btn.style.borderColor = '#00ff00';
+    } else if (savedTgUser) {
+      const tgUser = JSON.parse(savedTgUser);
+      btn.innerHTML = '<span class="pulse-dot"></span>@' + tgUser.username;
+      btn.style.color = '#00ff00';
+      btn.style.borderColor = '#00ff00';
+    } else {
+      btn.innerHTML = '<span class="pulse-dot"></span>接入节点';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    }
+  }
+</script>
+
+<!-- Auth Modal -->
+<div class="auth-modal-overlay" id="authModal">
+  <div class="auth-modal">
+    <div class="auth-close" onclick="closeAuthModal()">✕</div>
+    <h2>⚡ 接入 GAIA 矩阵身份</h2>
+    <p>抛弃旧世界的“邮箱+密码”。<br>请使用您的数字主权资产进行加密鉴权，<br>您的进度将同步至觉醒者档案库。</p>
+    
+    <button class="auth-option-btn" onclick="web3Login()">
+      🦊 Web3 钱包直连 (MetaMask / OKX)
+    </button>
+    <div style="display: flex; justify-content: center; margin-bottom: 15px; background: #111; border: 1px solid #333; padding: 10px; border-radius: 4px; transition: all 0.3s;" onmouseover="this.style.borderColor='#d4af37'" onmouseout="this.style.borderColor='#333'">
+      <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="Gosuncapital_bot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+    </div>
+    <p style="font-size: 11px; color: #555; margin-top: 0;">* TG 授权需在您绑定的域名 (7861618.xyz) 下方可生效</p>
+  </div>
+</div>
+
+</body>
+</html>

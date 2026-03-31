@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="GOSUN is an institutional-grade decentralized protocol providing Omnichain routing, secure liquidity (V3) on Base & Arbitrum, and advanced GAIA Node Matrix access.">
+<meta name="keywords" content="GOSUN, Omnichain, Web3 Infrastructure, Base Network Contract, Arbitrum Routing, GAIA Node, DeFi Liquidity">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+<title>GOSUN CAPITAL | Omnichain Liquidity & Web3 Node Infrastructure</title>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7636996991870177" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+            --font-sans: 'Inter', 'PingFang SC', 'Noto Sans SC', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            --font-display: 'Space Grotesk', 'PingFang SC', 'Noto Sans SC', sans-serif;
+
+    --gold-primary: #D4AF37;
+    --gold-bright: #FFDF00;
+    --gold-glow: rgba(212, 175, 55, 0.5);
+    --cyan-primary: #00f2fe;
+    --cyan-glow: rgba(0, 242, 254, 0.5);
+    --bg-base: #030303;
+    --glass-bg: rgba(10, 10, 10, 0.65);
+    --glass-border: rgba(212, 175, 55, 0.15);
+    --text-main: #EAEAEA;
+    --text-muted: #888888;
+          }
+
+  /* 基础视觉规范 */
+  body { 
+    background-color: var(--bg-base); 
+    color: var(--text-main); 
+    font-family: var(--font-sans); 
+    line-height: 1.6;
+    margin: 0; 
+    padding: 0; 
+    position: relative; 
+  }
+  /* Navigation */
+  .top-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(5, 5, 5, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 1000;
+    padding: 15px 0;
+    transition: all 0.3s ease;
+  }
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-icon {
+    font-size: 24px;
+    color: var(--gold-primary);
+    text-shadow: 0 0 15px var(--gold-glow);
+  }
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .logo-main {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 2px;
+  }
+  .logo-sub {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    color: var(--gold-primary);
+    letter-spacing: 3px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+  }
+  .nav-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .nav-link:hover {
+    color: var(--gold-primary);
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gold-primary);
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Cyber Auth Terminal Styles */
+  .cyber-connect-btn {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--gold-primary);
+    color: var(--gold-primary);
+    padding: 8px 16px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+  }
+  .cyber-connect-btn:hover {
+    background: var(--gold-primary);
+    color: #000;
+    box-shadow: 0 0 20px var(--gold-glow);
+  }
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: #00FF00;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00FF00;
+    animation: blink 1s infinite alternate;
+  }
+  
+  .container { max-width: 900px; margin: 100px auto 40px; padding: 0 20px; position: relative; }
+  .header { text-align: center; border-bottom: 1px dashed #d4af37; padding-bottom: 20px; margin-bottom: 30px; }
+  .header h1 { color: var(--gold-primary); font-size: 28px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; font-family: var(--font-display); font-weight: 700; }
+  .system-log { color: var(--text-muted); font-size: 14px; line-height: 1.6; font-family: var(--font-mono); }
+
+  /* Awakening Roadmap */
+  .roadmap-container {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 16px;
+    padding: 40px 20px 30px;
+    margin-bottom: 40px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05);
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #d4af37 #111;
+  }
+  
+  /* 自定义滚动条样式 (伪装成进度条) */
+  .roadmap-container::-webkit-scrollbar {
+    height: 6px;
+  }
+  .roadmap-container::-webkit-scrollbar-track {
+    background: #0a0a0a;
+    border-radius: 3px;
+    margin: 0 30px;
+  }
+  .roadmap-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #3a300b, #8b7322, #d4af37);
+    border-radius: 3px;
+    box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
+  }
+  .roadmap-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, #5c4c16, #d4af37, #FFDF00);
+  }
+
+  .roadmap-title {
+    text-align: center;
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 22px;
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .roadmap-track {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 30px;
+    min-width: 800px;
+  }
+  .roadmap-line {
+    position: absolute;
+    top: 55px;
+    left: 65px;
+    right: 65px;
+    height: 6px;
+    background: #222;
+    z-index: 1;
+    border-radius: 6px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
+  }
+  /* 动态进度条填充 - 渐变加深主权金 */
+  .roadmap-line-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    /* 从暗金底色，过渡到核心金，最后在尖端爆发耀眼金光 */
+    background: linear-gradient(90deg, #4a3b00 0%, #b8860b 60%, #ffd700 100%);
+    /* 增加高维发光特效与内发光质感 */
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4), inset 0 0 5px rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .tier-node {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 80px;
+  }
+  .tier-label {
+    font-size: 11px;
+    color: #666;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    height: 28px;
+    line-height: 1.2;
+    transition: color 0.3s;
+  }
+  .tier-badge {
+    width: 60px;
+    height: 70px;
+    background: #111;
+    border: 2px solid #333;
+    border-radius: 12px 12px 25px 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.8), inset 0 2px 5px rgba(255,255,255,0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+  .tier-badge::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    width: 40px;
+    height: 8px;
+    background: rgba(0,0,0,0.8);
+    border-radius: 50%;
+    filter: blur(3px);
+    transition: all 0.4s;
+  }
+  .tier-node.active .tier-label {
+    color: var(--gold-primary);
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+  }
+  .tier-node.active .tier-badge {
+    border-color: var(--gold-primary);
+    background: linear-gradient(145deg, #2a220a, #111);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4), inset 0 2px 10px rgba(255,223,0,0.2);
+    transform: translateY(-5px);
+  }
+  .tier-node.active .tier-badge::after {
+    background: rgba(212, 175, 55, 0.3);
+    width: 50px;
+    bottom: -20px;
+  }
+  .tier-req {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 700;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.3s;
+  }
+  .tier-req span {
+    color: #555;
+    font-size: 12px;
+  }
+  .tier-node.active .tier-req {
+    color: #fff;
+  }
+  .tier-node.active .tier-req span {
+    color: #00FF00;
+  }
+
+  /* You Indicator */
+  .you-indicator {
+    position: absolute;
+    top: -25px;
+    left: 0%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+  }
+  .you-text {
+    font-size: 10px;
+    color: #00FF00;
+    font-weight: bold;
+    margin-bottom: 2px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .you-arrow {
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #00FF00;
+    animation: bounce 1s infinite alternate;
+  }
+  .you-avatar {
+    font-size: 24px;
+    margin-top: 4px;
+    filter: drop-shadow(0 0 8px rgba(0,255,0,0.6));
+  }
+
+  @keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(4px); }
+  }
+
+  /* 任务列表区块 */
+  .matrix-content { position: relative; padding-bottom: 100px; }
+  .stage-block { background: #121212; border-left: 3px solid #d4af37; padding: 20px 25px; border-radius: 4px; margin-bottom: 25px; transition: all 0.3s; }
+  .stage-block:hover { border-color: #fff; background: #151515; }
+  .stage-title { color: var(--gold-primary); font-size: 20px; margin-top: 0; margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 10px; font-family: var(--font-display); font-weight: 700; }
+  
+  /* 具体任务项 */
+  .task-item { display: flex; align-items: flex-start; justify-content: space-between; padding: 15px 0; border-bottom: 1px dashed #2a2a2a; }
+  .task-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .task-left { display: flex; align-items: flex-start; gap: 15px; flex: 1; }
+  input[type="checkbox"] { width: 22px; height: 22px; margin-top: 2px; cursor: pointer; accent-color: #d4af37; flex-shrink: 0; }
+  .task-desc { font-size: 14px; color: #aaa; line-height: 1.5; }
+  .task-desc strong { color: #fff; font-size: 15px; display: block; margin-bottom: 4px; }
+  
+  /* 动作按钮 */
+  .action-btn { background: transparent; color: #d4af37; text-decoration: none; padding: 6px 15px; font-size: 12px; border: 1px solid #d4af37; border-radius: 4px; transition: all 0.3s; white-space: nowrap; margin-left: 20px; font-weight: bold; }
+  .action-btn:hover { background: #d4af37; color: #000; }
+
+  /* === 核心：拦截遮罩与模糊层 === */
+  .blur-filter { filter: blur(8px) grayscale(80%); pointer-events: none; user-select: none; opacity: 0.4; }
+  
+  .auth-overlay { position: absolute; top: 180px; left: 0; width: 100%; height: calc(100% - 180px); display: flex; justify-content: center; align-items: flex-start; padding-top: 150px; z-index: 50; }
+  .auth-box { background: #0d0d0d; border: 1px solid #d4af37; padding: 40px; border-radius: 8px; text-align: center; max-width: 450px; box-shadow: 0 0 40px rgba(0,0,0,0.9), 0 0 15px rgba(212, 175, 55, 0.2); }
+  .auth-box h2 { color: #ff3333; margin-top: 0; letter-spacing: 1px; }
+  .go-auth-btn { display: inline-block; margin-top: 20px; background: #d4af37; color: #000; text-decoration: none; padding: 12px 25px; font-weight: bold; border-radius: 4px; transition: all 0.3s; }
+  .go-auth-btn:hover { background: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.5); }
+
+  /* 底部锁定的高维防线 */
+  .locked-stage { opacity: 0.3; filter: grayscale(100%); pointer-events: none; border-left-color: #444; border: 1px dashed #444; text-align: center; padding: 40px 20px; }
+  .locked-stage h2 { color: #666; }
+
+  /* Auth Modal Styles */
+  .auth-modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 9999; display: none; justify-content: center; align-items: center; }
+  .auth-modal { background: #0a0a0a; border: 1px solid #d4af37; padding: 40px; border-radius: 8px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 0 40px rgba(0,0,0,0.9), 0 0 15px rgba(212, 175, 55, 0.2); position: relative; }
+  .auth-modal h2 { color: #d4af37; margin-top: 0; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .auth-modal p { color: #888; font-size: 13px; line-height: 1.6; margin-bottom: 30px; }
+  .auth-option-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 15px; margin-bottom: 15px; background: #111; border: 1px solid #333; color: #fff; font-weight: bold; cursor: pointer; border-radius: 4px; transition: all 0.3s; }
+  .auth-option-btn:hover { border-color: #d4af37; background: rgba(212, 175, 55, 0.1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+  .auth-close { position: absolute; top: 15px; right: 20px; color: #666; cursor: pointer; font-size: 20px; transition: color 0.3s; }
+  .auth-close:hover { color: #fff; }
+
+  @media (max-width: 768px) {
+    .container { margin-top: 100px; }
+    .nav-links { display: none; }
+    .header h1 { font-size: 22px; }
+    .progress-text span { font-size: 22px; }
+    .task-item { flex-direction: column; gap: 10px; }
+    .action-btn { margin-left: 0; width: 100%; text-align: center; }
+  }
+</style>
+
+    <meta property="og:image" content="https://www.7861618.xyz/assets/images/og-cover.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://www.7861618.xyz/assets/images/twitter-cover.jpg">
+    <meta property="og:title" content="GOSUN CAPITAL | Omnichain Liquidity & Web3 Node Infrastructure">
+    <meta property="og:description" content="GOSUN is an institutional-grade decentralized protocol providing Omnichain routing, secure liquidity (V3) on Base & Arbitrum, and advanced GAIA Node Matrix access.">
+    <meta name="twitter:title" content="GOSUN CAPITAL | Omnichain Liquidity & Web3 Node Infrastructure">
+    <meta name="twitter:description" content="GOSUN is an institutional-grade decentralized protocol providing Omnichain routing, secure liquidity (V3) on Base & Arbitrum, and advanced GAIA Node Matrix access.">
+</head>
+<body>
+
+<nav class="top-nav">
+  <div class="nav-container">
+    <a href="/" class="nav-logo" style="display: flex; align-items: center; gap: 15px; text-decoration: none;">
+      <img src="/gosun-logo-official.svg" alt="GOSUN Omnichain Logo" height="40" style="filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));">
+      <span style="font-family: var(--font-mono); font-weight: bold; letter-spacing: 2px; color: #fff;">GOSUN_AWAKEN</span>
+    </a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">帝国主舱</a>
+      <a href="/experts" class="nav-link">前线实战智库</a>
+      <a href="/rate-radar" class="nav-link" style="color: #00ff00;">汇率雷达</a>
+      <a href="https://t.me/+o7EqMnXqknA1ODA8" target="_blank" class="nav-link" style="color: var(--gold-primary);">高维神谕</a>
+      <button class="cyber-connect-btn" onclick="openAuthModal()">
+        <span class="pulse-dot"></span>
+        接入节点
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  
+  <div class="seo-intro-block" style="margin-bottom: 40px; padding: 25px; background: rgba(212, 175, 55, 0.05); border-left: 3px solid var(--gold-primary); border-radius: 4px;">
+    <h2 style="color: var(--gold-primary); font-family: var(--font-display); font-size: 20px; margin-top: 0; margin-bottom: 15px;">The GOSUN Web3 Vision & Omnichain Infrastructure</h2>
+    <p style="color: var(--text-main); font-size: 14px; line-height: 1.8; margin-bottom: 10px;">At GOSUN CAPITAL, we are pioneering the future of decentralized finance through our institutional-grade Omnichain protocol. Our vision extends beyond traditional liquidity provision; we are building a sovereign, borderless financial ecosystem anchored on Base and Arbitrum networks. By leveraging advanced V3 liquidity mechanisms and cross-chain routing, GOSUN ensures seamless, secure, and hyper-efficient capital efficiency for all participants.</p>
+    <p style="color: var(--text-main); font-size: 14px; line-height: 1.8; margin-bottom: 10px;">Central to our architecture is the GAIA Node Matrix, a decentralized compute and consensus network designed to bridge Real World Assets (RWA) with on-chain DeFi environments. The GAIA nodes empower users to participate in Proof of Environment (PoE) and Zero-Knowledge (ZK) validation, ensuring absolute data integrity and institutional compliance. We believe that true decentralization requires robust, scalable infrastructure that doesn't compromise on security or user experience. Through our comprehensive suite of Web3 tools, smart contract interfaces, and decentralized applications (dApps), GOSUN is democratizing access to high-dimensional economic models, empowering a global community to navigate and thrive in the next evolution of the digital economy.</p>
+    <p style="color: var(--text-main); font-size: 14px; line-height: 1.8; margin: 0;">The GOSUN Awakening marks the pivotal transition from legacy financial systems to a Sovereign Web3 Infrastructure. Guided by The Promethean Mandate, we are building the foundational codex for a Type I economic civilization. The Awakening is not merely a technological upgrade; it is a paradigm shift towards absolute financial autonomy and Holographic Quantum Concurrency. By leveraging the security of the Base network and the speed of Arbitrum, the GOSUN protocol empowers users to break free from centralized constraints. This archive serves as your gateway to understanding our decentralized ethos, the mechanics of our active V3 liquidity pools, and the philosophical bedrock that drives our vision. Join us as we forge the future of Omnichain interaction.</p>
+  </div>
+
+  <div class="header">
+    <h1>⚡ GAIA 数字公民 九段打卡协议</h1>
+    <p style="font-size: 1rem; color: #B0B8C1; margin-bottom: 20px; line-height: 1.6; font-style: italic; border-left: 2px solid var(--gold-primary); padding-left: 20px;">
+        "The GOSUN Awakening marks the pivotal transition from legacy financial systems to a Sovereign Web3 Infrastructure. Guided by The Promethean Mandate, we are building the foundational codex for a Type I economic civilization. The Awakening is not merely a technological upgrade; it is a paradigm shift towards absolute financial autonomy and Holographic Quantum Concurrency. By leveraging the security of the Base network and the speed of Arbitrum, the GOSUN protocol empowers users to break free from centralized constraints. This archive serves as your gateway to understanding our decentralized ethos, the mechanics of our active V3 liquidity pools, and the philosophical bedrock that drives our vision. Join us as we forge the future of Omnichain interaction."
+    </p>
+    <p class="system-log">[SYSTEM_LOG] 警告：您目前可能仍暴露在旧世界矩阵的监控之下。<br>请依照下方协议逐一补齐主权防线。当进度达到 100%，您将正式成为第一类文明公民。</p>
+  </div>
+
+  <div class="roadmap-container">
+    <div class="roadmap-title">GAIA 觉醒星图 (Awakening Roadmap)</div>
+    
+    <div class="roadmap-track">
+      <div class="roadmap-line">
+        <div class="roadmap-line-fill" id="roadmapFill"></div>
+      </div>
+      
+      <div class="you-indicator" id="youIndicator" style="left: 0%;">
+        <div class="you-text">You</div>
+        <div class="you-arrow"></div>
+        <div class="you-avatar">👽</div>
+      </div>
+
+      <div class="tier-node active" id="tier-0">
+        <div class="tier-label">初段<br>守拙</div>
+        <div class="tier-badge">♟️</div>
+        <div class="tier-req"><span>⚡</span> 0%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-1">
+        <div class="tier-label">二段<br>若愚</div>
+        <div class="tier-badge">🛡️</div>
+        <div class="tier-req"><span>⚡</span> 12%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-2">
+        <div class="tier-label">三段<br>斗力</div>
+        <div class="tier-badge">⚔️</div>
+        <div class="tier-req"><span>⚡</span> 25%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-3">
+        <div class="tier-label">四段<br>小巧</div>
+        <div class="tier-badge">🧩</div>
+        <div class="tier-req"><span>⚡</span> 37%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-4">
+        <div class="tier-label">五段<br>用智</div>
+        <div class="tier-badge">🧠</div>
+        <div class="tier-req"><span>⚡</span> 50%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-5">
+        <div class="tier-label">六段<br>通幽</div>
+        <div class="tier-badge">🌌</div>
+        <div class="tier-req"><span>⚡</span> 62%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-6">
+        <div class="tier-label">七段<br>具体</div>
+        <div class="tier-badge">🏛️</div>
+        <div class="tier-req"><span>⚡</span> 75%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-7">
+        <div class="tier-label">八段<br>坐照</div>
+        <div class="tier-badge">🧘</div>
+        <div class="tier-req"><span>⚡</span> 87%</div>
+      </div>
+      
+      <div class="tier-node" id="tier-8">
+        <div class="tier-label">九段<br>入神</div>
+        <div class="tier-badge">👑</div>
+        <div class="tier-req"><span>⚡</span> 100%</div>
+      </div>
+    </div>
+    
+    <p style="text-align: center; color: #666; font-size: 12px; margin-top: 30px; margin-bottom: 0;">状态：<span id="user-status-text" style="color:#d4af37;">正在校验链上身份...</span></p>
+  </div>
+
+  <div class="matrix-content">
+    
+    <div id="auth-lock-screen" class="auth-overlay" style="display: none;">
+      <div class="auth-box">
+        <h2>🔒 访问权限受限</h2>
+        <p style="color: #aaa; font-size: 14px; line-height: 1.6;">系统未检测到您的有效数字身份。剩余 10 阶高级防线（涵盖海外实体、合规出金、ITIN 税号、多签金库等）及云端进度保存功能，<strong style="color:#d4af37;">仅对 GOSUN 认证节点开放。</strong></p>
+        <a href="#auth" onclick="openAuthModal()" class="go-auth-btn">返回主舱连接 Web3 钱包 / TG ⚡</a>
+      </div>
+    </div>
+
+    <div id="secure-content">
+      
+      <div class="stage-block">
+        <h2 class="stage-title">初段·守拙：信息自由与肉身隐匿</h2>
+        <div class="task-item">
+          <div class="task-left">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+            <div class="task-desc"><strong>[节点穿透]</strong> 部署全局 VPN，夺回底层网络视野。</div>
+          </div>
+          <a href="/" class="action-btn">获取节点</a>
+        </div>
+        <div class="task-item">
+          <div class="task-left">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+            <div class="task-desc"><strong>[通讯割裂]</strong> 注册 Proton 邮箱并转移核心账号至非 +86 手机号。</div>
+          </div>
+          <a href="index.html#proxies" class="action-btn">获取保号卡</a>
+        </div>
+      </div>
+
+      <div id="advanced-stages">
+        
+        <div class="stage-block">
+          <h2 class="stage-title">二段·若愚：数字身份主权</h2>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[POA 通关]</strong> 租赁英美真实物理信箱，合法生成海外地址证明账单。</div>
+            </div>
+            <a href="/experts" class="action-btn">查看教程</a>
+          </div>
+        </div>
+
+        <div class="stage-block">
+          <h2 class="stage-title">三段·斗力：高维信用破壁</h2>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[终极税号]</strong> 成功申请美国联邦税号 (ITIN)，突破国籍限制。</div>
+            </div>
+            <a href="/experts" class="action-btn">ITIN 代理通道</a>
+          </div>
+        </div>
+
+        <div class="stage-block">
+          <h2 class="stage-title">四段·小巧：加密法币通道</h2>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[加密 U 卡]</strong> 办理 Ready Metal 或 PokePay，打通线下消费流。</div>
+            </div>
+            <a href="index.html#wallets" class="action-btn">申请 U 卡</a>
+          </div>
+        </div>
+
+        <div class="stage-block">
+          <h2 class="stage-title">五段·用智：离岸金融防线</h2>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[数字离岸]</strong> 开设受监管的离岸数字银行 (如 iFAST / Wise)。</div>
+            </div>
+            <a href="/experts" class="action-btn">获取通道</a>
+          </div>
+        </div>
+
+        <div class="stage-block">
+          <h2 class="stage-title">六段·通幽：资产抗脆性与隔离</h2>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[周期防线]</strong> 在顶级 DEX (Hyperliquid/Aevo) 建立抗通胀仓位。</div>
+            </div>
+            <a href="index.html#trading" class="action-btn">建仓协议</a>
+          </div>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[物理防线]</strong> 配置硬件冷钱包 (Trezor/Ledger)，实现私钥物理隔离。</div>
+            </div>
+            <a href="index.html#wallets" class="action-btn">获取冷钱包</a>
+          </div>
+        </div>
+
+        <div class="stage-block">
+          <h2 class="stage-title">七段·具体：造物主引擎与算力</h2>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[云端隔离]</strong> 部署独立 VPS 服务器，确保 IP 纯净防风控。</div>
+            </div>
+            <a href="index.html#vps" class="action-btn">租赁 VPS</a>
+          </div>
+          <div class="task-item">
+            <div class="task-left">
+              <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+              <div class="task-desc"><strong>[算力收割]</strong> 挂载 Grass 等 DePIN 节点，实现带宽/算力变现自动化。</div>
+            </div>
+            <a href="https://app.grass.io/register/?referralCode=341C66l-4Qt3fhc" target="_blank" class="action-btn">提取节点码</a>
+          </div>
+        </div>
+
+        <div class="stage-block locked-stage" id="familyOffice">
+          <h2>🔒 八段·坐照 / 九段·入神：主权家族办公室</h2>
+          <p style="font-size: 13px; margin-top:10px;">[SYSTEM_LOG] 包含离岸实体 LLC 注册、硬件级 OpSec 与多签金库协议。<br>觉醒进度需达到 80% 以上方可解锁查看权限。</p>
+        </div>
+
+      </div> </div> </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // 1. 初始化云端大脑 (使用您专属的神谕密钥)
+  const supabaseUrl = 'https://hufvrlvjfukvyowjyzjb.supabase.co';
+  const supabaseKey = 'sb_publishable_fR83YVV1F2c6aIijmBLtiA_79Z__5UJ';
+  const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+  // 全局变量，记录当前用户的唯一身份标识
+  let currentUserId = null;
+
+  // 2. 页面加载序列
+  window.onload = async function() {
+    const savedAddress = localStorage.getItem('gaia_user_address');
+    const savedTgUser = localStorage.getItem('gaia_tg_user');
+    
+    const advancedStages = document.getElementById('advanced-stages');
+    const lockScreen = document.getElementById('auth-lock-screen');
+    const statusText = document.getElementById('user-status-text');
+
+    if (savedAddress || savedTgUser) {
+      // ✅ 已授权：解开迷雾
+      advancedStages.classList.remove('blur-filter');
+      lockScreen.style.display = 'none';
+      
+      if (savedAddress) {
+        currentUserId = savedAddress;
+        let shortAddr = savedAddress.substring(0,6) + '...' + savedAddress.substring(38);
+        statusText.innerHTML = `🟢 已绑定 Web3 节点: ${shortAddr} | 进度已开启云端同步`;
+      } else {
+        currentUserId = JSON.parse(savedTgUser).id.toString(); // 使用 TG 的数字 ID 作为唯一主键
+        let tgName = '@' + JSON.parse(savedTgUser).username;
+        statusText.innerHTML = `🟢 已绑定跨维身份: ${tgName} | 进度已开启云端同步`;
+      }
+      
+      // 解锁复选框
+      document.querySelectorAll('.task-checkbox').forEach(cb => cb.disabled = false);
+
+      // ⚡ 核心：从云端拉取该用户的打卡历史
+      await loadProgressFromCloud();
+      
+    } else {
+      // ❌ 未授权：绝对锁定
+      advancedStages.classList.add('blur-filter');
+      lockScreen.style.display = 'flex';
+      statusText.innerHTML = `🔴 未授权，当前页面处于只读与锁定状态`;
+      document.querySelectorAll('.task-checkbox').forEach(cb => cb.disabled = true);
+    }
+  };
+
+  // 3. 从云端拉取进度
+  async function loadProgressFromCloud() {
+    const { data, error } = await supabase
+      .from('user_progress')
+      .select('progress_data')
+      .eq('user_identifier', currentUserId)
+      .single();
+
+    if (data && data.progress_data) {
+      const checkboxes = document.querySelectorAll('.task-checkbox');
+      // 恢复打卡状态
+      data.progress_data.forEach((isChecked, index) => {
+        if (checkboxes[index]) checkboxes[index].checked = isChecked;
+      });
+      // 刷新进度条 UI
+      calculateAndRenderProgress();
+    }
+  }
+
+  // 4. 用户点击打卡，实时同步到云端
+  async function updateProgress() {
+    if (!currentUserId) return; // 未登录防误触
+    
+    calculateAndRenderProgress(); // 先让 UI 瞬间动起来，极致体验
+
+    // 收集所有打卡框的状态打包成 JSON 数组 [true, false, true...]
+    const checkboxes = document.querySelectorAll('.task-checkbox');
+    const progressArray = Array.from(checkboxes).map(cb => cb.checked);
+
+    // 写入 Supabase (Upsert: 有则更新，无则插入)
+    const { error } = await supabase
+      .from('user_progress')
+      .upsert({ 
+        user_identifier: currentUserId, 
+        progress_data: progressArray 
+      }, { onConflict: 'user_identifier' });
+
+    if (error) console.error("[系统异常] 云端同步失败:", error);
+  }
+
+  // 5. 计算并渲染进度条及隐藏关卡
+  function calculateAndRenderProgress() {
+    const checkboxes = document.querySelectorAll('.task-checkbox');
+    const total = checkboxes.length;
+    let checked = 0;
+    
+    checkboxes.forEach(cb => { if(cb.checked) checked++; });
+    const percent = Math.round((checked / total) * 100);
+    
+    // Update Roadmap Fill
+    document.getElementById('roadmapFill').style.width = percent + '%';
+    
+    // Update You Indicator Position
+    const youIndicator = document.getElementById('youIndicator');
+    youIndicator.style.left = \`calc(30px + (100% - 60px) * \${percent / 100})\`;
+
+    // Activate Tiers
+    document.getElementById('tier-0').classList.toggle('active', percent >= 0);
+    document.getElementById('tier-1').classList.toggle('active', percent >= 12);
+    document.getElementById('tier-2').classList.toggle('active', percent >= 25);
+    document.getElementById('tier-3').classList.toggle('active', percent >= 37);
+    document.getElementById('tier-4').classList.toggle('active', percent >= 50);
+    document.getElementById('tier-5').classList.toggle('active', percent >= 62);
+    document.getElementById('tier-6').classList.toggle('active', percent >= 75);
+    document.getElementById('tier-7').classList.toggle('active', percent >= 87);
+    document.getElementById('tier-8').classList.toggle('active', percent >= 100);
+    
+    // 家族办公室隐藏关卡解锁逻辑 (80% 触发)
+    const familyOffice = document.getElementById('familyOffice');
+    if(percent >= 80) {
+      familyOffice.classList.remove('locked-stage');
+      familyOffice.style.textAlign = 'left';
+      familyOffice.style.padding = '20px 25px';
+      familyOffice.style.border = 'none';
+      familyOffice.style.borderLeft = '3px solid #d4af37';
+      familyOffice.innerHTML = `
+        <h2 class="stage-title" style="color: #d4af37;">👑 八段·坐照 / 九段·入神：主权家族办公室 (已解锁)</h2>
+        <div class="task-item">
+          <div class="task-left">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+            <div class="task-desc"><strong>[法人面纱]</strong> 注册特拉华/怀俄明 LLC，开设机构级账户彻底规避个人风控。</div>
+          </div>
+          <a href="mailto:info@7861618.xyz" class="action-btn" style="color:#fff; background:#d4af37;">预约首席架构师</a>
+        </div>
+        <div class="task-item">
+          <div class="task-left">
+            <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+            <div class="task-desc"><strong>[家族方舟]</strong> 部署 Safe 多签智能合约，完成资产跨代传承与死人开关设置。</div>
+          </div>
+          <a href="mailto:info@7861618.xyz" class="action-btn">获取金库图纸</a>
+        </div>
+      `;
+    } else {
+      // 进度回退时的锁定逻辑
+      if (!familyOffice.classList.contains('locked-stage')) {
+          familyOffice.classList.add('locked-stage');
+          familyOffice.style = ""; // 恢复默认样式
+          familyOffice.innerHTML = `
+            <h2>🔒 八段·坐照 / 九段·入神：主权家族办公室</h2>
+            <p style="font-size: 13px; margin-top:10px;">[SYSTEM_LOG] 包含离岸实体 LLC 注册、硬件级 OpSec 与多签金库协议。<br>觉醒进度需达到 80% 以上方可解锁查看权限。</p>
+          `;
+      }
+    }
+
+    // 🏆 终极创世空投神匣逻辑 (100% 触发)
+    let airdropBox = document.getElementById('gosun-airdrop-box');
+    if (percent === 100) {
+      if (!airdropBox) {
+        airdropBox = document.createElement('div');
+        airdropBox.id = 'gosun-airdrop-box';
+        airdropBox.style.marginTop = '35px';
+        airdropBox.style.padding = '40px 20px';
+        airdropBox.style.background = 'linear-gradient(135deg, #1a1500, #332900)';
+        airdropBox.style.border = '2px solid #d4af37';
+        airdropBox.style.borderRadius = '8px';
+        airdropBox.style.textAlign = 'center';
+        airdropBox.style.boxShadow = '0 0 30px rgba(212, 175, 55, 0.4)';
+        airdropBox.innerHTML = `
+          <h2 style="color: #00ff00; margin-top: 0; font-size: 22px; text-shadow: 0 0 10px rgba(0,255,0,0.5);">⚡ 协议补全：第一类文明公民已认证 ⚡</h2>
+          <p style="color: #d4af37; font-size: 15px; margin-bottom: 25px;">系统已锁定您的高维坐标。您已获得 GOSUN 创世节点资格。</p>
+          <button onclick="claimAirdrop()" style="background: #d4af37; color: #000; font-weight: bold; font-size: 16px; padding: 15px 30px; border: none; border-radius: 4px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); transition: all 0.3s;">
+            开启创世神匣
+          </button>
+        `;
+        document.getElementById('advanced-stages').appendChild(airdropBox);
+      }
+    } else {
+      if (airdropBox) {
+        airdropBox.remove();
+      }
+    }
+  }
+
+  // 6. 交互：深度绑定云端，真实提交空投申请
+  async function claimAirdrop() {
+    if (!currentUserId) {
+      alert("⚠️ 未检测到有效的高维坐标，请先连接 Web3 钱包！");
+      return;
+    }
+
+    // 视觉反馈：瞬间锁定按钮，防止恶意连点 (防女巫攻击)
+    const btn = document.querySelector('#gosun-airdrop-box button');
+    btn.innerText = "⚡ 正在向 GOSUN 节点网络提交凭证...";
+    btn.disabled = true;
+    btn.style.background = "#555";
+    btn.style.color = "#aaa";
+    btn.style.boxShadow = "none";
+    btn.style.cursor = "not-allowed";
+
+    try {
+      // 核心动作：向 Supabase 写入空投申领记录
+      const { error } = await supabase
+        .from('user_progress')
+        .update({ airdrop_status: 'pending' }) // 将状态从 unclaimed 改为 pending (排队中)
+        .eq('user_identifier', currentUserId);
+
+      if (error) throw error;
+
+      // 成功反馈：数据落盘成功
+      btn.innerText = "✅ 凭证已上链：等待空投下发";
+      btn.style.background = "#004d00";
+      btn.style.color = "#00ff00";
+      btn.style.border = "1px solid #00ff00";
+      
+      alert("⚡ EVM 底层引擎唤醒成功！\n\n系统已将您的 Web3 坐标：[" + currentUserId + "] 与满级进度死死焊在了云端！\n\n您的 1,000,000 枚 GOSUN 创世代币申请已进入高优先级的【发放队列】。\n请锁定 GOSUN CAPITAL 官方频道的空投快照公告！");
+
+    } catch (err) {
+      // 异常处理：允许用户重试
+      console.error("[GAIA 异常] 空投申请失败:", err);
+      btn.innerText = "❌ 矩阵干扰，请点击重试";
+      btn.disabled = false;
+      btn.style.background = "#ff3333";
+      btn.style.color = "#fff";
+    }
+  }
+
+  // Auth Modal Logic
+  function openAuthModal() {
+    const savedAddress = localStorage.getItem('gaia_user_address');
+    const savedTgUser = localStorage.getItem('gaia_tg_user');
+    
+    if (savedAddress || savedTgUser) {
+      if (confirm('⚠️ 您已连接 GAIA 矩阵身份。\n\n是否确认断开连接并退出？')) {
+        localStorage.removeItem('gaia_user_address');
+        localStorage.removeItem('gaia_tg_user');
+        alert('✅ 已成功断开连接。');
+        window.location.reload();
+      }
+      return;
+    }
+    
+    document.getElementById('authModal').style.display = 'flex';
+  }
+  function closeAuthModal() {
+    document.getElementById('authModal').style.display = 'none';
+  }
+  
+  async function web3Login() {
+    if (typeof window.ethereum !== 'undefined') {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const address = accounts[0];
+        localStorage.setItem('gaia_user_address', address);
+        alert('✅ Web3 钱包连接成功！\n地址: ' + address);
+        closeAuthModal();
+        window.location.reload();
+      } catch (error) {
+        console.error(error);
+        alert('❌ 连接钱包失败或被拒绝');
+      }
+    } else {
+      const confirmMock = confirm('❌ 未检测到 Web3 钱包环境 (如 MetaMask 或 OKX Wallet)。\n\n是否使用【模拟地址】进行体验？');
+      if (confirmMock) {
+        const mockAddress = "0x" + Math.random().toString(16).slice(2, 10) + "..." + Math.random().toString(16).slice(2, 6);
+        localStorage.setItem('gaia_user_address', mockAddress);
+        alert('✅ 模拟 Web3 钱包连接成功！\n地址: ' + mockAddress);
+        closeAuthModal();
+        window.location.reload();
+      }
+    }
+  }
+
+  function onTelegramAuth(user) {
+    localStorage.setItem('gaia_tg_user', JSON.stringify(user));
+    alert('✅ Telegram 授权成功！\n欢迎, @' + user.username);
+    closeAuthModal();
+    window.location.reload();
+  }
+
+  function updateAuthBtnState() {
+    const btn = document.querySelector('.go-auth-btn');
+    if (!btn) return;
+    const savedAddress = localStorage.getItem('gaia_user_address');
+    const savedTgUser = localStorage.getItem('gaia_tg_user');
+    
+    if (savedAddress) {
+      btn.innerHTML = '🟢 已连接: ' + savedAddress.substring(0,6) + '... (点击断开)';
+      btn.style.background = '#111';
+      btn.style.color = '#00ff00';
+      btn.style.border = '1px solid #00ff00';
+    } else if (savedTgUser) {
+      const tgUser = JSON.parse(savedTgUser);
+      btn.innerHTML = '🟢 @' + tgUser.username + ' (点击断开)';
+      btn.style.background = '#111';
+      btn.style.color = '#00ff00';
+      btn.style.border = '1px solid #00ff00';
+    } else {
+      btn.innerHTML = '返回主舱连接 Web3 钱包 / TG ⚡';
+      btn.style.background = '#d4af37';
+      btn.style.color = '#000';
+      btn.style.border = 'none';
+    }
+  }
+
+  window.addEventListener('DOMContentLoaded', updateAuthBtnState);
+</script>
+
+<!-- Auth Modal -->
+<div class="auth-modal-overlay" id="authModal">
+  <div class="auth-modal">
+    <div class="auth-close" onclick="closeAuthModal()">✕</div>
+    <h2>⚡ 接入 GAIA 矩阵身份</h2>
+    <p>抛弃旧世界的“邮箱+密码”。<br>请使用您的数字主权资产进行加密鉴权，<br>您的进度将同步至觉醒者档案库。</p>
+    
+    <button class="auth-option-btn" onclick="web3Login()">
+      🦊 Web3 钱包直连 (MetaMask / OKX)
+    </button>
+    <div style="display: flex; justify-content: center; margin-bottom: 15px; background: #111; border: 1px solid #333; padding: 10px; border-radius: 4px; transition: all 0.3s;" onmouseover="this.style.borderColor='#d4af37'" onmouseout="this.style.borderColor='#333'">
+      <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="Gosuncapital_bot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+    </div>
+    <p style="font-size: 11px; color: #555; margin-top: 0;">* TG 授权需在您绑定的域名 (7861618.xyz) 下方可生效</p>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 年最全 Grass 节点部署指南 | GOSUN CAPITAL</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+    :root {
+      --gold-primary: #D4AF37; --gold-bright: #FFDF00; --gold-glow: rgba(212, 175, 55, 0.5);
+      --bg-base: #030303; --glass-bg: rgba(10, 10, 10, 0.65); --glass-border: rgba(212, 175, 55, 0.15);
+      --text-main: #EAEAEA; --text-muted: #888888;
+      --font-tech: 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', sans-serif;
+      --font-display: 'Space Grotesk', 'PingFang SC', 'Hiragino Sans GB', 'Noto Sans SC', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background-color: var(--bg-base); color: var(--text-main); font-family: var(--font-tech); line-height: 1.6; }
+    header { padding: 20px 40px; border-bottom: 1px solid var(--glass-border); background: rgba(3,3,3,0.8); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 10; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-text { font-family: var(--font-display); font-size: 18px; font-weight: 900; color: #fff; letter-spacing: 1px; }
+    .logo-text span { color: var(--gold-primary); }
+    main { max-width: 800px; margin: 60px auto; padding: 0 20px; }
+    .article-header { margin-bottom: 40px; text-align: center; }
+    .article-title { font-family: var(--font-display); font-size: 2.5rem; color: var(--gold-bright); margin-bottom: 16px; line-height: 1.2; }
+    .article-meta { color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-mono); }
+    .article-content h2 { font-family: var(--font-display); color: var(--gold-primary); margin: 40px 0 20px; font-size: 1.8rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; }
+    .article-content h3 { color: #fff; margin: 30px 0 15px; font-size: 1.3rem; }
+    .article-content p { margin-bottom: 20px; color: #ccc; font-size: 1.1rem; }
+    .article-content ul { margin-bottom: 20px; padding-left: 20px; color: #ccc; }
+    .article-content li { margin-bottom: 10px; }
+    .article-content code { background: rgba(212, 175, 55, 0.1); color: var(--gold-bright); padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+    .article-content pre { background: #111; padding: 20px; border-radius: 8px; border: 1px solid var(--glass-border); overflow-x: auto; margin-bottom: 20px; }
+    .article-content pre code { background: none; color: #00ff00; padding: 0; }
+    .highlight-box { background: rgba(212, 175, 55, 0.05); border-left: 4px solid var(--gold-primary); padding: 20px; margin: 30px 0; }
+    .back-btn { display: inline-block; margin-bottom: 40px; color: var(--gold-primary); text-decoration: none; font-weight: 600; border: 1px solid var(--gold-primary); padding: 8px 16px; border-radius: 4px; transition: all 0.3s; }
+    .back-btn:hover { background: var(--gold-primary); color: #000; box-shadow: 0 0 15px var(--gold-glow); }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">
+      <span class="logo-text">GOSUN <span>CAPITAL</span> | GAIA Nodes</span>
+    </a>
+  </header>
+  
+  <main>
+    <a href="/#tutorials" class="back-btn">← 返回节点矩阵</a>
+    
+    <div class="article-header">
+      <h1 class="article-title">2026 年最全 Grass 节点部署指南</h1>
+      <div class="article-meta">发布时间：2026-03-08 | 作者：GAIA Oracle | 分类：DePIN / Node</div>
+    </div>
+    
+    <div class="article-content">
+      <div class="highlight-box">
+        <p><strong>核心摘要：</strong>Grass 作为去中心化 AI 数据抓取网络的龙头，在 2026 年迎来了其主网 V2 的重大升级。本文将详细解析如何在最新版本中高效部署节点，最大化带宽收益，并提供多设备防封号的终极策略。</p>
+      </div>
+
+      <h2>1. 什么是 Grass V2？</h2>
+      <p>Grass 是一个去中心化的网络，允许用户将未使用的互联网带宽出售给 AI 公司用于训练模型。在 2026 年的 V2 版本中，Grass 引入了 <strong>Proof of Connectivity (PoC)</strong> 共识机制，不仅奖励在线时长，更看重网络质量和地理位置的稀缺性。</p>
+
+      <h2>2. 节点部署前置准备</h2>
+      <ul>
+        <li><strong>硬件要求：</strong>任何能运行 Chrome/Edge 浏览器的设备（PC、Mac、树莓派均可）。</li>
+        <li><strong>网络要求：</strong>稳定的家庭宽带（Residential IP）。<strong>切勿使用数据中心 IP (Datacenter IP) 或廉价 VPN</strong>，这会导致账号被直接封禁。</li>
+        <li><strong>注册账号：</strong>前往 <a href="https://app.getgrass.io/" target="_blank" style="color: var(--gold-bright);">Grass 官网</a> 注册账号。如果没有邀请码，可以在我们的 <a href="/#rare-codes" style="color: var(--gold-bright);">稀有邀请码专区</a> 寻找。</li>
+      </ul>
+
+      <h2>3. 部署实操步骤</h2>
+      <h3>方案 A：浏览器插件部署（适合新手）</h3>
+      <p>这是最简单的参与方式，适合只有一台电脑的普通用户。</p>
+      <ol style="color: #ccc; padding-left: 20px; margin-bottom: 20px;">
+        <li style="margin-bottom: 10px;">在 Chrome 网上应用店搜索 "Grass Extension" 并安装。</li>
+        <li style="margin-bottom: 10px;">点击插件图标，登录你的 Grass 账号。</li>
+        <li style="margin-bottom: 10px;">保持浏览器开启，插件会自动在后台运行并赚取积分。</li>
+      </ol>
+
+      <h3>方案 B：Docker 容器化部署（适合极客与多节点玩家）</h3>
+      <p>如果你有闲置的服务器或树莓派，使用 Docker 部署可以实现 24/7 不间断运行。</p>
+      <pre><code># 1. 拉取最新的 Grass 节点镜像
+docker pull getgrass/node:v2-latest
+
+# 2. 运行容器（请替换 YOUR_USER_ID）
+docker run -d --name grass-node \
+  -e USER_ID=YOUR_USER_ID \
+  --restart unless-stopped \
+  getgrass/node:v2-latest</code></pre>
+      <p>你的 <code>USER_ID</code> 可以在 Grass Dashboard 的开发者选项中找到。</p>
+
+      <h2>4. 收益最大化与防封号策略</h2>
+      <div class="highlight-box">
+        <p><strong>⚠️ 警告：</strong>Grass 官方在 2026 年启用了极严的 Sybil 检测机制（女巫检测）。</p>
+      </div>
+      <ul>
+        <li><strong>一机一 IP 原则：</strong>同一个公网 IP 下，最多只建议挂载 2 个节点。超过 3 个节点会导致该 IP 下的所有节点收益减半，甚至被标记为女巫。</li>
+        <li><strong>网络层级权重：</strong>Tier 1 国家（如美国、英国、日本）的 IP 收益系数是 Tier 3 国家的 3-5 倍。</li>
+        <li><strong>保持在线率：</strong>V2 算法中，连续在线超过 72 小时的节点会获得 <code>Uptime Multiplier</code>（在线时长乘数）加成，最高可达 1.5x。</li>
+      </ul>
+
+      <h2>5. 结语</h2>
+      <p>在 AI 算力与数据日益昂贵的 2026 年，Grass 提供的去中心化数据抓取网络具有巨大的商业价值。尽早部署高质量的家庭宽带节点，是获取 Web3 时代被动收入的最佳途径之一。</p>
+    </div>
+  </main>
+</body>
+</html>
