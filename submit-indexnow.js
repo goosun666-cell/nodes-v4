@@ -3,7 +3,7 @@ import path from 'path';
 import https from 'https';
 
 const HOST = 'www.7861618.xyz';
-const KEY = 'gosun-7861618-xyz-indexnow-key';
+const KEY = 'f6da2ef161154128b2a4716281286d5d';
 const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
 
 // Find all html files in the root directory
