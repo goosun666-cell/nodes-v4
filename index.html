@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="7861618 (GOSUN OMNICHAIN) provides institutional-grade infrastructure for AI + Crypto, Autonomous Economic Actors (AEA), and decentralized omnichain liquidity.">
-    <meta name="keywords" content="7861618, AI Agents, Decentralized AI, Crypto Investment Matrix, Autonomous Economic Actors, GOSUN OMNICHAIN, Web3 Infrastructure, DePIN">
+    <meta name="description" content="GOSUN OMNICHAIN provides institutional-grade infrastructure for AI + Crypto, Autonomous Economic Actors (AEA), and decentralized omnichain liquidity.">
+    <meta name="keywords" content="GOSUN, AI Agents, Decentralized AI, Crypto Investment Matrix, Autonomous Economic Actors, GOSUN OMNICHAIN, Web3 Infrastructure, DePIN">
     <link rel="canonical" href="https://7861618.xyz/" />
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
-    <title>7861618 - AI + Crypto Matrix & Omnichain Infrastructure | GOSUN</title>
+    <title>GOSUN - AI + Crypto Matrix & Omnichain Infrastructure</title>
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7636996991870177" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -78,47 +78,84 @@
         .nav-links a.external-link { color: var(--accent-blue); font-weight: bold; }
         .nav-links a.external-link:hover { color: #FFF; text-shadow: 0 0 10px var(--accent-blue); }
 
-        /* 主视觉区 (Hero Section) */
+        /* 主视觉区 (Hero Section) - Golden Ratio Layout */
         .hero-section {
             flex: 1;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            align-items: stretch;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        @media (min-width: 1024px) {
+            .hero-section {
+                grid-template-columns: 1fr 1.618fr; /* 黄金分割比例 1 : 1.618 */
+                padding: 8vh 5vw;
+                gap: 4vw;
+            }
+        }
+        
+        /* 统一的玻璃拟物化面板样式 */
+        .glass-panel {
+            background: rgba(0, 5, 10, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(212, 175, 55, 0.03);
+            backdrop-filter: blur(10px);
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 面板顶部的高光线 */
+        .glass-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            text-align: left;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 80px 20px;
         }
         .hero-title {
             font-family: var(--font-display);
-            font-size: 4rem;
+            font-size: clamp(2rem, 3vw, 2.8rem); /* 缩小标题 */
             font-weight: 900;
             margin: 0;
-            letter-spacing: -2px;
+            letter-spacing: -1px;
             background: linear-gradient(180deg, #FFFFFF 0%, #D4AF37 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            line-height: 1.1;
+            line-height: 1.2;
         }
         .hero-subtitle {
             color: var(--text-dim);
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 25px auto 40px;
-            line-height: 1.6;
+            font-size: 1.05rem;
+            max-width: 100%;
+            margin: 20px 0 0 0;
+            line-height: 1.618; /* 黄金分割行高 */
         }
 
         /* 核心系统控制台 */
         .system-console {
-            background: rgba(0,0,0,0.6);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 8px;
-            padding: 30px;
-            max-width: 800px;
-            width: 100%;
             text-align: left;
             font-family: var(--font-mono);
-            box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.05);
-            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .console-header {
             display: flex;
@@ -218,12 +255,14 @@
     </header>
 
     <div class="hero-section">
-        <h1 class="hero-title" style="font-size: 2.8rem; letter-spacing: -1px;">7861618<br>AI-DRIVEN OMNICHAIN MATRIX</h1>
-        <p class="hero-subtitle">
-            GOSUN OMNICHAIN - The institutional-grade infrastructure powering Autonomous Economic Actors (AEA) and decentralized AI liquidity. Navigate the dark forest of Web3 with quantum precision.
-        </p>
+        <div class="hero-content glass-panel">
+            <h1 class="hero-title">GOSUN<br>AI-DRIVEN OMNICHAIN MATRIX</h1>
+            <p class="hero-subtitle">
+                GOSUN OMNICHAIN - The institutional-grade infrastructure powering Autonomous Economic Actors (AEA) and decentralized AI liquidity. Navigate the dark forest of Web3 with quantum precision.
+            </p>
+        </div>
 
-        <div class="system-console">
+        <div class="system-console glass-panel">
             <div class="console-header">
                 <span style="color: #FFF;">SYSTEM: AI-AGENT LIQUIDITY NETWORK</span>
                 <span class="status-active">● AEA ACTIVE (V3)</span>
@@ -249,13 +288,12 @@
     </div>
 
     <!-- BOOK PROMO BLOCK -->
-    <div style="max-width: 1000px; margin: 0 auto 80px auto; padding: 0 20px;">
-        <div style="border: 1px solid var(--accent-gold); padding: 40px; background: rgba(212, 175, 55, 0.05); position: relative; overflow: hidden; border-radius: 4px; display: flex; flex-direction: column; align-items: center; text-align: center;">
-            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--accent-gold);"></div>
+    <div style="max-width: 1440px; margin: 0 auto 80px auto; padding: 0 5vw;">
+        <div class="glass-panel" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
             <div style="font-family: var(--font-mono); color: var(--accent-gold); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 15px;">// THE FOUNDATIONAL CODEX</div>
             <h2 style="font-family: var(--font-sans); font-size: 2.2rem; color: var(--text-main); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;">The Promethean Mandate</h2>
             <h3 style="font-family: var(--font-mono); font-size: 1.1rem; color: var(--text-dim); margin-bottom: 20px;">A Blueprint for a Type I Civilization: The Genesis Archive</h3>
-            <p style="color: #B0B8C1; line-height: 1.6; max-width: 700px; margin: 0 auto 30px auto;">
+            <p style="color: #B0B8C1; line-height: 1.618; max-width: 800px; margin: 0 auto 30px auto;">
                 The theoretical bedrock of the GOSUN protocol. Authored by The Architect, this manifesto outlines the inevitable transition from a Type 0 to a Type I civilization, detailing the convergence of AI and Crypto through Autonomous Economic Actors (AEA) and Holographic Quantum Concurrency.
             </p>
             <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
