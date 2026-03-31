@@ -14,6 +14,5 @@
   <!-- 文字部分 -->
   <text x="36" y="21" fill="#FFFFFF" style="font-family:Arial, sans-serif; font-weight:700; font-size:14px; letter-spacing:0.15em;">GOSUN</text>
   
-  <!-- TM 上标 -->
-  <text x="95" y="12" fill="#E5E5E5" style="font-family:Arial, sans-serif; font-weight:400; font-size:6px; letter-spacing:0.05em;">TM</text>
+  <!-- TM 上标 removed -->
 </svg>
