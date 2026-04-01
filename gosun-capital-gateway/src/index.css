@@ -1,6 +1,0 @@
-@import "tailwindcss";
-
-/* 强制边界盒模型，防止 3D 翻转时的像素溢出 */
-*, *::before, *::after {
-    box-sizing: border-box;
-}
