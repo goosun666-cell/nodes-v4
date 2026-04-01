@@ -39,6 +39,8 @@ export default defineConfig(({mode}) => {
           technicalDocumentation: resolve(__dirname, 'technical-documentation.html'),
           articleAea: resolve(__dirname, 'article-aea.html'),
           articleZkvc: resolve(__dirname, 'article-zkvc.html'),
+          articleClaudeCodeLeak: resolve(__dirname, 'article-claude-code-leak.html'),
+          openclawAiNodeGuide: resolve(__dirname, 'openclaw-ai-node-guide.html'),
         },
       },
     },
