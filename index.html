@@ -254,6 +254,97 @@
         .footer { margin-top: auto; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: var(--font-mono); }
         .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 0.75rem; transition: 0.3s; text-transform: uppercase; margin: 0 12px; }
         .footer-links a:hover { color: var(--accent-gold); }
+        /* BaseScan 认证徽章样式 */
+        .basescan-verified-badge {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            background: #00152B; /* 品牌深蓝底色 */
+            border: 1px solid rgba(212, 175, 55, 0.4); /* 帝国金半透明边框 */
+            border-radius: 8px;
+            padding: 10px 20px;
+            text-decoration: none;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 悬停时的金色共振效果 */
+        .basescan-verified-badge:hover {
+            border-color: #D4AF37; /* 帝国金高亮 */
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* 内部内容布局 */
+        .badge-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .verified-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: #00FFCC; /* 科技青色打底，代表区块链验证通过 */
+        }
+
+        .badge-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .badge-text .title {
+            color: #FFFFFF;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-text .contract {
+            color: #E5E5E5;
+            font-family: monospace;
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        .arrow-icon {
+            color: #D4AF37;
+            font-size: 16px;
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .basescan-verified-badge:hover .arrow-icon {
+            transform: translate(3px, -3px);
+        }
+
+        /* 高级扫光特效：彰显资本流动性 */
+        .badge-glow {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(212, 175, 55, 0.1),
+                transparent
+            );
+            transform: skewX(-20deg);
+            animation: sweep 4s infinite;
+            z-index: 1;
+        }
+
+        @keyframes sweep {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
     </style>
 </head>
 <body>
@@ -292,10 +383,27 @@
                 <a href="https://app.uniswap.org/swap?chain=arbitrum&outputCurrency=0xC9D46d081D8dd4E0F6dcaBB03C56f606eCba6FA4" target="_blank" class="route-btn">[BRANCH] ARBITRUM Swap ↗</a>
             </div>
 
-            <div class="address-box">
+            <div class="address-box" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; margin-bottom: 0; border-bottom: none;">
                 > GOSUN_BASE: <span style="color: #A0AAB5;">0xA0F90aC270d22F42F47A94CA53Bd79d81c385359</span><br>
                 > GOSUN_ARB: <span style="color: #A0AAB5;">0xC9D46d081D8dd4E0F6dcaBB03C56f606eCba6FA4</span>
             </div>
+
+            <a href="https://basescan.org/token/0xa0f90ac270d22f42f47a94ca53bd79d81c385359" target="_blank" class="basescan-verified-badge" style="margin-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; width: 100%; box-sizing: border-box;">
+                <div class="badge-glow"></div>
+                <div class="badge-content">
+                    <span class="verified-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </span>
+                    <div class="badge-text">
+                        <span class="title">Verified on BaseScan</span>
+                        <span class="contract">0xA0F9...5359</span>
+                    </div>
+                    <span class="arrow-icon">↗</span>
+                </div>
+            </a>
 
             <a href="matrix" class="matrix-enter-btn">ENTER GAIA NODE MATRIX ➔</a>
             <p style="text-align: center; color: var(--text-dim); font-size: 0.75rem; margin-top: 15px;">
